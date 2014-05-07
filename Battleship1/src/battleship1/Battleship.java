@@ -10,7 +10,7 @@ package battleship1;
  *
  * @author J.Pratt
  */
-public class Battleship1 {
+public class Battleship {
 
     /**
      * @param args the command line arguments

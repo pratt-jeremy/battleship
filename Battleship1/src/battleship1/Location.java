@@ -8,8 +8,29 @@ package battleship1;
 
 /**
  *
- * @author J.Pratt
+ * @author MBradshaw
  */
-public class Location {
+   public class Location {
+    int row;
+    int column;
+    Players player;
     
-}
+    
+    public Location() {
+        
+    }
+    
+    public void occupyLocation(Players player) {
+        this.player = player;
+    }
+    
+    public void displayMarker() {
+        if (this.player != null) {
+            System.out.println(this.player.marker);
+        }
+        else {
+            System.out.println(" ");
+        }
+    }
+            
+ }

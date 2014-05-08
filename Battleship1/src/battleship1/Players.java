@@ -18,6 +18,7 @@ public class Players {
     long losses;
     String gender;
     double age;
+    boolean marker;
         
     
     public Players() {    

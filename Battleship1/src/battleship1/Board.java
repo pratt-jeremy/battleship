@@ -11,5 +11,16 @@ package battleship1;
  * @author J.Pratt
  */
 public class Board {
+    int rowCount = 10;
+    int columnCount = 10;
     
+    Location[][] boardLocations;
+    
+    public Board() {
+    }
+    
+    public void displaySize() {
+        System.out.println("\n\t The board is a " + this.rowCount + "by " + 
+                this.columnCount + "grid.");
+    }
 }

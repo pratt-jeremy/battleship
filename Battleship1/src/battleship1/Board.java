@@ -20,7 +20,7 @@ public class Board {
     }
     
     public void displaySize() {
-        System.out.println("\n\t The board is a " + this.rowCount + "by " + 
-                this.columnCount + "grid.");
+        System.out.println("\n\t The board is a " + this.rowCount + " by " + 
+                this.columnCount + " grid.");
     }
 }

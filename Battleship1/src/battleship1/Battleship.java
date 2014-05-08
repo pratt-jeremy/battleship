@@ -25,10 +25,15 @@ public class Battleship {
     
     public static void main(String[] args) {
         Battleship myGame = new Battleship();
+        
         myGame.getName();
         myGame.displayHelp();
+        
         Board board = new Board();
         board.displaySize();
+        
+        Game game = new Game();
+        game.displayPlayers();
                 
     }
     public void getName() {

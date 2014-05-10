@@ -16,11 +16,11 @@ package battleship1;
     Players player;
     
     
-    public Location() {
+    public Location () {
         
     }
     
-    public void occupyLocation(Players player) {
+    public void occupyLocation (Players player) {
         this.player = player;
     }
     

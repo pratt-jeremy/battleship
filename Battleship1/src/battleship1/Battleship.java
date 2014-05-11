@@ -37,6 +37,9 @@ public class Battleship {
         
         Location location = new Location();
         location.displayMarker();
+        
+        Ships ships = new Ships();
+        ships.displayShips();
                 
     }
     public void getName() {

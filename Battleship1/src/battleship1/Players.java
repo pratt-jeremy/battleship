@@ -14,10 +14,10 @@ public class Players {
     
     String name;
     String alias;
-    long wins;
-    long losses;
+    long wins = 0;
+    long losses = 0;
     String gender;
-    double age;
+    double age = 0;
     boolean marker;
         
     
@@ -26,5 +26,29 @@ public class Players {
 
     public void displayName() {
         System.out.println("\t\tAhoy! Me name is " + this.name);
-}
+    }
+    public double getWinningPercentage() {
+     
+        if (wins < 0 ) {
+            System.out.println("\n\tThe number of wins must be "
+                    + "greater than or equal to zero.");
+            return -999;
+        }
+        
+        if (losses < 0 ) {
+            System.out.println("\n\tThe number of losses must be "
+                    + "greater than or equal to zero.");
+            return -999;
+        }
+                
+        double totalScore = wins + losses;
+        
+        if (totalScore ==  0) {
+            return 0;
+        }
+        
+        double winLossRatio = wins / totalScore;
+        return winLossRatio * 100;
+    }
+
 }

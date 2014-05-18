@@ -40,7 +40,10 @@ public class Battleship {
         
         Ships ships = new Ships();
         ships.displayShips();
-                
+        
+        MainMenuView mainMenu = new MainMenuView();
+        mainMenu.getInput();      
+        
     }
     public void getName() {
         Scanner input = new Scanner(System.in);

@@ -37,7 +37,11 @@ public class Battleship {
         
         Location location = new Location();
         location.displayMarker();
-        
+        int i = location.moveShips();
+        while (i == -1){
+            i = location.moveShips();
+        }
+                
         Ships ships = new Ships();
         ships.displayShips();
                 

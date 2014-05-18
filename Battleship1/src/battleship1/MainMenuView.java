@@ -16,7 +16,9 @@ public class MainMenuView {
         {"2", "Two player game"},
         {"H", "Help"},
         {"X", "Exit Battleship Board"},
-        {"Math Assignment", "Here is my Math Assignment 4*4: " + 4*4}      
+        {"#Rows", "Number of Rows: " + 10},
+        {"#Columns", "Number of Columns: "+ 10},
+        {"Grids-", "Number of Rows * Number of Columns: " + 10*10}
     }; 
   
     MainMenuControl mainMenuControl = new MainMenuControl();

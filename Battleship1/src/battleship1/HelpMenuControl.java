@@ -33,9 +33,9 @@ public class HelpMenuControl {
         System.out.println();
         displayHelpBorder();     
         System.out.println( 
-                 "\tThe objective of the game is for the player to guess where the opponent ship is located."
+                 "\tThe objective of the game is for the player to guess where the opponent ships are located."
                 + "\n\tsquares vertically, horizontally or diagonally. Each player takes "
-                + "\n\tturns placing their guess where the opponent's ships is located on the  "
+                + "\n\tturns placing their guess where the opponent's ships are located on the  "
                 + "\n\tboard. The first player to guess \"Five Ships\" is the winner."
                 ); 
         displayHelpBorder();
@@ -45,8 +45,8 @@ public class HelpMenuControl {
         System.out.println();
         displayHelpBorder();     
         System.out.println( 
-                "\tA real player manually takes their turn by placing their ship "
-                + "\n\tin an unused location on the board."
+                "\tA real player manually takes their turn by hiding their ships "
+                + "\n\tin an unused location on the board. Then they takes turn in guessing"
                 ); 
         displayHelpBorder();
     }

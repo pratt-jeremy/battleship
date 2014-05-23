@@ -6,10 +6,7 @@
 
 package battleship1;
 
-/**
- *
- * @author Niethy
- */
+
 class BattleshipsError {
 
     public BattleshipsError() {

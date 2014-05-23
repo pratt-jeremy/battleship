@@ -12,10 +12,7 @@ package battleship1;
  */
 import java.util.Scanner;
 
-/**
- *
- * @author jacksonrkj
- */
+
 public class GameMenuView {
     
     private Game game;

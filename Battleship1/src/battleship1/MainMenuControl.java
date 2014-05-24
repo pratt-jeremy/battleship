@@ -6,6 +6,8 @@
 
 package battleship1;
 
+import java.util.Scanner;
+
 /**
  *
  * @author mBradshaw
@@ -19,5 +21,5 @@ class MainMenuControl {
     void displayHelpMenu() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

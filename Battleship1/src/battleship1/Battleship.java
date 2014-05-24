@@ -6,6 +6,7 @@
 
 package battleship1;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -20,10 +21,10 @@ public class Battleship {
             + "Two players duke it out in an epic war game involving \n"
             + "battleships and a grid.  Both players take turns trying to \n"
             + "guess the locations of the other player's ships.  The first \n"
-            + "player to find all their opponents ships wins the game. \n\n"
-            + "Anchors away!!! \n\n";
+            + "***player to find all their opponents ships wins the game. \n\n"
+            + "***Anchors away!!! \n\n";
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Battleship myGame = new Battleship();
         
         myGame.getName();
@@ -44,9 +45,9 @@ public class Battleship {
                 
         Ships ships = new Ships();
         ships.displayShips();
-        
+           
         MainMenuView mainMenu = new MainMenuView();
-        mainMenu.getInput();      
+        mainMenu.getInput();  
         
     }
     public void getName() {

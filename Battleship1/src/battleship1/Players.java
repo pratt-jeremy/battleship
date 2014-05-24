@@ -12,6 +12,9 @@ package battleship1;
  */
 public class Players {
     
+    public static final String REGULAR_PLAYER = "REGULAR";
+    public static final String COMPUTER_PLAYER = "COMPUTER"; 
+    
     String name;
     String alias;
     long wins = 0;

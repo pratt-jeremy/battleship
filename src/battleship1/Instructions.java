@@ -6,20 +6,14 @@
 
 package battleship1;
 
-import java.util.Scanner;
-
 /**
  *
- * @author mBradshaw
+ * @author Niethy
  */
-class MainMenuControl {
+class Instructions {
 
-    void startGame(int i) {
+    void displayInstructions() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    void displayHelpMenu() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
 }

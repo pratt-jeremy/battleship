@@ -54,9 +54,11 @@ public class MainMenuView {
                     break;
                 default: 
                     new BattleshipsError().displayError("Invalid command. Please enter a valid command.");
+                    continue;                    
             }
         } while (!command.equals("X"));
 
+        return;
     }
     
 
@@ -67,9 +69,10 @@ public class MainMenuView {
         System.out.println("\tEnter your choices:");
 
         
-          for (String[] menuItem : MainMenuView.menuItems) {
-              System.out.println("\t   " + menuItem[0] + "\t" + menuItem[1]);
-          }
+        for (int i = 0; i < MainMenuView.menuItems.length; i++) {
+            System.out.println("\t   " + menuItems[i][0] + "\t" + menuItems[i][1]);
+        
+        }
         System.out.println("\t===============================================================\n");
     }   
     

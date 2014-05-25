@@ -11,6 +11,13 @@ package battleship1;
  * @author J.Pratt
  */
 public class Game {
+    static Object ONE_PLAYER;
+    static Object ONE_PLAYERS;
+    static boolean PLAYER_A_DEFAULT_MARKER;
+    static String EXIT;
+
+
+  
     String gameType;
     Players playerA;
     Players playerB;
@@ -28,6 +35,10 @@ public class Game {
         this.playerB.name = "Johnny";
         
         
+    }
+
+    Game(Object ONE_PLAYER) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     public void displayWinningMessage(){

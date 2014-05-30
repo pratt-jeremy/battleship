@@ -13,7 +13,7 @@ package battleship1;
 public class Game {
     static Object ONE_PLAYER;
     static Object ONE_PLAYERS;
-    static boolean PLAYER_A_DEFAULT_MARKER;
+    static Boolean PLAYER_A_DEFAULT_MARKER;
     static String EXIT;
 
 

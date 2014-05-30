@@ -10,16 +10,15 @@ import java.util.Scanner;
 
 /**
  *
- * @author mBradshaw
+ * @author MBradshaw
  */
-public class GetMarketView {
-    
-    private Game game; 
+public class GetMarkerView {
+      private final Game game; 
     
     /*
      * default constructor
      */
-    public GetMarketView(Game game) {
+    public GetMarkerView(Game game) {
         this.game = game;
         
     } 
@@ -34,7 +33,7 @@ public class GetMarketView {
             // prompt for input
             System.out.println("\n\t" + player.name 
                     + ", enter a single character that will be used to mark "
-                    + "your squares in the game.");
+                    + "your ships in the game.");
             
             // get input from user           
             newMarker = in.nextLine();
@@ -52,13 +51,13 @@ public class GetMarketView {
             }
             
             // Check to see if the marker is already in use
-            if (!this.game.playerA.marker.equals(newMarker) &&
-                !this.game.playerB.marker.equals(newMarker) ) {
-            } else {
+            if (this.game.playerA.marker.equals(newMarker) ||
+                    this.game.playerB.marker.equals(newMarker) ) {
                 new BattleshipsError().displayError(
                         "This marker is currently in use. " +
                                 "Select a different character");
                 continue; 
+            } else {
             }
             
             valid = true; // signal that a valid marker was entered

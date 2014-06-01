@@ -21,7 +21,7 @@ public class Players {
     long losses = 0;
     String gender;
     double age = 0;
-    boolean marker;
+    public String marker;
     long ties;
     String Ship;
         

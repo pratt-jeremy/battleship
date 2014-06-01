@@ -26,8 +26,8 @@ public class Game {
     public static final String QUIT = "QUIT"; 
     public static final String ERROR = "ERROR";
     public static final String EXIT = "EXIT";
-    private static boolean PLAYERS_A_DEFAULT_MARKER;
-    private static boolean PLAYERS_B_DEFAULT_MARKER;
+    private static String PLAYERS_A_DEFAULT_MARKER;
+    private static String PLAYERS_B_DEFAULT_MARKER;
 
     public String gameType;
     public Players playerA;

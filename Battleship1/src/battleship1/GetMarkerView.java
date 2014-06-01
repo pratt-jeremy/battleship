@@ -1,19 +1,17 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package battleship1;
 
 import java.util.Scanner;
 
 /**
- *
- * @author MBradshaw
+ 
+ * @author mBradshaw
  */
 public class GetMarkerView {
-      private final Game game; 
+    private final Game game; 
     
     /*
      * default constructor
@@ -22,7 +20,7 @@ public class GetMarkerView {
         this.game = game;
         
     } 
-    
+  
     public String getInput(Players player) {
 
         String newMarker = null;
@@ -31,9 +29,9 @@ public class GetMarkerView {
         boolean valid = false; // flag to indicate if valid character entered
         while (!valid) {
             // prompt for input
-            System.out.println("\n\t" + player.name 
-                    + ", enter a single character that will be used to mark "
-                    + "your ships in the game.");
+            System.out.println("your ships in the game."
+                    + "\n\t" + player.name 
+                    + ", enter a single character that will be used to mark ");
             
             // get input from user           
             newMarker = in.nextLine();
@@ -51,21 +49,19 @@ public class GetMarkerView {
             }
             
             // Check to see if the marker is already in use
-            if (this.game.playerA.marker.equals(newMarker) ||
-                    this.game.playerB.marker.equals(newMarker) ) {
-                new BattleshipsError().displayError(
-                        "This marker is currently in use. " +
-                                "Select a different character");
-                continue; 
-            } else {
-            }
             
+  //if (this.game.playerA.marker.equals(newMarker) ||
+      //    this.game.playerB.marker.equals(newMarker) ) {
+      new BattleshipsError().displayError(
+              "This marker is currently in use. " +
+                      "Select a different character");
+      continue;
+ // } else {
+  }
             valid = true; // signal that a valid marker was entered
-        }
+  //      }
         
         return newMarker;
     }
     
 }
-
-

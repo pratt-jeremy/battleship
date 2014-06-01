@@ -22,10 +22,16 @@ public class Players {
     String gender;
     double age = 0;
     boolean marker;
+    long ties;
+    String Ship;
         
     
     public Players() {    
 }
+
+    Players(String REGULAR_PLAYER, String PLAYER_A_DEFAULT_MARKER) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     public void displayName() {
         System.out.println("\t\tAhoy! Me name is " + this.name);

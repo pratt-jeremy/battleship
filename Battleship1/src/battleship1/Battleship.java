@@ -14,50 +14,44 @@ import java.util.Scanner;
  * @author J.Pratt
  */
 public class Battleship {
+    // Instance variables
+    private static String[] nameList;
     
+    private final static String WELCOME = 
+              "\n\t***********************************************************************"
+            + "\n\t* Welcome to the game of Battleships!                                 *"                            
+            + "\n\t* You will be playing against an opponent. The object of the game     *"
+            + "\n\t* is to guess the locations of all the ships of your opponent.       *"
+            + "\n\t* Players will hide 5 ships. Then the opponent will be given a number *" 
+            + "\n\t* of chances.                                                         *"
+            + "\n\t* Good Luck!!!                                                        *"
+            + "\n\t***********************************************************************"
+            + "\n";
+
     
-    String name;
-    String instructions = "This is the game of Battleship \n\n"
-            + "Two players duke it out in an epic war game involving \n"
-            + "battleships and a grid.  Both players take turns trying to \n"
-            + "guess the locations of the other player's ships.  The first \n"
-            + "***player to find all their opponents ships wins the game. \n\n"
-            + "***Anchors away!!! \n\n";
+    public Battleship() {
+        
+    }
+ 
+    public static String[] getNameList() {
+        return nameList;
+    }
+
+    public static void setNameList(String[] nameList) {
+        Battleship.nameList = nameList;
+    }
     
-    public static void main(String[] args) throws IOException {
-        Battleship myGame = new Battleship();
         
-        myGame.getName();
-        myGame.displayHelp();
-        
-        Board board = new Board();
-        board.displaySize();
-        
-        Game game = new Game();
-        game.displayPlayers();
-        
-        Location location = new Location();
-        location.displayMarker();
-        int i = location.moveShips();
-        while (i == -1){
-            i = location.moveShips();
-        }
-                
-        Ships ships = new Ships();
-        ships.displayShips();
-           
+    public static void main(String[] args) {
+        Battleship battleShips = new Battleship();
+        battleShips.display();
         MainMenuView mainMenu = new MainMenuView();
-        mainMenu.getInput();  
-        
-    }
-    public void getName() {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Enter your name: ");
-        this.name = input.next();
+        mainMenu.getInput();
     }
     
-    public void displayHelp() {
-        System.out.println("\nWelcome " + this.name + "\n");
-        System.out.println(this.instructions);
+    private void display() {
+        System.out.println(Battleship.WELCOME);
     }
+    
+
 }

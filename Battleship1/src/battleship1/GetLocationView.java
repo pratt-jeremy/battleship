@@ -90,8 +90,8 @@ public class GetLocationView {
             Board board = this.game.board; // get the game board
             
             // Check for invalid row and column entered
-            if (row < 1   ||  row > board.rowCount ||
-                column < 1  ||  column > board.columnCount) {
+            if (row < 1   ||  row > board.getRowCount() ||
+                column < 1  ||  column > board.getColumnCount()) {
                 new BattleshipsError().displayError(
                         "Enter a valid number of rows and columns from 3 to 10. Try again.");
                 continue;
@@ -101,11 +101,6 @@ public class GetLocationView {
             location = new Point(row-1, column-1);
             
             // check to see if the location entered is already occupied
-            if ( board.boardLocations[row-1][column-1].player != null ) {
-                new BattleshipsError().displayError(
-                    "The current location is taken. Select another location");
-                continue;
-            }
 
             valid = true; // a valid location was entered
 
@@ -116,5 +111,3 @@ public class GetLocationView {
     }
 
 }
-
-

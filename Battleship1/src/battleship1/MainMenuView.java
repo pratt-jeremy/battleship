@@ -16,9 +16,6 @@ public class MainMenuView {
         {"2", "Two player game"},
         {"H", "Help"},
         {"X", "Exit Battleship Board"},
-        {"#Rows", "Number of Rows: " + 10},
-        {"#Columns", "Number of Columns: "+ 10},
-        {"Grids-", "Number of Rows * Number of Columns: " + 10*10}
     }; 
   
     MainMenuControl mainMenuControl = new MainMenuControl();
@@ -41,6 +38,9 @@ public class MainMenuView {
             command = command.trim().toUpperCase();
             
             switch (command) {
+                case "N":
+                    this.mainMenuControl.createPlayerList();
+                    break;
                 case "1":
                     this.mainMenuControl.startGame(1);
                     break;
@@ -56,6 +56,8 @@ public class MainMenuView {
                     new BattleshipsError().displayError("Invalid command. Please enter a valid command.");
             }
         } while (!command.equals("X"));
+        
+        return;
 
     }
     

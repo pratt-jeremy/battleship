@@ -61,7 +61,6 @@ public class Game {
 
         this.setPlayingOrder(playerA, playerB);
 
-        // clear the board
         this.board.clearTheBoard();
         this.status = Game.NEW_GAME;
         this.setPlayingOrder(this.playerA, this.playerB);

@@ -1,72 +1,152 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package battleship1;
+
+import java.awt.Point;
+import javax.swing.table.AbstractTableModel;
+
 
 /**
  *
- * @author J.Pratt
+ * @author jacksonrkj
  */
-public class Board {
-    public int rowCount = 10;
-    public int columnCount = 10;
-   
-    /**
-     *
-     */
-    public battleship1.Location[][] boardLocations;
+public class Board extends AbstractTableModel {
+    public int rowCount = 3;
+    public int columnCount = 3;
+    public Point boardDimensions = new Point();
+    public Players[][] boardLocations;
 
     public Board() {
     }
 
     public Board(int noRows, int noColumns) {
-  
-        this.createBoardLocations(noRows, noColumns);
+        this.boardDimensions.setLocation(noRows, noRows);
+        this.boardLocations = new Players[noRows][noColumns];
+    }
+
+    public Point getBoardDimensions() {
+        return boardDimensions;
+    }
+
+    public void setBoardDimensions(Point boardDimensions) {
+        this.boardDimensions = boardDimensions;
+    }
+
+    public Players[][] getBoardLocations() {
+        return boardLocations;
+    }
+
+    public void setBoardLocations(Players[][] boardLocations) {
+        this.boardLocations = boardLocations;
+    }
+
+       @Override
+    public int getRowCount() {
+        return (int) this.boardDimensions.getX();
+    }
+
+    @Override
+    public int getColumnCount() {
+        return (int) this.boardDimensions.getY();
+    }
+
+    @Override
+    public Object getValueAt(int rowIndex, int columnIndex) {
+        return boardLocations[rowIndex][columnIndex];
+    } 
+   
+
+    public Players getPlayerAt(int row, int column) {
+        return this.boardLocations[row][column];
     }
 
 
-    public void createBoardLocations(int noRows, int noColumns) {
-        this.rowCount= noRows;
-        this.columnCount= noColumns;
-        
-        // add locations to the board
-        this.boardLocations = new battleship1.Location[noRows][noColumns];
-        for (int row = 0; row < noRows; row++) { // for every row
-            // for every column in the row
-            for (int column = 0; column < noColumns; column++) { 
-                this.boardLocations[row][column] = new battleship1.Location();           
-            }            
-        }   
-    }
-    
-    
     public void clearTheBoard() {
-        // add locations to the board
-        for (int row = 0; row < this.rowCount; row++) {
-            for (int column = 0; column < this.columnCount; column++) {
-                battleship1.Location location = this.boardLocations[row][column];
-                location.player = null;           
-            }            
-        }    
+        for (int i = 0; i < this.boardLocations.length; i++) {
+            Players[] rowlocations = this.boardLocations[i];
+            for (int j = 0; j < rowlocations.length; j++) {
+                rowlocations[j] =  null;
+            }
+        }
     }
-
-    public void occupyLocation(Players player, int row, int column) {
-        battleship1.Location location = this.boardLocations[row][column];
+    
+    public boolean locationOccupied(Point location) {
+        int row = location.x;
+        int column = location.y;
         
-        if ( location.player != null) { // location already occupied
+        if (this.boardLocations[row][column] != null) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    
+    
+    public void occupyLocation(Players player, int row, int column)  {
+        // subtract 1 from row and column number because the array starts a position 0
+
+         Players playerAtLocation = this.boardLocations[row][column];
+
+        if (playerAtLocation != null) { // location already occupied
             new BattleshipsError().displayError("This location is already occupied. "
                     + "Try a different location.");
         }
-        
-        location.player = player;
+        this.boardLocations[row][column] = player;
     }
 
-    void displaySize() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public class Location {
 
+        private int row;
+        private int column;
+        private String value;
+        private Players player;
+
+        Location() {
+        }
+
+        int getRow() {
+            return row;
+        }
+
+        void setRow(int row) {
+            this.row = row;
+        }
+
+        int getColumn() {
+            return column;
+        }
+
+        void setColumn(int column) {
+            this.column = column;
+        }
+
+        String getValue() {
+            return value;
+        }
+
+        void setValue(String value) {
+            this.value = value;
+        }
+
+        Players getPlayer() {
+            return player;
+        }
+
+        public void setPlayer(Players player) {
+            this.player = player;
+        }
+
+        String[] getCoordinates() {
+            String[] coordinates = new String[2];
+            Integer intRow = this.getRow() + 1;
+            Integer intColumn = this.getColumn() + 1;
+            coordinates[0] = intRow.toString();
+            coordinates[1] = intColumn.toString();
+            return coordinates;
+        }
+    }
 
 }

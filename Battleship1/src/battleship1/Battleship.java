@@ -15,7 +15,7 @@ import java.util.Scanner;
  */
 public class Battleship {
     // Instance variables
-    private static String[] nameList;
+    private static Players[] playerList;
     
     private final static String WELCOME = 
               "\n\t***********************************************************************"
@@ -31,20 +31,22 @@ public class Battleship {
     
     public Battleship() {
         
-    }
- 
-    public static String[] getNameList() {
-        return nameList;
+     }
+
+    public static Players[] getPlayerList() {
+        return playerList;
     }
 
-    public static void setNameList(String[] nameList) {
-        Battleship.nameList = nameList;
+    public static void setPlayerList(Players[] playerList) {
+        Battleship.playerList = playerList;
     }
     
         
     public static void main(String[] args) {
         Battleship battleShips = new Battleship();
         battleShips.display();
+        
+        
         MainMenuView mainMenu = new MainMenuView();
         mainMenu.getInput();
     }

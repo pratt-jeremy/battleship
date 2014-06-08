@@ -16,21 +16,19 @@ public class Players {
     public static final String COMPUTER_PLAYER = "COMPUTER"; 
     
     String name;
-    String alias;
     long wins = 0;
     long losses = 0;
-    String gender;
+    public String playerType;
     double age = 0;
     public String marker;
-    long ties;
     String Ship;
         
     
     public Players() {    
 }
-
-    Players(String REGULAR_PLAYER, String PLAYER_A_DEFAULT_MARKER) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Players(String playerType, String marker) {
+        this.playerType = playerType;
+        this.marker = marker;
     }
 
     public void displayName() {

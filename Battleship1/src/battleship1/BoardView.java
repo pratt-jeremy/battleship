@@ -11,26 +11,18 @@ package battleship1;
 public class BoardView {
     Board board;
     
-    public void displayBoard(Board board) {
-        this.board = board;
-        
-        this.printHeadRow(); // print the header row for the board
-        this.printDividerRow(); // print the top divider row of the board
-        
-        // for all rows in the board
-        for (int i = 0; i < this.board.rowCount; i++) {
-            // get the list of list of columns locations in the row
-            battleship1.Location[] rowOfLocations = this.board.boardLocations[i];
-            
-            // print the contents of each location in the row
-            this.printRow(i+0, rowOfLocations); 
-            
-            this.printDividerRow();// print the ending divider for the row
+    public Object displayBoard(Object object) {
+        this.board = (Board) object;
+        this.printHeadRow();
+        this.printDividerRow();
+        for (int i = 0; i < this.board.getRowCount(); i++) {
+            Players[] rowOfLocations = this.board.getBoardLocations()[i];
+            this.printRow(i+1, rowOfLocations);
+            this.printDividerRow();
         }
-        
-        System.out.println(); // print blank line after the board
+        System.out.println();
          
-        return;
+        return null;
     }
 
     private void printHeadRow() {
@@ -81,6 +73,10 @@ public class BoardView {
             
             System.out.print("  " + letter + "  |");
         }
+    }
+
+    private void printRow(int i, Players[] rowOfLocations) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

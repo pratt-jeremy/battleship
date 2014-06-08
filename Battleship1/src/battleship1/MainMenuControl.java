@@ -14,7 +14,25 @@ import java.util.Scanner;
  */
 class MainMenuControl {
 
-       
+        public void createPlayerList() {
+        GetPlayersListView getPlayersListView = new GetPlayersListView();
+        String[] listOfPlayersNames = getPlayersListView.getInput();
+        
+        // create the list of players named
+        Players[] playerList = new Players[listOfPlayersNames.length];
+                               
+        for (int i = 0; i < playerList.length; i++) {
+            String playersName = listOfPlayersNames[i];
+            Players newPlayer = new Players();
+            newPlayer.name = playersName;
+            // add new player to player list
+            playerList[i] = newPlayer;          
+        }
+        
+        Battleship.setPlayerList(playerList);
+        
+    }
+        
     public void startGame(long noPlayers) {
                 
         if (noPlayers != 1  &&  noPlayers != 2) {
@@ -36,7 +54,7 @@ class MainMenuControl {
 
     
     
-    private Game createGame(String gameType) {
+     private Game createGame(String gameType) {
         Game game = null;
         Players playerA = null;
         Players playerB = null;
@@ -46,30 +64,37 @@ class MainMenuControl {
             return null;
         }
         
-        switch (gameType) {
-            case Game.ONE_PLAYER:
-                game = new Game(Game.ONE_PLAYER);
-                playerA = new Players(Players.REGULAR_PLAYER, Game.PLAYER_A_DEFAULT_MARKER);
-                playerA.name = "Player 1";
-                playerB = new Players(Players.COMPUTER_PLAYER, Game.PLAYER_B_DEFAULT_MARKER);
-                playerB.name = "Computer";
-                break;
-            case Game.TWO_PLAYER:
-                game = new Game(Game.TWO_PLAYER);
-                playerA = new Players(Players.REGULAR_PLAYER, Game.PLAYER_A_DEFAULT_MARKER);
-                playerA.name = "Player 1";
-                playerB = new Players(Players.REGULAR_PLAYER, Game.PLAYER_B_DEFAULT_MARKER);
-                playerB.name = "Player 2";
-                break;
+        if (gameType.equals(Game.ONE_PLAYER)) {
+            game = new Game(Game.ONE_PLAYER);
+            playerA = new Players(Players.REGULAR_PLAYER, game.PLAYER_A_DEFAULT_MARKER);
+            playerA.name = "Player 1";
+            playerB = new Players(Players.COMPUTER_PLAYER, game.PLAYER_B_DEFAULT_MARKER);
+            playerB.name = "Computer";
         }
+        else if (gameType.equals(Game.TWO_PLAYER)) {
+            game = new Game(Game.TWO_PLAYER);
+            playerA = new Players(Players.REGULAR_PLAYER, game.PLAYER_A_DEFAULT_MARKER);
+            playerA.name = "Player 1";
+            playerB = new Players(Players.REGULAR_PLAYER, game.PLAYER_B_DEFAULT_MARKER);
+            playerB.name = "Player 2";
 
-        // set default markers for each player
-        //playerA.marker = Game.PLAYER_A_DEFAULT_MARKER;
-        //playerB.marker = Game.PLAYER_B_DEFAULT_MARKER;
+        }
         
-        // save the two players created as the default players of the game
+        // set default players
         game.playerA = playerA;
-        game.playerB = playerB; 
+        game.playerB = playerB;
+        
+        // set default markers for each player
+        playerA.marker = "X";
+        playerB.marker = "O";
+        
+        // select the name of the players of the game
+        SelectPlayersView selectPlayersView = new SelectPlayersView(game);
+        selectPlayersView.getInput();
+                
+        // set default markers for each player
+        game.playerA.marker = "X";
+        game.playerB.marker = "O";
         
         // set the game status to game not yet in playing mode
         game.status = Game.NO_ACTIVE_GAME;

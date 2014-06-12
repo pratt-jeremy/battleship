@@ -13,8 +13,8 @@ import javax.swing.table.AbstractTableModel;
  * @author jacksonrkj
  */
 public class Board extends AbstractTableModel {
-    public int rowCount = 3;
-    public int columnCount = 3;
+    public int rowCount = 10;
+    public int columnCount = 10;
     public Point boardDimensions = new Point();
     public Players[][] boardLocations;
 

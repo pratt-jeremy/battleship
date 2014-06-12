@@ -89,8 +89,7 @@ class MainMenuControl {
         playerB.marker = "O";
         
         // select the name of the players of the game
-        SelectPlayersView selectPlayersView = new SelectPlayersView(game);
-        selectPlayersView.getInput();
+
                 
         // set default markers for each player
         game.playerA.marker = "X";

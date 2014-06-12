@@ -56,9 +56,6 @@ class GameMenuView {
                 case "N":
                     gameMenuControl.startNewGame();
                     break;
-                case "R":
-                    gameMenuControl.displayStatistics();
-                    break;
                 case "P":
                     gameMenuControl.displayPreferencesMenu();
                     break;

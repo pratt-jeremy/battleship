@@ -54,30 +54,27 @@ public class BoardView {
         System.out.print("-----|");
     }
 
-    private void printRow(int rowNumber, battleship1.Location[] rowLocations) {
-        
-        // print contents of first column in the row
-        String letter = " ";
-        if (rowLocations[0].player != null) {
-            letter = rowLocations[0].player.Ship;
-        }
-        System.out.print("\n\t" + rowNumber + "  |  " + letter + "  |");
 
-        // print the contents of the rest of the columns in the row 
+    private void printRow(int rowNumber, Players[] rowLocations) {
+        
+        // print first cell
+        String letter = " ";
+        if (rowLocations[0] != null) {
+            letter = rowLocations[0].marker;
+        }
+        System.out.print("\n\t" + rowNumber + " |  " + letter + "  |");
+
+        // print remaining cells in row
         for (int i = 1; i < rowLocations.length; i++) {
-            if (rowLocations[i].player == null) {
+            if (rowLocations[i] == null) {
                 letter = " ";
             } else {
-                letter = rowLocations[i].player.Ship;
+                letter = rowLocations[i].marker;
             }
-            
             System.out.print("  " + letter + "  |");
         }
     }
 
-    private void printRow(int i, Players[] rowOfLocations) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
 }
 

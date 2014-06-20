@@ -6,11 +6,13 @@
 
 package battleship1;
 
+import java.io.Serializable;
+
 /**
  *
  * @author J.Pratt
  */
-public class Players {
+public class Players implements Serializable{
     
     public static final String REGULAR_PLAYER = "REGULAR";
     public static final String COMPUTER_PLAYER = "COMPUTER"; 
@@ -28,6 +30,55 @@ public class Players {
 }
     public Players(String playerType, String marker) {
         this.playerType = playerType;
+        this.marker = marker;
+    }
+    
+        public String getName() {
+        return name;
+    }
+
+    public double getAge() {
+        return age;
+    }
+
+    public void setAge(double age) {
+        this.age = age;
+    }
+
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPlayerType() {
+        return playerType;
+    }
+
+    public void setPlayerType(String playerType) {
+        this.playerType = playerType;
+    }
+
+    public long getWins() {
+        return wins;
+    }
+
+    public void setWins(long wins) {
+        this.wins = wins;
+    }
+
+    public long getLosses() {
+        return losses;
+    }
+
+    public void setLosses(long losses) {
+        this.losses = losses;
+    }
+
+    public String getMarker() {
+        return marker;
+    }
+
+    public void setMarker(String marker) {
         this.marker = marker;
     }
 

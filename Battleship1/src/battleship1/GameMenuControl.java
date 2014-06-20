@@ -122,11 +122,6 @@ public class GameMenuControl {
             
             return true;
         }
-        else if (this.isTie()) {
-            this.game.status = Game.TIE;
-            this.displayGameOverMessage(player, "Better luck next time. The game is a tie.");
-            return true;
-        } 
         
         return false;
     }

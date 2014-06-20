@@ -22,7 +22,6 @@ public class Game {
     public static final String NEW_GAME = "NEW_GAME";
     public static final String PLAYING = "PLAYING"; 
     public static final String WINNER = "WINNER"; 
-    public static final String TIE = "TIE"; 
     public static final String QUIT = "QUIT"; 
     public static final String ERROR = "ERROR";
     public static final String EXIT = "EXIT";
@@ -55,6 +54,78 @@ public class Game {
         this.board = new Board(10, 10);
         
     }
+    
+        public String getGameType() {
+        return gameType;
+    }
+
+    public void setGameType(String gameType) {
+        this.gameType = gameType;
+    }
+
+    public Players getPlayerA() {
+        return playerA;
+    }
+
+    public void setPlayerA(Players playerA) {
+        this.playerA = playerA;
+    }
+
+    public Players getPlayerB() {
+        return playerB;
+    }
+
+    public void setPlayerB(Players playerB) {
+        this.playerB = playerB;
+    }
+
+    public Players getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(Players currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
+    public Players getOtherPlayer() {
+        return otherPlayer;
+    }
+
+    public void setOtherPlayer(Players otherPlayer) {
+        this.otherPlayer = otherPlayer;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Players getWinner() {
+        return winner;
+    }
+
+    public void setWinner(Players winner) {
+        this.winner = winner;
+    }
+
+    public Players getLoser() {
+        return loser;
+    }
+
+    public void setLoser(Players loser) {
+        this.loser = loser;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
 
 
     public void start() {
@@ -80,7 +151,7 @@ public class Game {
 
     }
 
-    public void recordWinner() {
+    private void recordWinner() {
         if (this.currentPlayer == this.playerA) {
             this.winner = this.playerA;
             this.loser = this.playerB;

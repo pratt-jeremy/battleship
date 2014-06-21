@@ -85,7 +85,7 @@ public class Players implements Serializable{
     public void displayName() {
         System.out.println("\t\tAhoy! Me name is " + this.name);
     }
-    public double getWinningPercentage() {
+    private double getWinningPercentage() {
      
         if (wins < 0 ) {
             System.out.println("\n\tThe number of wins must be "

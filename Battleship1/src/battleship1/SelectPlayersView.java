@@ -21,7 +21,7 @@ public class SelectPlayersView {
     }
 
     
-    public boolean getInput() {
+    private boolean getInput() {
         
         this.displayNameList(); // display the list of names
         

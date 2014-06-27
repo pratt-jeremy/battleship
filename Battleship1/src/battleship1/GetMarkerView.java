@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 /**
  
- * @author mBradshaw
+ * @author Jeremy and Melanie
  */
 public class GetMarkerView {
     private final Game game; 

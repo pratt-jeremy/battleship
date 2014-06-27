@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author jacksonrkj
+ * @author Jeremy and Melanie
  */
 
 

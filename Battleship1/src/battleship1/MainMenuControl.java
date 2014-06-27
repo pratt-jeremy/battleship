@@ -6,7 +6,7 @@ package battleship1;
 
 /**
  *
- * @author jacksonrkj
+ * @author Jeremy and Melanie
  */
 public class MainMenuControl {
     

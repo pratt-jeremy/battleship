@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
     
 /**
  *
- * @author jacksonrkj
+ * @author Jeremy and Melanie
  */
 public class GetLocationView {
     private Game game;

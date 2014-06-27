@@ -10,13 +10,14 @@ import javax.swing.table.AbstractTableModel;
 
 /**
  *
- * @author jacksonrkj
+ * @author Jeremy and Melanie
  */
 public class Board extends AbstractTableModel {
-    public int rowCount = 10;
-    public int columnCount = 10;
-    public Point boardDimensions = new Point();
-    public Players[][] boardLocations;
+    int rowCount = 10;
+    int columnCount = 10;
+    private String name;
+    private Point boardDimensions = new Point();
+    private Players[][] boardLocations;
 
     public Board() {
     }
@@ -24,6 +25,14 @@ public class Board extends AbstractTableModel {
     public Board(int noRows, int noColumns) {
         this.boardDimensions.setLocation(noRows, noRows);
         this.boardLocations = new Players[noRows][noColumns];
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Point getBoardDimensions() {
@@ -67,24 +76,13 @@ public class Board extends AbstractTableModel {
         for (int i = 0; i < this.boardLocations.length; i++) {
             Players[] rowlocations = this.boardLocations[i];
             for (int j = 0; j < rowlocations.length; j++) {
-                rowlocations[j] =  null;
+                Players location = rowlocations[j];
+                location = null;
             }
         }
     }
     
-    public boolean locationOccupied(Point location) {
-        int row = location.x;
-        int column = location.y;
-        
-        if (this.boardLocations[row][column] != null) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-    
-    
+
     public void occupyLocation(Players player, int row, int column)  {
         // subtract 1 from row and column number because the array starts a position 0
 

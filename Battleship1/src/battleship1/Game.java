@@ -27,6 +27,7 @@ public class Game {
     public static final String EXIT = "EXIT";
     private static String PLAYERS_A_DEFAULT_MARKER;
     private static String PLAYERS_B_DEFAULT_MARKER;
+    static String CONTINUE;
 
     public String gameType;
     public Players playerA;
@@ -151,7 +152,7 @@ public class Game {
 
     }
 
-    private void recordWinner() {
+    void recordWinner() {
         if (this.currentPlayer == this.playerA) {
             this.winner = this.playerA;
             this.loser = this.playerB;

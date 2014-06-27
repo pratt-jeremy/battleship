@@ -1,78 +1,95 @@
 /*
- * Display the main menu
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
  */
-
 package battleship1;
 
 import java.util.Scanner;
 
 /**
  *
- * @author MBradshaw
+ * @author Jeremy and Melanie
  */
-public class MainMenuView {
-      private static final String[][] menuItems = {
+
+
+
+
+public class MainMenuView extends Menu {
+    
+    private static final String[][] menuItems = {
         {"1", "One player game"},
         {"2", "Two player game"},
         {"H", "Help"},
-        {"X", "Exit Battleship Board"},
+        {"X", "Exit Tic-Tac-Toe"}
     }; 
   
-    MainMenuControl mainMenuControl = new MainMenuControl();
+    MainMenuControl mainCommands = new MainMenuControl();
     
     public MainMenuView() {
-
+        super(MainMenuView.menuItems);
     }
- 
     
-    public void getInput() {       
-
-        String command;
-        Scanner inFile = new Scanner(System.in);
+    public String executeCommands(Object object) {       
         
+        String gameStatus = Game.PLAYING;
         do {
-            this.display(); // display the menu
+            this.display();
 
             // get commaned entered
-            command = inFile.nextLine();
-            command = command.trim().toUpperCase();
-            
+            String command = this.getCommand();
             switch (command) {
-                case "N":
-                    this.mainMenuControl.createPlayerList();
-                    break;
                 case "1":
-                    this.mainMenuControl.startGame(1);
+                    this.startGame(1);
                     break;
                 case "2":
-                    this.mainMenuControl.startGame(2);
+                    this.startGame(2);
                     break;
                 case "H":
-                    this.mainMenuControl.displayHelpMenu();            
+                    HelpMenuView helpMenu = Battleship.getHelpMenu();
+                    helpMenu.executeCommands(null);
                     break;
                 case "X":
-                    break;
-                default: 
-                    new BattleshipsError().displayError("Invalid command. Please enter a valid command.");
+                    return Game.EXIT;
             }
-        } while (!command.equals("X"));
-        
-        return;
+        } while (!gameStatus.equals(Game.EXIT));
 
+        return Game.EXIT;
     }
-    
 
-    
-    
-   public final void display() {
-        System.out.println("\n\t===============================================================");
-        System.out.println("\tEnter your choices:");
-
+    private void startGame(long noPlayers) {
+                
+        if (noPlayers != 1  &&  noPlayers != 2) {
+            new BattleshipsError().displayError("startGame - invalid number of players specified.");
+            return;
+        }
         
-          for (String[] menuItem : MainMenuView.menuItems) {
-              System.out.println("\t   " + menuItem[0] + "\t" + menuItem[1]);
-          }
-        System.out.println("\t===============================================================\n");
-    }   
+        Game game;
+        if (noPlayers == 1) {
+            game = this.mainCommands.create(Game.ONE_PLAYER);
+        }
+        else {
+            game = this.mainCommands.create(Game.TWO_PLAYER);
+        }
+        
+        SelectPlayersView sekectPlayersView = new SelectPlayersView(game);
+        String status = (String) sekectPlayersView.selectPlayers(Battleship.getNameList());
+        if (status.equals(Game.QUIT)) {
+            return;
+        }
+
+        GameMenuView gameMenu = new GameMenuView(game);
+        gameMenu.executeCommands(game);
+    }
+
+    private String quitGame() {
+        System.out.println("\n\tAre you sure you want to quit? (Y or N)");
+        Scanner inFile = new Scanner(System.in);
+        String answer = inFile.next().trim().toUpperCase();
+        if (answer.equals("Y")) {
+            return Game.EXIT;
+        }
+
+        return Game.PLAYING;
+    }
     
 }

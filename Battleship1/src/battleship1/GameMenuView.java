@@ -1,22 +1,21 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package battleship1;
 
-import java.util.Scanner;
+import java.awt.Point;
 
 /**
  *
- * @author MBradshaw
+ * @author Jeremy and Melanie
  */
-class GameMenuView {
-
-      private final Game game;
-    private final GameMenuControl gameMenuControl ; 
-
+public class GameMenuView extends Menu {
+    
+    private Game game;
+    private GameMenuControl gameCommands; 
+    private GetLocationView getLocation = new GetLocationView();
+    private BoardView displayBoard = new BoardView();
 
     private final static String[][] menuItems = {
         {"T", "Take your turn"},
@@ -25,60 +24,147 @@ class GameMenuView {
         {"R", "Report stastics"},
         {"P", "Change game preferences"},
         {"H", "Help"},
-        {"Q", "QUIT"}
+        {"Q", "Quit"}
     };
 
     public GameMenuView(Game game) {
-        this.game = game;
-        this.gameMenuControl = new GameMenuControl(game);
-        
+        super(GameMenuView.menuItems);
+        this.gameCommands = new GameMenuControl(game);
     }
-   
-    public void getInput() {
-   
-        String command;
-        Scanner inFile = new Scanner(System.in);
 
-        do {    
-            this.display(); // display the menu
+    public BoardView getDisplayBoard() {
+        return displayBoard;
+    }
 
-            // get commaned entered
-            command = inFile.nextLine();
-            command = command.trim().toUpperCase();
+    public void setDisplayBoard(BoardView displayBoard) {
+        this.displayBoard = displayBoard;
+    }
+
+    
+
+    @Override
+    public String executeCommands(Object object) {
+        this.game = (Game) object;
+
+        String gameStatus = Game.CONTINUE;
+        do {
+     
+            this.display();
             
+            // get commaned entered
+            String command = this.getCommand();
             switch (command) {
                 case "T":
-                    this.gameMenuControl.takeTurn();
+                    this.takeTurn();
                     break;
                 case "D":
-                    gameMenuControl.displayBoard();
+                    this.displayBoard.display(game.getBoard());
                     break;
                 case "N":
-                    gameMenuControl.startNewGame();
+                    gameCommands.startNewGame(game);
+                    this.displayBoard.display(game.getBoard());
+                    break;
+                case "R":
+                    this.displayStatistics();
                     break;
                 case "P":
-                    gameMenuControl.displayPreferencesMenu();
+                    GamePreferencesMenuView gamePreferencesMenu = Battleship.getGamePreferencesMenu();
+                    gamePreferencesMenu.display();
+                    gamePreferencesMenu.executeCommands(this.game);
                     break;
                 case "H":
-                    gameMenuControl.displayHelpMenu();
+                    HelpMenuView helpMenu = Battleship.getHelpMenu();
+                    helpMenu.executeCommands(null);
                     break;
-                case "Q":                   
+                case "Q":
+                    gameStatus = Game.QUIT;
                     break;
-                default: 
-                    new BattleshipsError().displayError("Invalid command. Please enter a valid command.");
             }
-        } while (!command.equals("Q"));
+        } while (!gameStatus.equals(Game.QUIT));
+
+        return Game.PLAYING;
+    }
+    
+    
+   private void takeTurn() {
+        String playersMarker;
+        Point selectedLocation;
+
+        if (!this.game.getStatus().equals(Game.NEW_GAME) && 
+            !this.game.getStatus().equals(Game.PLAYING)) {
+            new BattleshipsError().displayError(
+                    "There is no active game. You must start a new game before "
+                    + "you can take a turn");
+            return;
+        }
+        Players currentPlayer = this.game.getCurrentPlayer();
+        Players otherPlayer = this.game.getOtherPlayer();
+
+        // get location for first player
+        selectedLocation = (Point) getLocation.getLocation(this.game);
+        if (selectedLocation == null) {
+            return;
+        }
+
+        // regular players turn
+        Point locationMarkerPlaced = 
+                this.gameCommands.playerTakesTurn(currentPlayer, selectedLocation);
+
+        if (this.gameOver()) { // game won or tied?  
+            return;
+        }
+
+        if (this.game.getGameType() == Game.ONE_PLAYER) {
+            // computers turn
+            locationMarkerPlaced = this.gameCommands.playerTakesTurn(otherPlayer, null);
+
+            if (this.gameOver()) { // game won or tied?
+                return;
+            }
+        }
+
+
+        // display board and prompt for next player's turn
+        this.displayBoard.display(game.getBoard());
+        String promptNextPlayer = getNextPlayerMessage(otherPlayer);
+        System.out.println("\n\n\t" + promptNextPlayer);
+
 
     }
 
-    public final void display() {
-        System.out.println("\n\t===============================================================");
-        System.out.println("\tEnter your choice command:");
+    private boolean gameOver() {
+        boolean done = false;
+        
+        
+        if (done) {
+            this.displayBoard.display(this.game.getBoard());
+        }
+        
 
-          for (String[] menuItem : GameMenuView.menuItems) {
-              System.out.println("\t   " + menuItem[0] + "\t" + menuItem[1]);
-          }
-        System.out.println("\t===============================================================\n");
+        return done;
     }
-  
+    
+        
+    private String getNextPlayerMessage(Players player) {
+        if (this.game.getGameType().equals(Game.ONE_PLAYER)) {
+            return "The computer took it's turn. It is now your turn. "
+                    + player.getName();
+        } else {
+            return "It is now your turn "
+                    + player.getName();
+        }
+    }
+    
+    
+    private void displayStatistics() {
+        String playerAStatistics = this.game.getPlayerA().getPlayerStastics();
+        String playerBStatistics = this.game.getPlayerB().getPlayerStastics();
+        System.out.println("\n\t++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("\t " + playerAStatistics);
+        System.out.println("\n\t " + playerBStatistics);
+        System.out.println("\t+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    }
+
+
+   
 }

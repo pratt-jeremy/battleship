@@ -1,8 +1,13 @@
-
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package battleship1;
 
 
+import java.awt.Dimension;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -12,65 +17,136 @@ import java.util.Scanner;
 
 
 
-public class GamePreferencesMenuView  {
-    Game game;
-    private final GamePreferencesMenuControl gamePreferenceControl;
+public class GamePreferencesMenuView extends Menu {
+    
+    private Game game;
+    private GamePreferencesMenuControl gamePreferenceCommands;
 
     private final static String[][] menuItems = {
-        {"1", "Change Marker of the first Player's Ships"},
-        {"2", "Change Marker of the second Player's Ships"},
-        {"S", "Change the Number of Ships on the Board"},
+        {"1", "Change Marker of the first Player"},
+        {"2", "Change Marker of the second Player"},
+        {"D", "Change the dimensions of the board"},
         {"Q", "Return to game menu"}
     };
 
-    public GamePreferencesMenuView(Game game) {
-        this.game = game;
-        gamePreferenceControl = new GamePreferencesMenuControl(game);
+    public GamePreferencesMenuView() {
+        super(GamePreferencesMenuView.menuItems);
+        gamePreferenceCommands = new GamePreferencesMenuControl();
     }
-
     
-    public void getInput() {       
-        String command;
-        Scanner inFile = new Scanner(System.in);
+    public String executeCommands(Object object) {       
+        this.game = (Game) object;
+        this.gamePreferenceCommands.setGame(game);
         
+        String gameStatus = Game.PLAYING;
         do {
             this.display();
 
             // get commaned entered
-            command = inFile.nextLine();
-            command = command.trim().toUpperCase();
+            String command = this.getCommand();
             
             switch (command) {
                 case "1":
-                    this.gamePreferenceControl.getMarker(this.game.playerA);
+                    getMarker(this.game.getPlayerA());
                     break;
                 case "2":
-                    this.gamePreferenceControl.getMarker(this.game.playerB);
+                    getMarker(this.game.getPlayerB());
                     break;
-                case "S":
-                    this.gamePreferenceControl.getShips();
+                case "D":
+                    this.getDimensions();
                     break;
                 case "Q":
-                    break;
-                default: 
-                    new BattleshipsError().displayError("Invalid command. Please enter a valid command.");
-                    continue;
+                    return Game.QUIT;
             }
-        } while (!command.equals("Q"));
+        } while (!gameStatus.equals(Game.QUIT));
 
-        return;
+        return gameStatus;
     }
     
     
-        
-    public final void display() {
-        System.out.println("\n\t===============================================================");
-        System.out.println("\tEnter the letter associated with one of the following commands:");
+    public void getMarker(Players player) {
+        String marker = null;
+                
+        boolean valid = false;
+        do {
+            System.out.println("\n\t" + player.getName() 
+                + ", enter a single character that will be used to mark your squares in the game.");
+            Scanner in = Battleship.getInputFile();
+            marker = in.nextLine();
+            if (marker == null  || marker.length() < 1) {
+                continue;
+            }
+            
+            marker = marker.trim().substring(0, 1);
+            marker = marker.toUpperCase();
+            valid = this.gamePreferenceCommands.saveMarker(player, marker);
+        } while (!valid);
 
-        for (int i = 0; i < GamePreferencesMenuView.menuItems.length; i++) {
-            System.out.println("\t   " + menuItems[i][0] + "\t" + menuItems[i][1]);
+        this.gamePreferenceCommands.saveMarker(player, marker);
+   
+    }
+    
+     public boolean getDimensions() {
+
+        if (game.getStatus().equals(Game.PLAYING)) {
+            new BattleshipsError().displayError("You can not change the dimensions "
+              + "of the board once the game has been started. "
+              + "\n\tStart a new game and then change the dimensions "
+              + "of the board. ");
+            return false;
         }
-        System.out.println("\t===============================================================\n");
+
+        // prompt for the row and column numbers
+        System.out.println("\n\tEnter the number of rows and columns in the board (For example: 3 3)");
+
+        Scanner inFile = Battleship.getInputFile(); // get input file 
+        
+        // read the row and column coordinates
+        String[] valuesEntered;
+        Dimension dimension = null;
+        do {
+            String strNoRowsColumns = inFile.nextLine(); // read in row and column
+            strNoRowsColumns = strNoRowsColumns.trim(); // trim all blanks from front and end 
+            strNoRowsColumns = strNoRowsColumns.replace(',', ' '); // replace commas with a blank
+            valuesEntered = strNoRowsColumns.split("\\s"); // tokenize the string
+
+            if (valuesEntered.length < 1) {
+                new BattleshipsError().displayError(
+                        "You must enter two numbers, the number rows and columns, "
+                        + "or a \"Q\" to quit. Try again.");
+                continue;
+            } else if (valuesEntered.length == 1) {
+                if (valuesEntered[0].toUpperCase().equals("Q")) { // Quit?
+                    return false;
+                }  // wrong number of values entered.
+     
+                // wrong number of values entered.
+                new BattleshipsError().displayError(
+                       "You must enter two numbers, the number rows and columns, "
+                       + "or a \"Q\" to quit. Try again.");
+                continue;
+            }
+            
+            // user java regular expression to check for valid integer number?
+            Pattern digitPattern = Pattern.compile(".*\\D.*");
+            if (digitPattern.matcher(valuesEntered[0]).matches()  || 
+                digitPattern.matcher(valuesEntered[1]).matches()
+               ) {
+                new BattleshipsError().displayError(
+                        "You must enter two numbers, the number rows and columns, "
+                        + "or a \"Q\" to quit. Try again.");
+                continue;
+            }
+            
+            int rowsEntered = Integer.parseInt(valuesEntered[0]);
+            int columnsEntered = Integer.parseInt(valuesEntered[1]);
+            dimension = new Dimension(rowsEntered, columnsEntered);
+
+        } while (dimension == null);
+        
+        this.gamePreferenceCommands.saveDimensions(dimension);
+        
+        return true;
     }
- 
+   
 }

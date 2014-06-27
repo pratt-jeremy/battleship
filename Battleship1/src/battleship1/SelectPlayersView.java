@@ -13,118 +13,94 @@ import java.util.Scanner;
 public class SelectPlayersView {
     
     private Game game;
-    private Players[] playerList;
+    private String[] playerNames;
 
     public SelectPlayersView(Game game) {
         this.game = game;
-        playerList = Battleship.getPlayerList();
+        playerNames = Battleship.getNameList();
     }
 
     
-    private boolean getInput() {
+    public String selectPlayers(String[] nameList) {
+        String playersName;
         
         this.displayNameList(); // display the list of names
         
         // if one player game
-        if (Game.ONE_PLAYER.equals(this.game.gameType )) {
+        if (Game.ONE_PLAYER.equals(this.game.getGameType())) {
            System.out.println("\tPlease enter the number of the player.");
 
             // get the players name
-            Players player = this.getPlayer();
-            if (player ==  null) {
-                return false;
+            playersName = this.getName(Battleship.getNameList());
+
+            if (playersName ==  null) {
+                return Game.QUIT;
             }
-           
-            this.game.playerA = player;
-            this.game.playerB.name = "Computer";
+            this.game.getPlayerA().setName(playersName);
+            this.game.getPlayerB().setName("Computer");
         }
         
         // else two player game
         else { 
             System.out.println("\tPlease enter the number of the first player.");
             // get first players name
-            Players player1 = this.getPlayer();
-            if (player1 ==  null) {
-                return false;
+            playersName = this.getName(Battleship.getNameList());
+            if (playersName ==  null) {
+                return Game.QUIT;
             }
-             
+            this.game.getPlayerA().setName(playersName); 
 
-          
+            // get the second players name
             System.out.println("\tPlease enter the number of the second player.");
-            Players player2 = this.getPlayer();
-            if (player2 ==  null) {
-                return false;
+            playersName = this.getName(Battleship.getNameList());
+            if (playersName ==  null) {
+                return Game.QUIT;
             }
-            
-            this.game.playerA = player1;
-            this.game.playerB = player2;
-            
+            this.game.getPlayerB().setName(playersName);
         }
         
-        return true;
+        return Game.CONTINUE;
         
     }
     
 
-    public Players getPlayer() {
-        
-        Players player = null;
-        Scanner inFile = new Scanner(System.in);
-        
+    public String getName(String[] nameList) {
+
+        Scanner inFile = Battleship.getInputFile();
+        String name = null;
         boolean valid = false;
-        while (!valid) {
+        do {
             String strNumber = inFile.nextLine();
             
-            if (strNumber.length() < 1) { 
-                new BattleshipsError().displayError(
-                        "You must enter a number associated with the name or "
-                        + "enter a \"Q\" to quit. Try again.");
+            if (strNumber.length() < 1) { // was a value entered ?
+                new BattleshipsError().displayError("You must enter a name or enter a \"Q\" to quit. Try again.");
                 continue;
             }
             
-            strNumber = strNumber.trim();    
-            strNumber = strNumber.substring(0, 1); 
+            strNumber = strNumber.trim(); // trim off all blanks from front and back    
+            strNumber = strNumber.substring(0, 1); // get only the first character
             
-            if (strNumber.toUpperCase().equals("Q")) { 
+            if (strNumber.toUpperCase().equals("Q")) { // quit?
                 return null;
             }
-                    
-            if (!strNumber.matches("[0-9]+")) { 
-                new BattleshipsError().displayError(
-                        "You must enter a number associated with the name or "
-                        + "enter a \"Q\" to quit. Try again.");
+            
+            
+            if (!strNumber.matches("[0-9]+")) { // is the value entered a number?
+                new BattleshipsError().displayError("You must enter a number in the list. Try again.");
                 continue;
             }
             
-            int numberSelected = Integer.parseInt(strNumber);
+            int numberSelected = Integer.parseInt(strNumber); // convert string to integer
             
-       
-            if (numberSelected < 1  ||  numberSelected > this.playerList.length) {
-                new BattleshipsError().displayError(
-                        "Invalid number. You must enter a number between "
-                        + "1 and " + this.playerList.length 
-                        + "or enter a \"Q\" to quit. Try again.");
-                continue;
-            }
+            // is the number outside the range of the list of names
+
             
-            player = this.playerList[numberSelected-1];
-            
-            if (game.playerA.equals(player) || 
-                game.playerB.equals(player) ) {  
-                new BattleshipsError().displayError(
-                        "That player has already been selected. "
-                        + "Select a different player "
-                        + "or enter a \"Q\" to quit. Try again.");
-                continue;
-            }
-            
-            
-            
+            name = nameList[numberSelected-1]; // get the name from the list
             valid = true;
       
         } while (!valid);
         
-        return player;
+        return name;
     }
     
     
@@ -133,12 +109,11 @@ public class SelectPlayersView {
         System.out.println("\tSelect the player/s who will be playing the game.");
         System.out.println("\tEnter the number of a player below:");
 
-        for (int i = 0; i < this.playerList.length; i++) {
+        for (int i = 0; i < this.playerNames.length; i++) {
             int namePosition = i+1;
-            System.out.println("\t   " + namePosition + "\t" + playerList[i].name);
+            System.out.println("\t   " + namePosition + "\t" + playerNames[i]);
         }
         System.out.println("\t===============================================================\n");
     }
-     
     
 }

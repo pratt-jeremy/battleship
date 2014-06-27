@@ -1,17 +1,18 @@
 /*
- * This will display the Board 10x10 grid 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
  */
-
 package battleship1;
 
 /**
  *
- * @author mBradshaw
+ * @author Jeremy and Melanie
  */
-public class BoardView {
+public class BoardView  {
+    
     Board board;
     
-    public Object displayBoard(Object object) {
+    public Object display(Object object) {
         this.board = (Board) object;
         this.printHeadRow();
         this.printDividerRow();
@@ -27,40 +28,37 @@ public class BoardView {
 
     private void printHeadRow() {
 
-        // print the first column in the header row
+        // print first cell
+
         System.out.print("\n\t      1   ");
-        
-        // print remaining header cells in row between the first and last column
-        int columnsInRow = this.board.columnCount;
+        int columnsInRow = this.board.getColumnCount();
+        // print remaining cells in row
         for (int i = 1; i < columnsInRow - 1; i++) {
-            int col = i + 0;
+            int col = i + 1;
             System.out.print("  " + col + "   ");
         }
-        // print the header for the last column in the header
         System.out.print(" " + columnsInRow + "   ");
     }
 
     private void printDividerRow() {
 
-        // print the divider for the first column in the row
-        System.out.print("\n\t   |------");
-        
-        int columnsInRow = this.board.columnCount;
-        // print remaining divider for each column between the first and last
+        // print first cell
+
+        System.out.print("\n\t  |------");
+        int columnsInRow = this.board.getColumnCount();
+        // print remaining cells in row
         for (int i = 1; i < columnsInRow - 1; i++) {
             System.out.print("------");
         }
-        // print the row divider for the last column in the row
         System.out.print("-----|");
     }
-
 
     private void printRow(int rowNumber, Players[] rowLocations) {
         
         // print first cell
         String letter = " ";
         if (rowLocations[0] != null) {
-            letter = rowLocations[0].marker;
+            letter = rowLocations[0].getMarker();
         }
         System.out.print("\n\t" + rowNumber + " |  " + letter + "  |");
 
@@ -69,14 +67,10 @@ public class BoardView {
             if (rowLocations[i] == null) {
                 letter = " ";
             } else {
-                letter = rowLocations[i].marker;
+                letter = rowLocations[i].getMarker();
             }
             System.out.print("  " + letter + "  |");
         }
     }
 
-
 }
-
-
-

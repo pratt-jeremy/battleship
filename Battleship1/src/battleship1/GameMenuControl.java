@@ -12,196 +12,157 @@ import java.util.Random;
 
 /**
  *
- * @author jacksonrkj
+ * @author Jeremy and Melanie
  */
 public class GameMenuControl {
     
     private Game game;
     private Board board;
-    private GetLocationView getLocationView;
-    private BoardView boardView = new BoardView();
 
-    
+
     public GameMenuControl(Game game) {
         this.game = game;
-        this.board = game.board;
+        this.board = game.getBoard(); 
+    }
+
+        
+    public Point playerTakesTurn(Players player, Point selectedLocation) {
+        Point locationMarkerPlaced = null;
+
+         if (player ==  null) {
+            new BattleshipsError().displayError("You must start a new game first.");
+            return null;
+        }
+
+        if (!player.getPlayerType().equals(Players.REGULAR_PLAYER) && 
+            !player.getPlayerType().equals(Players.COMPUTER_PLAYER)) {
+            new BattleshipsError().displayError("GameCommands - takeTurn: invalidPlayerTYpe");
+            return null;
+        }
+
+        if (this.game.getStatus().equals(Game.NEW_GAME)) {
+            this.game.setStatus(Game.PLAYING);
+        }        
+        else if (!this.game.getStatus().equals(Game.PLAYING )) {
+            new BattleshipsError().displayError("There is no active game. "
+                    + "You must start a new game before you can take a turn");
+        }
+        
+       
+        
+        String playerType = player.getPlayerType();
+
+        if (playerType.equals(Players.REGULAR_PLAYER)) {
+            this.regularTurn(player, selectedLocation);
+            locationMarkerPlaced = selectedLocation;
+        }
+        else if (playerType.equals(Players.COMPUTER_PLAYER)) {
+            locationMarkerPlaced = this.coumputerTakesTurn(player);
+        }
+
+        this.alternatePlayers();
+
+        return locationMarkerPlaced;
     }
     
-     
-    /* 
-     * Take a turn action
-     */
-    public void takeTurn() {
+    public void takeTurn(Point selectedLocation) {
+        Players currentPlayer = this.game.getCurrentPlayer();
+        Players otherPlayer = this.game.getOtherPlayer();
         
-        int returnValue = 1;
+        String playerType = currentPlayer.getPlayerType(); 
+
+        if (this.game.getGameType().equals(Game.ONE_PLAYER)) {
+            if (currentPlayer.getPlayerType().equals(Players.REGULAR_PLAYER)) {
+                this.playerTakesTurn(currentPlayer, selectedLocation);
+                if (this.game.getStatus().equals(Game.PLAYING)) { // game over ?
+                    return;
+                }
+                
+                this.playerTakesTurn(otherPlayer, selectedLocation);
+                String message = "The computer also took it's turn. "
+                        + " it is your turn again " + currentPlayer.getName();
+            }
+            if (currentPlayer.getPlayerType().equals(Players.COMPUTER_PLAYER)) {
+                this.playerTakesTurn(currentPlayer, selectedLocation);
+                this.alternatePlayers();                
+            } 
+        } 
+        else if (this.game.getGameType().equals(Game.TWO_PLAYER)) {
+            this.playerTakesTurn(currentPlayer, selectedLocation);
+            this.alternatePlayers();
+        }
         
-        if (!this.game.status.equals(Game.NEW_GAME)  && 
-            !this.game.status.equals(Game.PLAYING)) {
-            new BattleshipsError().displayError("You must start a new game first.");
+
+
+
+    }
+    
+    public void alternatePlayers() {
+        if (this.game.getCurrentPlayer() == this.game.getPlayerA()) {
+            this.game.setCurrentPlayer(this.game.getPlayerB());
+            this.game.setOtherPlayer(this.game.getPlayerA());
+        } else {
+            this.game.setCurrentPlayer(this.game.getPlayerA());
+            this.game.setOtherPlayer(this.game.getPlayerB());
+        }
+    }
+    
+    public boolean regularTurn(Players player, Point location){
+        if (location == null) {
+            new BattleshipsError().displayError("GameCommands - regularTurn: location is null");
+            return false;
+        }
+        
+        if (game.getStatus().equals(game.PLAYING) && 
+            game.getStatus().equals(Game.NEW_GAME)) {
+            new BattleshipsError().displayError("There is no active game. "
+                    + "You must start a new game before you can take a turn");
+            return false;
+        }
+
+        game.setStatus(Game.PLAYING);
+        this.markLocation(player, location);
+        
+        return true;
+    }
+    
+    public Point coumputerTakesTurn(Players player) {
+        // computer takes turn
+        game.setStatus(Game.PLAYING); 
+        Point location = this.getComputersSelection();
+        this.markLocation(player, location);
+        return location;
+    }
+    
+
+    
+    
+    private void markLocation(Players player, Point location) {
+ 
+        this.game.getBoard().occupyLocation(player, location.x, location.y);
+        
+        boolean aWinner = this.isWinner();
+        if (aWinner) { // game won already
+            this.game.recordWinner();
+            this.game.setStatus(Game.WINNER);
             return;
         }
         
-        if (this.game.gameType.equals(Game.TWO_PLAYER)) { //two player game 
-            // regular player takes turn
-            returnValue = this.regularPlayerTurn(this.game.currentPlayer);            
-            if (returnValue < 0  || this.gameOver(this.game.currentPlayer)) {
-                return;
-            }
-            this.displayBoard();
-            this.alternatePlayers(); // alternate players             
-            
-            // other player takes turn 
-            returnValue = this.regularPlayerTurn(this.game.currentPlayer);            
-            if (returnValue < 0  || this.gameOver(this.game.currentPlayer)) {
-                return;
-            }
-            this.displayBoard();
-            this.alternatePlayers(); // alternate players
-        }
-        
-        else { // one player game
-            // regular player takes turn
-            this.regularPlayerTurn(this.game.currentPlayer);
-            if (returnValue < 0  || this.gameOver(this.game.currentPlayer)) {
-                return;
-            }
-        
-            // computer takes turn         
-            this.coumputerTakesTurn(this.game.otherPlayer);
-            System.out.println("\n\tThe computer also took it's turn");
-            this.displayBoard();            
-            if (returnValue < 0  || this.gameOver(this.game.otherPlayer)) {
-                return;
-            }
-        }
-    
-    }   
-    
-    
-    /*
-     * Display the board acton
-     */
-    public void displayBoard() {
-        boardView.displayBoard(this.board);
-    }
-    
-    /*
-     * Start a new game action
-     */
-    public void startNewGame() {
-        this.game.start();
-        this.displayBoard();
-    }
-
-     
-     /*
-      * Display game preferences menu action
-      */
-    public void displayPreferencesMenu() {
-        GamePreferencesMenuView gamePreferenceMenuView = new GamePreferencesMenuView(this.game);
-        gamePreferenceMenuView.getInput();
+        this.game.setStatus(Game.PLAYING);
     }
     
     
-    /*
-      * Display help menu action
-      */
-    public void displayHelpMenu() {
-        HelpMenuView helpMenuView = new HelpMenuView();
-        helpMenuView.getInput();
-    }
     
-    /* 
-     * determine if the game is over
-     * @return true - if the game is a win or a tie; otherwise, return false
-     */    
-    private boolean gameOver(Players player) {
-        if (this.isWinner()) {
-            this.game.status = Game.WINNER;
-            this.displayGameOverMessage(player, "Congratulations! You won the game.");
-            
-            return true;
-        }
-        
-        return false;
-    }
-    
-    private void displayGameOverMessage(Players player, String message) {
-        System.out.println("\n\t************************************************");
-        System.out.println("\t " + player.name + ": " + message);
-        System.out.println("\t************************************************");
-    }
-    
-    /*
-     * A regular player takes a turn
-     * @parameter player The player taking the turn
-     */
-    private int regularPlayerTurn(Players player) {
-        
-        if (!this.game.status.equals(Game.NEW_GAME)  &&
-            !this.game.status.equals(Game.PLAYING)) {
-            new BattleshipsError().displayError(
-                    "There is no active game. You must start a new game before "
-                    + "you can take a turn");
-            return -1;
-        } 
-        
-        this.game.status = Game.PLAYING;
-        
-        GetLocationView getLocationView = new GetLocationView(this.game);
-        Point location = getLocationView.getInput();
-        if (location == null) { // no location was entered?
-            return -1;
-        }
-            
-        this.game.board.occupyLocation(player, location.x, location.y);
-        
-        return 0;
-    }
-    
-     /*
-     * A regular player takes a turn
-     * @parameter player The player who is the computer
-     */
-    private void coumputerTakesTurn(Players player) {
-        // computer takes turn 
-        Point location = this.getComputersSelection();
-        this.game.board.occupyLocation(player, location.x, location.y);
-        return;
-    }
-    
-
-
-    /*
-     * Alternate players
-     */
-    public void alternatePlayers() {
-        if (this.game.currentPlayer == this.game.playerA) {
-            this.game.currentPlayer =  this.game.playerB ;
-            this.game.otherPlayer =  this.game.playerA;
-        } else {
-            this.game.currentPlayer =  this.game.playerA;
-            this.game.otherPlayer =  this.game.playerB ;
-        }
-    }
-    
-
-
-    
-    
-    /* 
-     * Get computers selection
-     */
     private Point getComputersSelection() {
         Point coordinate;
 
-        coordinate = this.findWinningLocation(game.currentPlayer);
+        coordinate = this.findWinningLocation(game.getCurrentPlayer());
         if (coordinate != null) { // winning location found for computer
             return coordinate;
         }
 
         // find winning location for other player
-        coordinate = this.findWinningLocation(game.otherPlayer);
+        coordinate = this.findWinningLocation(game.getOtherPlayer());
         if (coordinate == null) { // no winning location found for other player
             coordinate = this.chooseRandomLocation();
 
@@ -214,61 +175,59 @@ public class GameMenuControl {
         return coordinate;
     }
 
+    
+    public void startNewGame(Game game) {
+        game.start();
+        this.clearTheBoard();
+    }
+  
+    
+    
+    public void clearTheBoard() {
+        Players[][] locations = this.game.getBoard().getBoardLocations();
+        
+        for (int i = 0; i < this.board.getBoardLocations().length; i++) {
+            Players[] rowlocations = locations[i];
+            for (int j = 0; j < rowlocations.length; j++) {
+                rowlocations[j] = null;
+            }
+        }
+    }
 
 
-    /* 
-     * Is the game tied?
-     */ 
     private boolean isTie() {
-        
         Players[][] locations = this.board.getBoardLocations();
-        
-        // for every row in the table
+
         for (int row = 0; row < locations.length; row++) {
-            
             Players[] rowLocations = locations[row];
-            
-            // for every column in the row
             for (int col = 0; col < rowLocations.length; col++) {
-                Players location = rowLocations[col]; // get contents of cell
-                if (locations[row][col] == null) { // location not taken yet?
+                Players location = rowLocations[col];
+                if (locations[row][col] == null) { // square not taken yet
                     return false;
                 }
             }
         }
 
-        return true; // all locations are taken
+        return true;
     }
 
-    /*
-     * Is the game won
-     */
+    
     private boolean isWinner() {
 
         Players[][] locations = this.board.getBoardLocations();
 
-        // for every row in the table
         for (int row = 0; row < locations.length; row++) {
-            
-            // get the list of locstaions (columns) in the row
             Players[] rowLocations = locations[row];
-            
-            // for every column in the row
             for (int col = 0; col < rowLocations.length; col++) {
-                
-                // three of the same players markers in a row?
-                if (threeInARow(row, col, locations)) { 
-                    return true; // three in a row found (a winner)
+                if (threeInARow(row, col, locations)) {
+                    return true;
                 }
             }
         }
 
-        return false; // no one is a winner yet
+        return false;
     }
 
-    /* 
-     * Are there three of the same markers in a row
-     */
     private boolean threeInARow(int row, int col, Players[][] boardLocations) {
         boolean winner = false;
 
@@ -303,9 +262,6 @@ public class GameMenuControl {
         return false;
     }
 
-    /* 
-     * Find a winning location
-     */
     private Point findWinningLocation(Players player) {
         Point coordinate = new Point();
         Players[][] locations = this.board.getBoardLocations();
@@ -385,9 +341,6 @@ public class GameMenuControl {
         return null; // not found
     }
 
-    /* 
-     * Choose a random location
-     */
     private Point chooseRandomLocation() {
         Point randomLocation;
 
@@ -419,18 +372,4 @@ public class GameMenuControl {
         }
     }
     
-      /* 
-     * Clear the board action
-     */
-    public void clearTheBoard() {
-        Players[][] locations = this.game.board.getBoardLocations();
-        
-        for (int i = 0; i < this.board.getBoardLocations().length; i++) {
-            Players[] rowlocations = locations[i];
-            for (int j = 0; j < rowlocations.length; j++) {
-                rowlocations[j] = null;
-            }
-        }
-    }
-        
 }

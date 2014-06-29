@@ -1,24 +1,26 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package battleship1;
-
-
 
 import java.util.Scanner;
 
 
 /**
  *
- * @author Jeremy and Melanie
+ * @author Jeremy & Melanie
  */
-
-
 public class Battleship {
-     
+
+    /**
+     * @param args the command line arguments
+     */
+          
     private static final Scanner inFile = new Scanner(System.in);
-    private static final HelpMenuView helpMenu = new HelpMenuView();
+    private static final battleship1.HelpMenuView helpMenu = new battleship1.HelpMenuView();
 
     private static final GamePreferencesMenuView GamePreferencesMenu = new GamePreferencesMenuView();
     
@@ -26,7 +28,8 @@ public class Battleship {
     private static String[] nameList;
     
     private final static String welcome = 
-              "\n\t***********************************************************************"
+            
+             "\n\t***********************************************************************"
             + "\n\t* Welcome to the game of Battleships!                                 *"                            
             + "\n\t* You will be playing against an opponent. The object of the game     *"
             + "\n\t* is to guess the locations of all the ships of your opponent.       *"
@@ -36,8 +39,7 @@ public class Battleship {
             + "\n\t***********************************************************************"
             + "\n";
 
-    
-    private Players[] players = new Players[10];
+    private Player[] players = new Player[10];
 
     public Battleship() {
         
@@ -47,7 +49,7 @@ public class Battleship {
         return Battleship.inFile;
     }
     
-    public static HelpMenuView getHelpMenu() {
+    public static battleship1.HelpMenuView getHelpMenu() {
         return Battleship.helpMenu;
     }
 
@@ -61,23 +63,23 @@ public class Battleship {
     }
 
     public static void setNameList(String[] nameList) {
-        Battleship.nameList = nameList;
+       Battleship.nameList = nameList;
     }
 
-    public Players[] getPlayers() {
+    public Player[] getPlayers() {
         return players;
     }
 
-    public void setPlayers(Players[] players) {
+    public void setPlayers(Player[] players) {
         this.players = players;
     }
 
         
     public static void main(String[] args) {
-        Battleship battleship = new Battleship();
-        battleship.display();
-        Battleship.nameList = battleship.getPlayerNames();
-        MainMenuView mainMenu = new MainMenuView();
+        Battleship battleship1 = new Battleship();
+        battleship1.display();
+        Battleship.nameList = battleship1.getPlayerNames();
+        battleship1.MainMenuView mainMenu = new battleship1.MainMenuView();
 
         mainMenu.executeCommands(null);
         Battleship.inFile.close();
@@ -94,7 +96,7 @@ public class Battleship {
         Scanner inFile = Battleship.getInputFile();
         
         System.out.println("\n\t---------------------------------------------------------------");
-        System.out.println("\t Enter a list of names of those who will be playing Battleship. ");
+        System.out.println("\t Please enter a list of names of those who will be playing Battleships. ");
         System.out.println("\t---------------------------------------------------------------");
         
         int playerIndex = 0;
@@ -122,9 +124,7 @@ public class Battleship {
         }
         
         String[] newNameList = new String[playerIndex];
-        for (int i = 0; i < playerIndex; i++) {
-            newNameList[i] = playerNames[i];          
-        }
+        System.arraycopy(playerNames, 0, newNameList, 0, playerIndex);
         
         sortList(newNameList);
         
@@ -153,3 +153,6 @@ public class Battleship {
     }
     
 }
+
+
+    

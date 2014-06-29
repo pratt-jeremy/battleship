@@ -1,23 +1,25 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package battleship1;
 
 import java.awt.Point;
 import java.util.Scanner;
 import java.util.regex.Pattern;
+import battleship1.BattleshipsError;
 
-    
 /**
  *
  * @author Jeremy and Melanie
  */
 public class GetLocationView {
-    private Game game;
+     private battleship1.Game game;
     
     public Object getLocation(Object object) {
-        this.game = (Game) object;
+        this.game = (battleship1.Game) object;
         Scanner inFile = Battleship.getInputFile(); // get input file 
 
         // prompt for the row and column numbers
@@ -69,7 +71,7 @@ public class GetLocationView {
             int row = Integer.parseInt(coordinates[0]);
             int column = Integer.parseInt(coordinates[1]);
             
-            Board board = game.getBoard();
+            battleship1.Board board = game.getBoard();
             if (row < 1   ||  row > board.getRowCount() ||
                 column < 1  ||  column > board.getColumnCount()) {
                 new BattleshipsError().displayError(
@@ -87,3 +89,4 @@ public class GetLocationView {
     }
 
 }
+

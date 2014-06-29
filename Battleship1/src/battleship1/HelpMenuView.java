@@ -1,16 +1,16 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package battleship1;
-
-
 
 /**
  *
- * @author Jeremy and Melanie
+ * @author Jeremey and Melanie
  */
-public class HelpMenuView extends Menu {
+public class HelpMenuView extends battleship1.Menu {
         
     public static final String BOARD = "BOARD";
     public static final String GAME = "GAME";
@@ -22,7 +22,7 @@ public class HelpMenuView extends Menu {
     private final static String[][] menuItems = {
         {"B", "The board"},
         {"C", "A computer player"}, 
-        {"G", "The Tic-Tac-Toe game"},
+        {"G", "The Battleships game"},
         {"L", "A location"},
         {"M", "A marker"},
         {"R", "A regular player"},        
@@ -36,7 +36,7 @@ public class HelpMenuView extends Menu {
     @Override
     public String executeCommands(Object object) {       
         
-        String gameStatus = Game.PLAYING;
+        String gameStatus = battleship1.Game.PLAYING;
         do {
             this.display();
             // get commaned entered
@@ -61,9 +61,9 @@ public class HelpMenuView extends Menu {
                     this.displayHelp(HelpMenuView.REAL_PLAYER);
                     break; 
                 case "Q": 
-                    return Game.QUIT;
+                    return battleship1.Game.QUIT;
             }
-        } while (!gameStatus.equals(Game.QUIT));  
+        } while (!gameStatus.equals(battleship1.Game.QUIT));  
         
          return gameStatus;
     }
@@ -73,7 +73,7 @@ public class HelpMenuView extends Menu {
         String helpText = null;
         switch (helpType) {
             case HelpMenuView.BOARD: helpText = 
-                "\tThe game board for Battleship. It consist of a grid of "
+                 "\tThe game board for Battleship. It consist of a grid of "
                 + "\n\tlocations. Players place there ships on the different locations "
                 + "\n\ton the board in an effort to conceal them from their opponent. The default board is "
                 + "\n\t10 rows by 10 columns.";
@@ -85,22 +85,23 @@ public class HelpMenuView extends Menu {
                 break; 
                 
             case HelpMenuView.REAL_PLAYER: helpText = 
-                "\tA real player manually takes their turn by placing their mark "
+                 "\tA real player manually takes their turn by placing their mark "
                 + "\n\tin an unused location on the board.";
                 break;
                 
             case HelpMenuView.COMPUTER_PLAYER: helpText = 
-                "\tA computer based player utomatically takes its turn "
+                "\tA computer based player automatically takes its turn "
                 + "\n\timmediatly after a real player in a single player game.";
                 break;
                 
             case HelpMenuView.LOCATION: helpText = 
-                "\tA location on the board where a player can place their marker or make a guess";
+                "\tA location on the board where a player can place their marker";
                 break;
                 
             case HelpMenuView.MARKER: helpText = 
                 "\tA symbol that \"marks\" the locations in the board that are occupied "
-                + "by a player. ";
+                + "by a player. "
+                + "\n\tThe default markers are \"X\" and \"O\".";
                 break;
         }   
         

@@ -1,88 +1,109 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package battleship1;
 
-import java.util.Scanner;
+package battleship1;
 
 /**
  *
- * @author Jeremy and Melanie
+ * @author jeremy and Melanie
  */
 public class EnterNamesView {
-    
-    private Game game;
+    public static final String REGULAR_PLAYER = "REGULAR";
+    public static final String COMPUTER_PLAYER = "COMPUTER"; 
 
-    public EnterNamesView(Game game) {
-        this.game = game;
+    private String name;
+    private String playerType;
+    private long wins = 0;
+    private long losses = 0;
+    private long ties = 0;
+    private String marker;
+    
+
+    public EnterNamesView() {
     }
 
+    public EnterNamesView(String playerType, String marker) {
+        this.playerType = playerType;
+        this.marker = marker;
+    }
+    
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPlayerType() {
+        return playerType;
+    }
+
+    public void setPlayerType(String playerType) {
+        this.playerType = playerType;
+    }
+
+    public long getWins() {
+        return wins;
+    }
+
+    public void setWins(long wins) {
+        this.wins = wins;
+    }
+
+    public long getLosses() {
+        return losses;
+    }
+
+    public void setLosses(long losses) {
+        this.losses = losses;
+    }
+
+    public String getMarker() {
+        return marker;
+    }
+
+    public void setMarker(String marker) {
+        this.marker = marker;
+    }
+
+    public long getTies() {
+        return ties;
+    }
+
+    public void setTies(long ties) {
+        this.ties = ties;
+    }
+
+
     
     
-   
-    public Object getNames(Object object) {
-        String playersName = null;
-
-        // if one player game
-        if (Game.ONE_PLAYER.equals(this.game.getGameType())) {
-            System.out.println("\n\tFirst player:");
-            playersName = (String) this.getName();
-
-            if (playersName ==  null) {
-                return Game.QUIT;
-            }
-            this.game.getPlayerA().setName(playersName);
-            this.game.getPlayerB().setName("Computer");
-        }
-        // else two player game
-        else { 
-            // get first players name
-            System.out.println("\n\tFirst player:");
-            playersName = (String) this.getName();
-            if (playersName ==  null) {
-                return Game.QUIT;
-            }
-            this.game.getPlayerA().setName(playersName); 
-
-            // get the second players name
-            System.out.println("\n\tSecond player:");
-            playersName = (String) this.getName();
-            if (playersName ==  null) {
-                return Game.QUIT;
-            }
-            this.game.getPlayerB().setName(playersName);
+    
+    private double getWinningPercentage() {
+        double totalScore = this.getWins() + this.getLosses() + this.getTies();
+        
+        if (totalScore ==  0) {
+            return 0;
         }
         
-        return Game.CONTINUE;
+        double winLossRatio = this.getWins() / totalScore;
+        return winLossRatio*100;
     }
- 
 
-    public Object getName() {
-        String strName = null;
-        Scanner inFile = Battleship.getInputFile();
-
+    public String getPlayerStastics() {
+        String playerStatistics = 
+                this.getName() + " has won "
+                + this.getWinningPercentage() + "% of the games."
+                + "\n\t" + this.getWins() + " wins, "
+                + this.getLosses() + " losses and "
+                + this.getTies() + " ties.";
         
-        boolean valid = false;
-        do {
-            System.out.println("\tPlease enter the name of the player.");
-            strName = inFile.nextLine();
-            strName = strName.trim().toUpperCase();
-            if (strName.length() < 1) {
-                new BattleshipsError().displayError("You must enter a name or enter a \"Q\" to quit. Try again.");
-                return null;
-            }
-            strName = strName.trim();
-            if (strName.equals("Q")) {
-                return null;
-            }
-            
-            valid = true;
-        } while (!valid);
-
-
-        return strName;
+        return playerStatistics;
     }
- 
+
     
 }
+

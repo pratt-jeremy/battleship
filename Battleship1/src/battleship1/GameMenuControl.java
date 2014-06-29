@@ -1,32 +1,32 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package battleship1;
 
+package battleship1;
 
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
-
+import battleship1.BattleshipsError;
 
 /**
  *
  * @author Jeremy and Melanie
  */
 public class GameMenuControl {
-    
-    private Game game;
-    private Board board;
+    private final battleship1.Game game;
+    private final battleship1.Board board;
 
 
-    public GameMenuControl(Game game) {
+    public GameMenuControl(battleship1.Game game) {
         this.game = game;
         this.board = game.getBoard(); 
     }
 
         
-    public Point playerTakesTurn(Players player, Point selectedLocation) {
+    public Point playerTakesTurn(battleship1.Player player, Point selectedLocation) {
         Point locationMarkerPlaced = null;
 
          if (player ==  null) {
@@ -34,16 +34,16 @@ public class GameMenuControl {
             return null;
         }
 
-        if (!player.getPlayerType().equals(Players.REGULAR_PLAYER) && 
-            !player.getPlayerType().equals(Players.COMPUTER_PLAYER)) {
+        if (!player.getPlayerType().equals(battleship1.Player.REGULAR_PLAYER) && 
+            !player.getPlayerType().equals(battleship1.Player.COMPUTER_PLAYER)) {
             new BattleshipsError().displayError("GameCommands - takeTurn: invalidPlayerTYpe");
             return null;
         }
 
-        if (this.game.getStatus().equals(Game.NEW_GAME)) {
-            this.game.setStatus(Game.PLAYING);
+        if (this.game.getStatus().equals(battleship1.Game.NEW_GAME)) {
+            this.game.setStatus(battleship1.Game.PLAYING);
         }        
-        else if (!this.game.getStatus().equals(Game.PLAYING )) {
+        else if (!this.game.getStatus().equals(battleship1.Game.PLAYING )) {
             new BattleshipsError().displayError("There is no active game. "
                     + "You must start a new game before you can take a turn");
         }
@@ -52,11 +52,11 @@ public class GameMenuControl {
         
         String playerType = player.getPlayerType();
 
-        if (playerType.equals(Players.REGULAR_PLAYER)) {
+        if (playerType.equals(battleship1.Player.REGULAR_PLAYER)) {
             this.regularTurn(player, selectedLocation);
             locationMarkerPlaced = selectedLocation;
         }
-        else if (playerType.equals(Players.COMPUTER_PLAYER)) {
+        else if (playerType.equals(battleship1.Player.COMPUTER_PLAYER)) {
             locationMarkerPlaced = this.coumputerTakesTurn(player);
         }
 
@@ -66,15 +66,15 @@ public class GameMenuControl {
     }
     
     public void takeTurn(Point selectedLocation) {
-        Players currentPlayer = this.game.getCurrentPlayer();
-        Players otherPlayer = this.game.getOtherPlayer();
+        battleship1.Player currentPlayer = this.game.getCurrentPlayer();
+        battleship1.Player otherPlayer = this.game.getOtherPlayer();
         
         String playerType = currentPlayer.getPlayerType(); 
 
-        if (this.game.getGameType().equals(Game.ONE_PLAYER)) {
-            if (currentPlayer.getPlayerType().equals(Players.REGULAR_PLAYER)) {
+        if (this.game.getGameType().equals(battleship1.Game.ONE_PLAYER)) {
+            if (currentPlayer.getPlayerType().equals(battleship1.Player.REGULAR_PLAYER)) {
                 this.playerTakesTurn(currentPlayer, selectedLocation);
-                if (this.game.getStatus().equals(Game.PLAYING)) { // game over ?
+                if (this.game.getStatus().equals(battleship1.Game.PLAYING)) { // game over ?
                     return;
                 }
                 
@@ -82,12 +82,12 @@ public class GameMenuControl {
                 String message = "The computer also took it's turn. "
                         + " it is your turn again " + currentPlayer.getName();
             }
-            if (currentPlayer.getPlayerType().equals(Players.COMPUTER_PLAYER)) {
+            if (currentPlayer.getPlayerType().equals(battleship1.Player.COMPUTER_PLAYER)) {
                 this.playerTakesTurn(currentPlayer, selectedLocation);
                 this.alternatePlayers();                
             } 
         } 
-        else if (this.game.getGameType().equals(Game.TWO_PLAYER)) {
+        else if (this.game.getGameType().equals(battleship1.Game.TWO_PLAYER)) {
             this.playerTakesTurn(currentPlayer, selectedLocation);
             this.alternatePlayers();
         }
@@ -107,28 +107,28 @@ public class GameMenuControl {
         }
     }
     
-    public boolean regularTurn(Players player, Point location){
+    public boolean regularTurn (battleship1.Player player, Point location){
         if (location == null) {
             new BattleshipsError().displayError("GameCommands - regularTurn: location is null");
             return false;
         }
         
         if (game.getStatus().equals(game.PLAYING) && 
-            game.getStatus().equals(Game.NEW_GAME)) {
+            game.getStatus().equals(battleship1.Game.NEW_GAME)) {
             new BattleshipsError().displayError("There is no active game. "
                     + "You must start a new game before you can take a turn");
             return false;
         }
 
-        game.setStatus(Game.PLAYING);
+        game.setStatus(battleship1.Game.PLAYING);
         this.markLocation(player, location);
         
         return true;
     }
     
-    public Point coumputerTakesTurn(Players player) {
+    public Point coumputerTakesTurn(battleship1.Player player) {
         // computer takes turn
-        game.setStatus(Game.PLAYING); 
+        game.setStatus(battleship1.Game.PLAYING); 
         Point location = this.getComputersSelection();
         this.markLocation(player, location);
         return location;
@@ -137,18 +137,23 @@ public class GameMenuControl {
 
     
     
-    private void markLocation(Players player, Point location) {
+    private void markLocation(battleship1.Player player, Point location) {
  
         this.game.getBoard().occupyLocation(player, location.x, location.y);
-        
+        if (this.isTie()) { // game tied already
+            this.game.recordTie();
+            this.game.setStatus(battleship1.Game.TIE);
+            return;
+        }
+
         boolean aWinner = this.isWinner();
         if (aWinner) { // game won already
             this.game.recordWinner();
-            this.game.setStatus(Game.WINNER);
+            this.game.setStatus(battleship1.Game.WINNER);
             return;
         }
         
-        this.game.setStatus(Game.PLAYING);
+        this.game.setStatus(battleship1.Game.PLAYING);
     }
     
     
@@ -176,7 +181,7 @@ public class GameMenuControl {
     }
 
     
-    public void startNewGame(Game game) {
+    public void startNewGame(battleship1.Game game) {
         game.start();
         this.clearTheBoard();
     }
@@ -184,10 +189,10 @@ public class GameMenuControl {
     
     
     public void clearTheBoard() {
-        Players[][] locations = this.game.getBoard().getBoardLocations();
+        battleship1.Player[][] locations = this.game.getBoard().getBoardLocations();
         
         for (int i = 0; i < this.board.getBoardLocations().length; i++) {
-            Players[] rowlocations = locations[i];
+            battleship1.Player[] rowlocations = locations[i];
             for (int j = 0; j < rowlocations.length; j++) {
                 rowlocations[j] = null;
             }
@@ -196,13 +201,13 @@ public class GameMenuControl {
 
 
     private boolean isTie() {
-        Players[][] locations = this.board.getBoardLocations();
+        battleship1.Player[][] locations = this.board.getBoardLocations();
 
-        for (int row = 0; row < locations.length; row++) {
-            Players[] rowLocations = locations[row];
+        for (Player[] rowLocations : locations) {
             for (int col = 0; col < rowLocations.length; col++) {
-                Players location = rowLocations[col];
-                if (locations[row][col] == null) { // square not taken yet
+                battleship1.Player location = rowLocations[col];
+                if (rowLocations[col] == null) {
+                    // square not taken yet
                     return false;
                 }
             }
@@ -214,10 +219,10 @@ public class GameMenuControl {
     
     private boolean isWinner() {
 
-        Players[][] locations = this.board.getBoardLocations();
+        battleship1.Player[][] locations = this.board.getBoardLocations();
 
         for (int row = 0; row < locations.length; row++) {
-            Players[] rowLocations = locations[row];
+            battleship1.Player[] rowLocations = locations[row];
             for (int col = 0; col < rowLocations.length; col++) {
                 if (threeInARow(row, col, locations)) {
                     return true;
@@ -228,7 +233,7 @@ public class GameMenuControl {
         return false;
     }
 
-    private boolean threeInARow(int row, int col, Players[][] boardLocations) {
+    private boolean threeInARow(int row, int col, battleship1.Player[][] boardLocations) {
         boolean winner = false;
 
         int columnLength = boardLocations[row].length;
@@ -262,13 +267,13 @@ public class GameMenuControl {
         return false;
     }
 
-    private Point findWinningLocation(Players player) {
+    private Point findWinningLocation(battleship1.Player player) {
         Point coordinate = new Point();
-        Players[][] locations = this.board.getBoardLocations();
+        battleship1.Player[][] locations = this.board.getBoardLocations();
         for (int row = 0; row < locations.length; row++) {
-            Players[] rowLocations = locations[row];
+            battleship1.Player[] rowLocations = locations[row];
             for (int col = 0; col < rowLocations.length; col++) {
-                Players location = rowLocations[col];
+                battleship1.Player location = rowLocations[col];
                 coordinate.setLocation(row, col);
 
                 if (rowLocations[col] != null) { // location is occupied
@@ -345,13 +350,13 @@ public class GameMenuControl {
         Point randomLocation;
 
         ArrayList<Point> listOfEmptyLocations = new ArrayList<>();
-        Players[][] locations = this.board.getBoardLocations();
+        battleship1.Player[][] locations = this.board.getBoardLocations();
 
         // create list of empty locations
         for (int row = 0; row < locations.length; row++) {
-            Players[] rowLocations = locations[row];
+            battleship1.Player[] rowLocations = locations[row];
             for (int col = 0; col < rowLocations.length; col++) {
-                Players location = rowLocations[col];
+                battleship1.Player location = rowLocations[col];
                 if (location == null) { // location not occupied?
                     listOfEmptyLocations.add(new Point(row, col));
                 }
@@ -373,3 +378,4 @@ public class GameMenuControl {
     }
     
 }
+

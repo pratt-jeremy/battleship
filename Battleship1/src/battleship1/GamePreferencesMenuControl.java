@@ -1,33 +1,35 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package battleship1;
 
 import java.awt.Dimension;
 
 /**
  *
- * @author Jeremy and Melanie
+ * @author Jermey and Melanie
  */
 public class GamePreferencesMenuControl {
-    
-    private Game game;
+       
+    private battleship1.Game game;
 
     public GamePreferencesMenuControl() {
     }
 
-    public Game getGame() {
+    public battleship1.Game getGame() {
         return game;
     }
 
-    public void setGame(Game game) {
+    public void setGame(battleship1.Game game) {
         this.game = game;
     }
     
     
     
-    public boolean saveMarker(Players player, String marker) { 
+    public boolean saveMarker(battleship1.Player player, String marker) { 
 
         if (player == null  ||  marker == null) {
             new BattleshipsError().displayError("saveMarker - player or marker is invalid");
@@ -35,7 +37,11 @@ public class GamePreferencesMenuControl {
         }
 
    
-           
+        if (game.getPlayerA().getMarker().equals(game.getPlayerB().getMarker())) {
+            new BattleshipsError().displayError("Both players can not use the same character for a marker.");
+            return false;
+        }
+        
         // update the players markers
         player.setMarker(marker);
         
@@ -45,7 +51,7 @@ public class GamePreferencesMenuControl {
     
     public boolean saveDimensions(Dimension dimension)  {
         // validate inputs
-        if (this.game.getStatus().equals(Game.PLAYING)) {
+        if (this.game.getStatus().equals(battleship1.Game.PLAYING)) {
             new BattleshipsError().displayError("You can not change the dimensions "
               + "of the board once the game has been started. "
               + "\nStart a new game and then change the dimensions "
@@ -85,7 +91,7 @@ public class GamePreferencesMenuControl {
         }
         
         // change the size board
-        Players[][] boardLocations = new Players[boardRowCount][boardColumnCount];
+        battleship1.Player[][] boardLocations = new battleship1.Player[boardRowCount][boardColumnCount];
         this.game.getBoard().getBoardDimensions().setLocation(boardRowCount, boardRowCount);
         this.game.getBoard().setBoardLocations(boardLocations);
         
@@ -97,3 +103,4 @@ public class GamePreferencesMenuControl {
     
     
 }
+

@@ -1,23 +1,25 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package battleship1;
 
 /**
  *
  * @author Jeremy and Melanie
  */
-public class BoardView  {
-    
-    Board board;
+public class BoardView {
+   
+    battleship1.Board board;
     
     public Object display(Object object) {
-        this.board = (Board) object;
+        this.board = (battleship1.Board) object;
         this.printHeadRow();
         this.printDividerRow();
         for (int i = 0; i < this.board.getRowCount(); i++) {
-            Players[] rowOfLocations = this.board.getBoardLocations()[i];
+            Player[] rowOfLocations = this.board.getBoardLocations()[i];
             this.printRow(i+1, rowOfLocations);
             this.printDividerRow();
         }
@@ -53,7 +55,7 @@ public class BoardView  {
         System.out.print("-----|");
     }
 
-    private void printRow(int rowNumber, Players[] rowLocations) {
+    private void printRow(int rowNumber, Player[] rowLocations) {
         
         // print first cell
         String letter = " ";
@@ -74,3 +76,5 @@ public class BoardView  {
     }
 
 }
+ 
+

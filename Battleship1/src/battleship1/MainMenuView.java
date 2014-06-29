@@ -1,37 +1,36 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package battleship1;
 
 import java.util.Scanner;
 
 /**
  *
- * @author Jeremy and Melanie
+ * @author mBradshaw
  */
-
-
-
-
-public class MainMenuView extends Menu {
+    public class MainMenuView extends Menu {
     
     private static final String[][] menuItems = {
         {"1", "One player game"},
         {"2", "Two player game"},
         {"H", "Help"},
-        {"X", "Exit Tic-Tac-Toe"}
+        {"X", "Exit Battleships"}
     }; 
   
-    MainMenuControl mainCommands = new MainMenuControl();
+    battleship1.MainMenuControl mainCommands = new battleship1.MainMenuControl();
     
     public MainMenuView() {
         super(MainMenuView.menuItems);
     }
     
+    @Override
     public String executeCommands(Object object) {       
         
-        String gameStatus = Game.PLAYING;
+        String gameStatus = battleship1.Game.PLAYING;
         do {
             this.display();
 
@@ -45,15 +44,15 @@ public class MainMenuView extends Menu {
                     this.startGame(2);
                     break;
                 case "H":
-                    HelpMenuView helpMenu = Battleship.getHelpMenu();
+                    battleship1.HelpMenuView helpMenu = Battleship.getHelpMenu();
                     helpMenu.executeCommands(null);
                     break;
                 case "X":
-                    return Game.EXIT;
+                    return battleship1.Game.EXIT;
             }
-        } while (!gameStatus.equals(Game.EXIT));
+        } while (!gameStatus.equals(battleship1.Game.EXIT));
 
-        return Game.EXIT;
+        return battleship1.Game.EXIT;
     }
 
     private void startGame(long noPlayers) {
@@ -63,21 +62,21 @@ public class MainMenuView extends Menu {
             return;
         }
         
-        Game game;
+        battleship1.Game game;
         if (noPlayers == 1) {
-            game = this.mainCommands.create(Game.ONE_PLAYER);
+            game = this.mainCommands.create(battleship1.Game.ONE_PLAYER);
         }
         else {
-            game = this.mainCommands.create(Game.TWO_PLAYER);
+            game = this.mainCommands.create(battleship1.Game.TWO_PLAYER);
         }
         
-        SelectPlayersView sekectPlayersView = new SelectPlayersView(game);
-        String status = (String) sekectPlayersView.selectPlayers(Battleship.getNameList());
-        if (status.equals(Game.QUIT)) {
+        battleship1.SelectPlayersView selectPlayersView = new battleship1.SelectPlayersView(game);
+        String status = (String) selectPlayersView.selectPlayers(Battleship.getNameList());
+        if (status.equals(battleship1.Game.QUIT)) {
             return;
         }
 
-        GameMenuView gameMenu = new GameMenuView(game);
+        battleship1.GameMenuView gameMenu = new battleship1.GameMenuView(game);
         gameMenu.executeCommands(game);
     }
 
@@ -86,10 +85,12 @@ public class MainMenuView extends Menu {
         Scanner inFile = new Scanner(System.in);
         String answer = inFile.next().trim().toUpperCase();
         if (answer.equals("Y")) {
-            return Game.EXIT;
+            return battleship1.Game.EXIT;
         }
 
-        return Game.PLAYING;
+        return battleship1.Game.PLAYING;
     }
-    
-}
+
+    }
+
+

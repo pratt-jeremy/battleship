@@ -1,7 +1,9 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package battleship1;
 
 import java.util.Scanner;
@@ -11,9 +13,8 @@ import java.util.Scanner;
  * @author Jeremy and Melanie
  */
 public class SelectPlayersView {
-    
-    private Game game;
-    private String[] playerNames;
+    private final Game game;
+    private final String[] playerNames;
 
     public SelectPlayersView(Game game) {
         this.game = game;
@@ -93,7 +94,10 @@ public class SelectPlayersView {
             int numberSelected = Integer.parseInt(strNumber); // convert string to integer
             
             // is the number outside the range of the list of names
-
+            if (numberSelected < 1  ||  numberSelected > nameList.length) {
+                new BattleshipsError().displayError("You must enter a number from the list. Try again.");
+                continue;
+            }
             
             name = nameList[numberSelected-1]; // get the name from the list
             valid = true;
@@ -117,3 +121,4 @@ public class SelectPlayersView {
     }
     
 }
+

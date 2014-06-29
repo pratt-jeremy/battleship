@@ -1,7 +1,9 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package battleship1;
 
 import java.util.Scanner;
@@ -39,8 +41,8 @@ public abstract class Menu {
         System.out.println("\n\t===============================================================");
         System.out.println("\tEnter the letter associated with one of the following commands:");
 
-        for (int i = 0; i < this.menuItems.length; i++) {
-            System.out.println("\t   " + menuItems[i][0] + "\t" + menuItems[i][1]);
+        for (String[] menuItem : this.menuItems) {
+            System.out.println("\t   " + menuItem[0] + "\t" + menuItem[1]);
         }
         System.out.println("\t===============================================================\n");
     }
@@ -67,7 +69,6 @@ public abstract class Menu {
             valid = validCommand(command);
             if (!validCommand(command)) {
                 new BattleshipsError().displayError("Invalid command. Please enter a valid command.");
-                continue;
             }
                 
         } while (!valid);

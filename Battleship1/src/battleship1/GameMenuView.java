@@ -1,21 +1,23 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package battleship1;
 
 import java.awt.Point;
 
 /**
  *
- * @author Jeremy and Melanie
+ * @author Jeremy & Melanie
  */
 public class GameMenuView extends Menu {
     
-    private Game game;
-    private GameMenuControl gameCommands; 
-    private GetLocationView getLocation = new GetLocationView();
-    private BoardView displayBoard = new BoardView();
+    private battleship1.Game game;
+    private final battleship1.GameMenuControl gameCommands; 
+    private final GetLocationView getLocation = new GetLocationView();
+    private battleship1.BoardView displayBoard = new battleship1.BoardView();
 
     private final static String[][] menuItems = {
         {"T", "Take your turn"},
@@ -27,16 +29,16 @@ public class GameMenuView extends Menu {
         {"Q", "Quit"}
     };
 
-    public GameMenuView(Game game) {
+    public GameMenuView(battleship1.Game game) {
         super(GameMenuView.menuItems);
-        this.gameCommands = new GameMenuControl(game);
+        this.gameCommands = new battleship1.GameMenuControl(game);
     }
 
-    public BoardView getDisplayBoard() {
+    public battleship1.BoardView getDisplayBoard() {
         return displayBoard;
     }
 
-    public void setDisplayBoard(BoardView displayBoard) {
+    public void setDisplayBoard(battleship1.BoardView displayBoard) {
         this.displayBoard = displayBoard;
     }
 
@@ -44,9 +46,9 @@ public class GameMenuView extends Menu {
 
     @Override
     public String executeCommands(Object object) {
-        this.game = (Game) object;
+        this.game = (battleship1.Game) object;
 
-        String gameStatus = Game.CONTINUE;
+        String gameStatus = battleship1.Game.CONTINUE;
         do {
      
             this.display();
@@ -73,16 +75,16 @@ public class GameMenuView extends Menu {
                     gamePreferencesMenu.executeCommands(this.game);
                     break;
                 case "H":
-                    HelpMenuView helpMenu = Battleship.getHelpMenu();
+                    battleship1.HelpMenuView helpMenu = Battleship.getHelpMenu();
                     helpMenu.executeCommands(null);
                     break;
                 case "Q":
-                    gameStatus = Game.QUIT;
+                    gameStatus = battleship1.Game.QUIT;
                     break;
             }
-        } while (!gameStatus.equals(Game.QUIT));
+        } while (!gameStatus.equals(battleship1.Game.QUIT));
 
-        return Game.PLAYING;
+        return battleship1.Game.PLAYING;
     }
     
     
@@ -90,15 +92,15 @@ public class GameMenuView extends Menu {
         String playersMarker;
         Point selectedLocation;
 
-        if (!this.game.getStatus().equals(Game.NEW_GAME) && 
-            !this.game.getStatus().equals(Game.PLAYING)) {
+        if (!this.game.getStatus().equals(battleship1.Game.NEW_GAME) && 
+            !this.game.getStatus().equals(battleship1.Game.PLAYING)) {
             new BattleshipsError().displayError(
                     "There is no active game. You must start a new game before "
                     + "you can take a turn");
             return;
         }
-        Players currentPlayer = this.game.getCurrentPlayer();
-        Players otherPlayer = this.game.getOtherPlayer();
+        battleship1.Player currentPlayer = this.game.getCurrentPlayer();
+        battleship1.Player otherPlayer = this.game.getOtherPlayer();
 
         // get location for first player
         selectedLocation = (Point) getLocation.getLocation(this.game);
@@ -114,7 +116,7 @@ public class GameMenuView extends Menu {
             return;
         }
 
-        if (this.game.getGameType() == Game.ONE_PLAYER) {
+        if (this.game.getGameType() == null ? battleship1.Game.ONE_PLAYER == null : this.game.getGameType().equals(battleship1.Game.ONE_PLAYER)) {
             // computers turn
             locationMarkerPlaced = this.gameCommands.playerTakesTurn(otherPlayer, null);
 
@@ -134,7 +136,18 @@ public class GameMenuView extends Menu {
 
     private boolean gameOver() {
         boolean done = false;
-        
+        switch (this.game.getStatus()) {
+            case battleship1.Game.TIE:
+                // a tie?
+                System.out.println("\n\n\t" + this.game.getTiedMessage());
+                done = true;
+                break;
+            case battleship1.Game.WINNER:
+                // a win?
+                System.out.println("\n\n\t" + this.game.getWinningMessage());
+                done = true;
+                break;
+        }
         
         if (done) {
             this.displayBoard.display(this.game.getBoard());
@@ -145,8 +158,8 @@ public class GameMenuView extends Menu {
     }
     
         
-    private String getNextPlayerMessage(Players player) {
-        if (this.game.getGameType().equals(Game.ONE_PLAYER)) {
+    private String getNextPlayerMessage(battleship1.Player player) {
+        if (this.game.getGameType().equals(battleship1.Game.ONE_PLAYER)) {
             return "The computer took it's turn. It is now your turn. "
                     + player.getName();
         } else {
@@ -168,3 +181,4 @@ public class GameMenuView extends Menu {
 
    
 }
+

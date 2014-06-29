@@ -1,31 +1,31 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package battleship1;
 
+package battleship1;
 
 /**
  *
  * @author Jeremy and Melanie
  */
-public class Players {
-    
+public class Player {
     public static final String REGULAR_PLAYER = "REGULAR";
     public static final String COMPUTER_PLAYER = "COMPUTER"; 
 
-    public String name;
-    public String playerType;
-    public long wins = 0;
-    public long losses = 0;
-    public String marker;
-   
+    private String name;
+    private String playerType;
+    private long wins = 0;
+    private long losses = 0;
+    private long ties = 0;
+    private String marker;
     
 
-    public Players() {
+    public Player() {
     }
 
-    public Players(String playerType, String marker) {
+    public Player(String playerType, String marker) {
         this.playerType = playerType;
         this.marker = marker;
     }
@@ -70,14 +70,20 @@ public class Players {
         this.marker = marker;
     }
 
+    public long getTies() {
+        return ties;
+    }
 
+    public void setTies(long ties) {
+        this.ties = ties;
+    }
 
 
     
     
     
     private double getWinningPercentage() {
-        double totalScore = this.getWins() + this.getLosses();
+        double totalScore = this.getWins() + this.getLosses() + this.getTies();
         
         if (totalScore ==  0) {
             return 0;
@@ -92,10 +98,13 @@ public class Players {
                 this.getName() + " has won "
                 + this.getWinningPercentage() + "% of the games."
                 + "\n\t" + this.getWins() + " wins, "
-                + this.getLosses() + " losses";
+                + this.getLosses() + " losses and "
+                + this.getTies() + " ties.";
         
         return playerStatistics;
     }
 
     
 }
+
+

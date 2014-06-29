@@ -1,9 +1,10 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package battleship1;
 
+package battleship1;
 
 import java.awt.Dimension;
 import java.util.Scanner;
@@ -13,14 +14,11 @@ import java.util.regex.Pattern;
  *
  * @author Jeremy and Melanie
  */
-
-
-
-
-public class GamePreferencesMenuView extends Menu {
+ 
+    public class GamePreferencesMenuView extends Menu {
     
-    private Game game;
-    private GamePreferencesMenuControl gamePreferenceCommands;
+    private battleship1.Game game;
+    private final battleship1.GamePreferencesMenuControl gamePreferenceCommands;
 
     private final static String[][] menuItems = {
         {"1", "Change Marker of the first Player"},
@@ -31,14 +29,15 @@ public class GamePreferencesMenuView extends Menu {
 
     public GamePreferencesMenuView() {
         super(GamePreferencesMenuView.menuItems);
-        gamePreferenceCommands = new GamePreferencesMenuControl();
+        gamePreferenceCommands = new battleship1.GamePreferencesMenuControl();
     }
     
+    @Override
     public String executeCommands(Object object) {       
-        this.game = (Game) object;
+        this.game = (battleship1.Game) object;
         this.gamePreferenceCommands.setGame(game);
         
-        String gameStatus = Game.PLAYING;
+        String gameStatus = battleship1.Game.PLAYING;
         do {
             this.display();
 
@@ -56,15 +55,15 @@ public class GamePreferencesMenuView extends Menu {
                     this.getDimensions();
                     break;
                 case "Q":
-                    return Game.QUIT;
+                    return battleship1.Game.QUIT;
             }
-        } while (!gameStatus.equals(Game.QUIT));
+        } while (!gameStatus.equals(battleship1.Game.QUIT));
 
         return gameStatus;
     }
     
     
-    public void getMarker(Players player) {
+    public void getMarker(battleship1.Player player) {
         String marker = null;
                 
         boolean valid = false;
@@ -88,7 +87,7 @@ public class GamePreferencesMenuView extends Menu {
     
      public boolean getDimensions() {
 
-        if (game.getStatus().equals(Game.PLAYING)) {
+        if (game.getStatus().equals(battleship1.Game.PLAYING)) {
             new BattleshipsError().displayError("You can not change the dimensions "
               + "of the board once the game has been started. "
               + "\n\tStart a new game and then change the dimensions "
@@ -150,3 +149,4 @@ public class GamePreferencesMenuView extends Menu {
     }
    
 }
+

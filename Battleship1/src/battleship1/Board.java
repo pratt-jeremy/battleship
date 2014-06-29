@@ -1,12 +1,13 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package battleship1;
 
 import java.awt.Point;
 import javax.swing.table.AbstractTableModel;
-
 
 /**
  *
@@ -17,14 +18,14 @@ public class Board extends AbstractTableModel {
     int columnCount = 10;
     private String name;
     private Point boardDimensions = new Point();
-    private Players[][] boardLocations;
+    private Player[][] boardLocations;
 
     public Board() {
     }
 
     public Board(int noRows, int noColumns) {
         this.boardDimensions.setLocation(noRows, noRows);
-        this.boardLocations = new Players[noRows][noColumns];
+        this.boardLocations = new Player[noRows][noColumns];
     }
 
     public String getName() {
@@ -43,11 +44,11 @@ public class Board extends AbstractTableModel {
         this.boardDimensions = boardDimensions;
     }
 
-    public Players[][] getBoardLocations() {
+    public Player[][] getBoardLocations() {
         return boardLocations;
     }
 
-    public void setBoardLocations(Players[][] boardLocations) {
+    public void setBoardLocations(Player[][] boardLocations) {
         this.boardLocations = boardLocations;
     }
 
@@ -67,26 +68,24 @@ public class Board extends AbstractTableModel {
     } 
    
 
-    public Players getPlayerAt(int row, int column) {
+    public Player getPlayerAt(int row, int column) {
         return this.boardLocations[row][column];
     }
 
 
     public void clearTheBoard() {
-        for (int i = 0; i < this.boardLocations.length; i++) {
-            Players[] rowlocations = this.boardLocations[i];
-            for (int j = 0; j < rowlocations.length; j++) {
-                Players location = rowlocations[j];
+        for (Player[] rowlocations : this.boardLocations) {
+            for (Player location : rowlocations) {
                 location = null;
             }
         }
     }
     
 
-    public void occupyLocation(Players player, int row, int column)  {
+    public void occupyLocation(Player player, int row, int column)  {
         // subtract 1 from row and column number because the array starts a position 0
 
-         Players playerAtLocation = this.boardLocations[row][column];
+         Player playerAtLocation = this.boardLocations[row][column];
 
         if (playerAtLocation != null) { // location already occupied
             new BattleshipsError().displayError("This location is already occupied. "
@@ -100,7 +99,7 @@ public class Board extends AbstractTableModel {
         private int row;
         private int column;
         private String value;
-        private Players player;
+        private Player player;
 
         Location() {
         }
@@ -129,11 +128,11 @@ public class Board extends AbstractTableModel {
             this.value = value;
         }
 
-        Players getPlayer() {
+        Player getPlayer() {
             return player;
         }
 
-        public void setPlayer(Players player) {
+        public void setPlayer(Player player) {
             this.player = player;
         }
 

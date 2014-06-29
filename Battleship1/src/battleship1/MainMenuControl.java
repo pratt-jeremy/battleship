@@ -1,7 +1,9 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package battleship1;
 
 /**
@@ -13,33 +15,35 @@ public class MainMenuControl {
     private static final String PLAYER_A_DEFAULT_MARKER = "X";
     private static final String PLAYER_B_DEFAULT_MARKER = "O";
     
-    public Game create(String gameType) {
-        Game game = null;
-        Players playerA = null;
-        Players playerB = null;
+    public battleship1.Game create(String gameType) {
+        battleship1.Game game = null;
+        battleship1.Player playerA = null;
+        battleship1.Player playerB = null;
         
         if (gameType == null) {
             throw new IllegalArgumentException ("MainCommands - create: gameType is null");
         }
         
-        if (gameType.equals(Game.ONE_PLAYER)) {
-            game = new Game(Game.ONE_PLAYER);
-            playerA = new Players(Players.REGULAR_PLAYER, PLAYER_A_DEFAULT_MARKER);
-            playerB = new Players(Players.COMPUTER_PLAYER, PLAYER_B_DEFAULT_MARKER);
+        if (gameType.equals(battleship1.Game.ONE_PLAYER)) {
+            game = new battleship1.Game(battleship1.Game.ONE_PLAYER);
+            playerA = new battleship1.Player(battleship1.Player.REGULAR_PLAYER, PLAYER_A_DEFAULT_MARKER);
+            playerB = new battleship1.Player(battleship1.Player.COMPUTER_PLAYER, PLAYER_B_DEFAULT_MARKER);
         }
-        else if (gameType.equals(Game.TWO_PLAYER)) {
-            game = new Game(Game.TWO_PLAYER);
-            playerA = new Players(Players.REGULAR_PLAYER, PLAYER_A_DEFAULT_MARKER);
-            playerB = new Players(Players.REGULAR_PLAYER, PLAYER_B_DEFAULT_MARKER);
+        else if (gameType.equals(battleship1.Game.TWO_PLAYER)) {
+            game = new battleship1.Game(battleship1.Game.TWO_PLAYER);
+            playerA = new battleship1.Player(battleship1.Player.REGULAR_PLAYER, PLAYER_A_DEFAULT_MARKER);
+            playerB = new battleship1.Player(battleship1.Player.REGULAR_PLAYER, PLAYER_B_DEFAULT_MARKER);
 
         }
          
         game.setPlayerA(playerA);
         game.setPlayerB(playerB);
         
-        game.setStatus(Game.CONTINUE);
+        game.setStatus(battleship1.Game.CONTINUE);
         
         return game;
     } 
     
 }
+
+

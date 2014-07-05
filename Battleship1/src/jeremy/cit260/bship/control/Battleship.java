@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 
-package battleship1;
+package jeremy.cit260.bship.control;
 
+import jeremy.cit260.bship.models.Player;
+import group.cit260.bship.menuview.GamePreferencesMenuView;
 import java.util.Scanner;
 
 
@@ -20,7 +22,7 @@ public class Battleship {
      */
           
     private static final Scanner inFile = new Scanner(System.in);
-    private static final battleship1.HelpMenuView helpMenu = new battleship1.HelpMenuView();
+    private static final group.cit260.bship.menuview.HelpMenuView helpMenu = new group.cit260.bship.menuview.HelpMenuView();
 
     private static final GamePreferencesMenuView GamePreferencesMenu = new GamePreferencesMenuView();
     
@@ -49,7 +51,7 @@ public class Battleship {
         return Battleship.inFile;
     }
     
-    public static battleship1.HelpMenuView getHelpMenu() {
+    public static group.cit260.bship.menuview.HelpMenuView getHelpMenu() {
         return Battleship.helpMenu;
     }
 
@@ -79,7 +81,7 @@ public class Battleship {
         Battleship battleship1 = new Battleship();
         battleship1.display();
         Battleship.nameList = battleship1.getPlayerNames();
-        battleship1.MainMenuView mainMenu = new battleship1.MainMenuView();
+        group.cit260.bship.menuview.MainMenuView mainMenu = new group.cit260.bship.menuview.MainMenuView();
 
         mainMenu.executeCommands(null);
         Battleship.inFile.close();

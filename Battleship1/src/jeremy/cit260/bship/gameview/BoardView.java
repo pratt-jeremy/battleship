@@ -4,7 +4,10 @@
  * and open the template in the editor.
  */
 
-package battleship1;
+package jeremy.cit260.bship.gameview;
+
+import jeremy.cit260.bship.models.Player;
+import jeremy.cit260.bship.models.Player;
 
 /**
  *
@@ -12,10 +15,10 @@ package battleship1;
  */
 public class BoardView {
    
-    battleship1.Board board;
+    jeremy.cit260.bship.models.Board board;
     
     public Object display(Object object) {
-        this.board = (battleship1.Board) object;
+        this.board = (jeremy.cit260.bship.models.Board) object;
         this.printHeadRow();
         this.printDividerRow();
         for (int i = 0; i < this.board.getRowCount(); i++) {

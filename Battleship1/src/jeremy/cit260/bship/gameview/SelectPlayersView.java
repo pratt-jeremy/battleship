@@ -4,8 +4,14 @@
  * and open the template in the editor.
  */
 
-package battleship1;
+package jeremy.cit260.bship.gameview;
 
+import jeremy.cit260.bship.control.Battleship;
+import jeremy.cit260.bship.control.Battleship;
+import jeremy.cit260.bship.control.BattleshipsError;
+import jeremy.cit260.bship.control.BattleshipsError;
+import jeremy.cit260.bship.models.Game;
+import jeremy.cit260.bship.models.Game;
 import java.util.Scanner;
 
 /**

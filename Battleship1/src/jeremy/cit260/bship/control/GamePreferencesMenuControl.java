@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package battleship1;
+package jeremy.cit260.bship.control;
 
 import java.awt.Dimension;
 
@@ -14,22 +14,22 @@ import java.awt.Dimension;
  */
 public class GamePreferencesMenuControl {
        
-    private battleship1.Game game;
+    private jeremy.cit260.bship.models.Game game;
 
     public GamePreferencesMenuControl() {
     }
 
-    public battleship1.Game getGame() {
+    public jeremy.cit260.bship.models.Game getGame() {
         return game;
     }
 
-    public void setGame(battleship1.Game game) {
+    public void setGame(jeremy.cit260.bship.models.Game game) {
         this.game = game;
     }
     
     
     
-    public boolean saveMarker(battleship1.Player player, String marker) { 
+    public boolean saveMarker(jeremy.cit260.bship.models.Player player, String marker) { 
 
         if (player == null  ||  marker == null) {
             new BattleshipsError().displayError("saveMarker - player or marker is invalid");
@@ -51,7 +51,7 @@ public class GamePreferencesMenuControl {
     
     public boolean saveDimensions(Dimension dimension)  {
         // validate inputs
-        if (this.game.getStatus().equals(battleship1.Game.PLAYING)) {
+        if (this.game.getStatus().equals(jeremy.cit260.bship.models.Game.PLAYING)) {
             new BattleshipsError().displayError("You can not change the dimensions "
               + "of the board once the game has been started. "
               + "\nStart a new game and then change the dimensions "
@@ -91,7 +91,7 @@ public class GamePreferencesMenuControl {
         }
         
         // change the size board
-        battleship1.Player[][] boardLocations = new battleship1.Player[boardRowCount][boardColumnCount];
+        jeremy.cit260.bship.models.Player[][] boardLocations = new jeremy.cit260.bship.models.Player[boardRowCount][boardColumnCount];
         this.game.getBoard().getBoardDimensions().setLocation(boardRowCount, boardRowCount);
         this.game.getBoard().setBoardLocations(boardLocations);
         

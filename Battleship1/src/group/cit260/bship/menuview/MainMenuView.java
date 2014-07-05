@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 
-package battleship1;
+package group.cit260.bship.menuview;
 
+import jeremy.cit260.bship.control.Battleship;
+import jeremy.cit260.bship.control.BattleshipsError;
 import java.util.Scanner;
 
 /**
@@ -21,7 +23,7 @@ import java.util.Scanner;
         {"X", "Exit Battleships"}
     }; 
   
-    battleship1.MainMenuControl mainCommands = new battleship1.MainMenuControl();
+    jeremy.cit260.bship.control.MainMenuControl mainCommands = new jeremy.cit260.bship.control.MainMenuControl();
     
     public MainMenuView() {
         super(MainMenuView.menuItems);
@@ -30,7 +32,7 @@ import java.util.Scanner;
     @Override
     public String executeCommands(Object object) {       
         
-        String gameStatus = battleship1.Game.PLAYING;
+        String gameStatus = jeremy.cit260.bship.models.Game.PLAYING;
         do {
             this.display();
 
@@ -44,15 +46,15 @@ import java.util.Scanner;
                     this.startGame(2);
                     break;
                 case "H":
-                    battleship1.HelpMenuView helpMenu = Battleship.getHelpMenu();
+                    group.cit260.bship.menuview.HelpMenuView helpMenu = Battleship.getHelpMenu();
                     helpMenu.executeCommands(null);
                     break;
                 case "X":
-                    return battleship1.Game.EXIT;
+                    return jeremy.cit260.bship.models.Game.EXIT;
             }
-        } while (!gameStatus.equals(battleship1.Game.EXIT));
+        } while (!gameStatus.equals(jeremy.cit260.bship.models.Game.EXIT));
 
-        return battleship1.Game.EXIT;
+        return jeremy.cit260.bship.models.Game.EXIT;
     }
 
     private void startGame(long noPlayers) {
@@ -62,21 +64,21 @@ import java.util.Scanner;
             return;
         }
         
-        battleship1.Game game;
+        jeremy.cit260.bship.models.Game game;
         if (noPlayers == 1) {
-            game = this.mainCommands.create(battleship1.Game.ONE_PLAYER);
+            game = this.mainCommands.create(jeremy.cit260.bship.models.Game.ONE_PLAYER);
         }
         else {
-            game = this.mainCommands.create(battleship1.Game.TWO_PLAYER);
+            game = this.mainCommands.create(jeremy.cit260.bship.models.Game.TWO_PLAYER);
         }
         
-        battleship1.SelectPlayersView selectPlayersView = new battleship1.SelectPlayersView(game);
+        jeremy.cit260.bship.gameview.SelectPlayersView selectPlayersView = new jeremy.cit260.bship.gameview.SelectPlayersView(game);
         String status = (String) selectPlayersView.selectPlayers(Battleship.getNameList());
-        if (status.equals(battleship1.Game.QUIT)) {
+        if (status.equals(jeremy.cit260.bship.models.Game.QUIT)) {
             return;
         }
 
-        battleship1.GameMenuView gameMenu = new battleship1.GameMenuView(game);
+        group.cit260.bship.menuview.GameMenuView gameMenu = new group.cit260.bship.menuview.GameMenuView(game);
         gameMenu.executeCommands(game);
     }
 
@@ -85,10 +87,10 @@ import java.util.Scanner;
         Scanner inFile = new Scanner(System.in);
         String answer = inFile.next().trim().toUpperCase();
         if (answer.equals("Y")) {
-            return battleship1.Game.EXIT;
+            return jeremy.cit260.bship.models.Game.EXIT;
         }
 
-        return battleship1.Game.PLAYING;
+        return jeremy.cit260.bship.models.Game.PLAYING;
     }
 
     }

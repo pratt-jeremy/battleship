@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 
-package battleship1;
+package group.cit260.bship.menuview;
 
+import jeremy.cit260.bship.control.Battleship;
+import jeremy.cit260.bship.control.BattleshipsError;
 import java.awt.Dimension;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -17,8 +19,8 @@ import java.util.regex.Pattern;
  
     public class GamePreferencesMenuView extends Menu {
     
-    private battleship1.Game game;
-    private final battleship1.GamePreferencesMenuControl gamePreferenceCommands;
+    private jeremy.cit260.bship.models.Game game;
+    private final jeremy.cit260.bship.control.GamePreferencesMenuControl gamePreferenceCommands;
 
     private final static String[][] menuItems = {
         {"1", "Change Marker of the first Player"},
@@ -29,15 +31,15 @@ import java.util.regex.Pattern;
 
     public GamePreferencesMenuView() {
         super(GamePreferencesMenuView.menuItems);
-        gamePreferenceCommands = new battleship1.GamePreferencesMenuControl();
+        gamePreferenceCommands = new jeremy.cit260.bship.control.GamePreferencesMenuControl();
     }
     
     @Override
     public String executeCommands(Object object) {       
-        this.game = (battleship1.Game) object;
+        this.game = (jeremy.cit260.bship.models.Game) object;
         this.gamePreferenceCommands.setGame(game);
         
-        String gameStatus = battleship1.Game.PLAYING;
+        String gameStatus = jeremy.cit260.bship.models.Game.PLAYING;
         do {
             this.display();
 
@@ -55,15 +57,15 @@ import java.util.regex.Pattern;
                     this.getDimensions();
                     break;
                 case "Q":
-                    return battleship1.Game.QUIT;
+                    return jeremy.cit260.bship.models.Game.QUIT;
             }
-        } while (!gameStatus.equals(battleship1.Game.QUIT));
+        } while (!gameStatus.equals(jeremy.cit260.bship.models.Game.QUIT));
 
         return gameStatus;
     }
     
     
-    public void getMarker(battleship1.Player player) {
+    public void getMarker(jeremy.cit260.bship.models.Player player) {
         String marker = null;
                 
         boolean valid = false;
@@ -87,7 +89,7 @@ import java.util.regex.Pattern;
     
      public boolean getDimensions() {
 
-        if (game.getStatus().equals(battleship1.Game.PLAYING)) {
+        if (game.getStatus().equals(jeremy.cit260.bship.models.Game.PLAYING)) {
             new BattleshipsError().displayError("You can not change the dimensions "
               + "of the board once the game has been started. "
               + "\n\tStart a new game and then change the dimensions "

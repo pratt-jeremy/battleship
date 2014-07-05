@@ -4,13 +4,13 @@
  * and open the template in the editor.
  */
 
-package battleship1;
+package group.cit260.bship.menuview;
 
 /**
  *
  * @author Jeremey and Melanie
  */
-public class HelpMenuView extends battleship1.Menu {
+public class HelpMenuView extends group.cit260.bship.menuview.Menu {
         
     public static final String BOARD = "BOARD";
     public static final String GAME = "GAME";
@@ -36,7 +36,7 @@ public class HelpMenuView extends battleship1.Menu {
     @Override
     public String executeCommands(Object object) {       
         
-        String gameStatus = battleship1.Game.PLAYING;
+        String gameStatus = jeremy.cit260.bship.models.Game.PLAYING;
         do {
             this.display();
             // get commaned entered
@@ -61,9 +61,9 @@ public class HelpMenuView extends battleship1.Menu {
                     this.displayHelp(HelpMenuView.REAL_PLAYER);
                     break; 
                 case "Q": 
-                    return battleship1.Game.QUIT;
+                    return jeremy.cit260.bship.models.Game.QUIT;
             }
-        } while (!gameStatus.equals(battleship1.Game.QUIT));  
+        } while (!gameStatus.equals(jeremy.cit260.bship.models.Game.QUIT));  
         
          return gameStatus;
     }

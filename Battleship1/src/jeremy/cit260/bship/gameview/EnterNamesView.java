@@ -4,13 +4,13 @@
  * and open the template in the editor.
  */
 
-package battleship1;
+package jeremy.cit260.bship.gameview;
 
 /**
  *
- * @author Jeremy and Melanie
+ * @author jeremy and Melanie
  */
-public class Player {
+public class EnterNamesView {
     public static final String REGULAR_PLAYER = "REGULAR";
     public static final String COMPUTER_PLAYER = "COMPUTER"; 
 
@@ -22,10 +22,10 @@ public class Player {
     private String marker;
     
 
-    public Player() {
+    public EnterNamesView() {
     }
 
-    public Player(String playerType, String marker) {
+    public EnterNamesView(String playerType, String marker) {
         this.playerType = playerType;
         this.marker = marker;
     }
@@ -106,5 +106,4 @@ public class Player {
 
     
 }
-
 

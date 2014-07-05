@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package battleship1;
+package jeremy.cit260.bship.models;
 
 /**
  *
@@ -27,14 +27,14 @@ public class Game {
     public static final String EXIT = "EXIT";
 
     private String gameType;
-    private battleship1.Player playerA;
-    private battleship1.Player playerB;
-    private battleship1.Player currentPlayer;
-    private battleship1.Player otherPlayer;
-    private battleship1.Player winner;
-    private battleship1.Player loser;
+    private jeremy.cit260.bship.models.Player playerA;
+    private jeremy.cit260.bship.models.Player playerB;
+    private jeremy.cit260.bship.models.Player currentPlayer;
+    private jeremy.cit260.bship.models.Player otherPlayer;
+    private jeremy.cit260.bship.models.Player winner;
+    private jeremy.cit260.bship.models.Player loser;
     private String status;
-    private battleship1.Board board;
+    private jeremy.cit260.bship.models.Board board;
    
 
     
@@ -43,8 +43,8 @@ public class Game {
         
 
         
-       this.playerA = new battleship1.Player();
-       this.playerB = new battleship1.Player();
+       this.playerA = new jeremy.cit260.bship.models.Player();
+       this.playerB = new jeremy.cit260.bship.models.Player();
        
        this.playerA.setMarker(Game.PLAYER_A_DEFAULT_MARKER);
        this.playerB.setMarker(Game.PLAYER_B_DEFAULT_MARKER);
@@ -54,7 +54,7 @@ public class Game {
         this();
 
         this.gameType = gameType;
-        this.board = new battleship1.Board(10,10);
+        this.board = new jeremy.cit260.bship.models.Board(10,10);
         
     }
 
@@ -66,35 +66,35 @@ public class Game {
         this.gameType = gameType;
     }
 
-    public battleship1.Player getPlayerA() {
+    public jeremy.cit260.bship.models.Player getPlayerA() {
         return playerA;
     }
 
-    public void setPlayerA(battleship1.Player playerA) {
+    public void setPlayerA(jeremy.cit260.bship.models.Player playerA) {
         this.playerA = playerA;
     }
 
-    public battleship1.Player getPlayerB() {
+    public jeremy.cit260.bship.models.Player getPlayerB() {
         return playerB;
     }
 
-    public void setPlayerB(battleship1.Player playerB) {
+    public void setPlayerB(jeremy.cit260.bship.models.Player playerB) {
         this.playerB = playerB;
     }
 
-    public battleship1.Player getCurrentPlayer() {
+    public jeremy.cit260.bship.models.Player getCurrentPlayer() {
         return currentPlayer;
     }
 
-    public void setCurrentPlayer(battleship1.Player currentPlayer) {
+    public void setCurrentPlayer(jeremy.cit260.bship.models.Player currentPlayer) {
         this.currentPlayer = currentPlayer;
     }
 
-    public battleship1.Player getOtherPlayer() {
+    public jeremy.cit260.bship.models.Player getOtherPlayer() {
         return otherPlayer;
     }
 
-    public void setOtherPlayer(battleship1.Player otherPlayer) {
+    public void setOtherPlayer(jeremy.cit260.bship.models.Player otherPlayer) {
         this.otherPlayer = otherPlayer;
     }
 
@@ -106,27 +106,27 @@ public class Game {
         this.status = status;
     }
 
-    public battleship1.Player getWinner() {
+    public jeremy.cit260.bship.models.Player getWinner() {
         return winner;
     }
 
-    public void setWinner(battleship1.Player winner) {
+    public void setWinner(jeremy.cit260.bship.models.Player winner) {
         this.winner = winner;
     }
 
-    public battleship1.Player getLoser() {
+    public jeremy.cit260.bship.models.Player getLoser() {
         return loser;
     }
 
-    public void setLoser(battleship1.Player loser) {
+    public void setLoser(jeremy.cit260.bship.models.Player loser) {
         this.loser = loser;
     }
 
-    public battleship1.Board getBoard() {
+    public jeremy.cit260.bship.models.Board getBoard() {
         return board;
     }
 
-    public void setBoard(battleship1.Board board) {
+    public void setBoard(jeremy.cit260.bship.models.Board board) {
         this.board = board;
     }
 
@@ -142,7 +142,7 @@ public class Game {
         this.setStatus(Game.NEW_GAME);
     }
 
-    public void setPlayingOrder(battleship1.Player player1, battleship1.Player player2) {
+    public void setPlayingOrder(jeremy.cit260.bship.models.Player player1, jeremy.cit260.bship.models.Player player2) {
 
         double randomValue = Math.random();
 

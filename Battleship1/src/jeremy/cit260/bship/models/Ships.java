@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package battleship1;
+package jeremy.cit260.bship.models;
 
 /**
  *

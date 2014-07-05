@@ -4,22 +4,26 @@
  * and open the template in the editor.
  */
 
-package battleship1;
+package jeremy.cit260.bship.gameview;
 
+import jeremy.cit260.bship.control.Battleship;
+import jeremy.cit260.bship.control.Battleship;
 import java.awt.Point;
 import java.util.Scanner;
 import java.util.regex.Pattern;
-import battleship1.BattleshipsError;
+import jeremy.cit260.bship.control.BattleshipsError;
+import jeremy.cit260.bship.control.BattleshipsError;
+import jeremy.cit260.bship.control.BattleshipsError;
 
 /**
  *
  * @author Jeremy and Melanie
  */
 public class GetLocationView {
-     private battleship1.Game game;
+     private jeremy.cit260.bship.models.Game game;
     
     public Object getLocation(Object object) {
-        this.game = (battleship1.Game) object;
+        this.game = (jeremy.cit260.bship.models.Game) object;
         Scanner inFile = Battleship.getInputFile(); // get input file 
 
         // prompt for the row and column numbers
@@ -71,7 +75,7 @@ public class GetLocationView {
             int row = Integer.parseInt(coordinates[0]);
             int column = Integer.parseInt(coordinates[1]);
             
-            battleship1.Board board = game.getBoard();
+            jeremy.cit260.bship.models.Board board = game.getBoard();
             if (row < 1   ||  row > board.getRowCount() ||
                 column < 1  ||  column > board.getColumnCount()) {
                 new BattleshipsError().displayError(

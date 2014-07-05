@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 
-package battleship1;
+package group.cit260.bship.menuview;
 
+import jeremy.cit260.bship.control.Battleship;
+import jeremy.cit260.bship.control.BattleshipsError;
 import java.util.Scanner;
 
 /**

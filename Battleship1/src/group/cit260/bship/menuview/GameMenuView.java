@@ -4,8 +4,12 @@
  * and open the template in the editor.
  */
 
-package battleship1;
+package group.cit260.bship.menuview;
 
+import jeremy.cit260.bship.control.Battleship;
+import jeremy.cit260.bship.control.BattleshipsError;
+import group.cit260.bship.menuview.GamePreferencesMenuView;
+import jeremy.cit260.bship.gameview.GetLocationView;
 import java.awt.Point;
 
 /**
@@ -14,10 +18,10 @@ import java.awt.Point;
  */
 public class GameMenuView extends Menu {
     
-    private battleship1.Game game;
-    private final battleship1.GameMenuControl gameCommands; 
+    private jeremy.cit260.bship.models.Game game;
+    private final jeremy.cit260.bship.control.GameMenuControl gameCommands; 
     private final GetLocationView getLocation = new GetLocationView();
-    private battleship1.BoardView displayBoard = new battleship1.BoardView();
+    private jeremy.cit260.bship.gameview.BoardView displayBoard = new jeremy.cit260.bship.gameview.BoardView();
 
     private final static String[][] menuItems = {
         {"T", "Take your turn"},
@@ -29,16 +33,16 @@ public class GameMenuView extends Menu {
         {"Q", "Quit"}
     };
 
-    public GameMenuView(battleship1.Game game) {
+    public GameMenuView(jeremy.cit260.bship.models.Game game) {
         super(GameMenuView.menuItems);
-        this.gameCommands = new battleship1.GameMenuControl(game);
+        this.gameCommands = new jeremy.cit260.bship.control.GameMenuControl(game);
     }
 
-    public battleship1.BoardView getDisplayBoard() {
+    public jeremy.cit260.bship.gameview.BoardView getDisplayBoard() {
         return displayBoard;
     }
 
-    public void setDisplayBoard(battleship1.BoardView displayBoard) {
+    public void setDisplayBoard(jeremy.cit260.bship.gameview.BoardView displayBoard) {
         this.displayBoard = displayBoard;
     }
 
@@ -46,9 +50,9 @@ public class GameMenuView extends Menu {
 
     @Override
     public String executeCommands(Object object) {
-        this.game = (battleship1.Game) object;
+        this.game = (jeremy.cit260.bship.models.Game) object;
 
-        String gameStatus = battleship1.Game.CONTINUE;
+        String gameStatus = jeremy.cit260.bship.models.Game.CONTINUE;
         do {
      
             this.display();
@@ -75,16 +79,16 @@ public class GameMenuView extends Menu {
                     gamePreferencesMenu.executeCommands(this.game);
                     break;
                 case "H":
-                    battleship1.HelpMenuView helpMenu = Battleship.getHelpMenu();
+                    group.cit260.bship.menuview.HelpMenuView helpMenu = Battleship.getHelpMenu();
                     helpMenu.executeCommands(null);
                     break;
                 case "Q":
-                    gameStatus = battleship1.Game.QUIT;
+                    gameStatus = jeremy.cit260.bship.models.Game.QUIT;
                     break;
             }
-        } while (!gameStatus.equals(battleship1.Game.QUIT));
+        } while (!gameStatus.equals(jeremy.cit260.bship.models.Game.QUIT));
 
-        return battleship1.Game.PLAYING;
+        return jeremy.cit260.bship.models.Game.PLAYING;
     }
     
     
@@ -92,15 +96,15 @@ public class GameMenuView extends Menu {
         String playersMarker;
         Point selectedLocation;
 
-        if (!this.game.getStatus().equals(battleship1.Game.NEW_GAME) && 
-            !this.game.getStatus().equals(battleship1.Game.PLAYING)) {
+        if (!this.game.getStatus().equals(jeremy.cit260.bship.models.Game.NEW_GAME) && 
+            !this.game.getStatus().equals(jeremy.cit260.bship.models.Game.PLAYING)) {
             new BattleshipsError().displayError(
                     "There is no active game. You must start a new game before "
                     + "you can take a turn");
             return;
         }
-        battleship1.Player currentPlayer = this.game.getCurrentPlayer();
-        battleship1.Player otherPlayer = this.game.getOtherPlayer();
+        jeremy.cit260.bship.models.Player currentPlayer = this.game.getCurrentPlayer();
+        jeremy.cit260.bship.models.Player otherPlayer = this.game.getOtherPlayer();
 
         // get location for first player
         selectedLocation = (Point) getLocation.getLocation(this.game);
@@ -116,7 +120,7 @@ public class GameMenuView extends Menu {
             return;
         }
 
-        if (this.game.getGameType() == null ? battleship1.Game.ONE_PLAYER == null : this.game.getGameType().equals(battleship1.Game.ONE_PLAYER)) {
+        if (this.game.getGameType() == null ? jeremy.cit260.bship.models.Game.ONE_PLAYER == null : this.game.getGameType().equals(jeremy.cit260.bship.models.Game.ONE_PLAYER)) {
             // computers turn
             locationMarkerPlaced = this.gameCommands.playerTakesTurn(otherPlayer, null);
 
@@ -137,12 +141,12 @@ public class GameMenuView extends Menu {
     private boolean gameOver() {
         boolean done = false;
         switch (this.game.getStatus()) {
-            case battleship1.Game.TIE:
+            case jeremy.cit260.bship.models.Game.TIE:
                 // a tie?
                 System.out.println("\n\n\t" + this.game.getTiedMessage());
                 done = true;
                 break;
-            case battleship1.Game.WINNER:
+            case jeremy.cit260.bship.models.Game.WINNER:
                 // a win?
                 System.out.println("\n\n\t" + this.game.getWinningMessage());
                 done = true;
@@ -158,8 +162,8 @@ public class GameMenuView extends Menu {
     }
     
         
-    private String getNextPlayerMessage(battleship1.Player player) {
-        if (this.game.getGameType().equals(battleship1.Game.ONE_PLAYER)) {
+    private String getNextPlayerMessage(jeremy.cit260.bship.models.Player player) {
+        if (this.game.getGameType().equals(jeremy.cit260.bship.models.Game.ONE_PLAYER)) {
             return "The computer took it's turn. It is now your turn. "
                     + player.getName();
         } else {

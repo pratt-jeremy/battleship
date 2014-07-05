@@ -4,13 +4,13 @@
  * and open the template in the editor.
  */
 
-package battleship1;
+package jeremy.cit260.bship.control;
 
 /**
  *
  * @author mBradshaw
  */
-class BattleshipsError {
+public class  BattleshipsError {
     
  public Object displayError(Object object) {
         String message = (String) object;

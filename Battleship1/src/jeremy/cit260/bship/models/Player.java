@@ -10,12 +10,11 @@ package jeremy.cit260.bship.models;
  *
  * @author Jeremy and Melanie
  */
-public class Player {
-    public static final String REGULAR_PLAYER = "REGULAR";
-    public static final String COMPUTER_PLAYER = "COMPUTER"; 
+import jeremy.cit260.bship.enume.PlayerType;
+public class Player { 
 
     private String name;
-    private String playerType;
+    private PlayerType playerType;
     private long wins = 0;
     private long losses = 0;
     private long ties = 0;
@@ -25,7 +24,7 @@ public class Player {
     public Player() {
     }
 
-    public Player(String playerType, String marker) {
+    public Player(PlayerType playerType, String marker) {
         this.playerType = playerType;
         this.marker = marker;
     }
@@ -38,11 +37,11 @@ public class Player {
         this.name = name;
     }
 
-    public String getPlayerType() {
+    public PlayerType getPlayerType() {
         return playerType;
     }
 
-    public void setPlayerType(String playerType) {
+    public void setPlayerType(PlayerType playerType) {
         this.playerType = playerType;
     }
 

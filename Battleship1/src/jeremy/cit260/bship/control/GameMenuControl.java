@@ -10,7 +10,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
 import jeremy.cit260.bship.models.Player;
-
+import jeremy.cit260.bship.enume.PlayerType;
 /**
  *
  * @author Jeremy and Melanie
@@ -34,8 +34,8 @@ public class GameMenuControl {
             return null;
         }
 
-        if (!player.getPlayerType().equals(jeremy.cit260.bship.models.Player.REGULAR_PLAYER) && 
-            !player.getPlayerType().equals(jeremy.cit260.bship.models.Player.COMPUTER_PLAYER)) {
+        if (!player.getPlayerType().equals(PlayerType.REGULAR_PLAYER) && 
+            !player.getPlayerType().equals(PlayerType.COMPUTER_PLAYER)) {
             new BattleshipsError().displayError("GameCommands - takeTurn: invalidPlayerTYpe");
             return null;
         }
@@ -50,13 +50,13 @@ public class GameMenuControl {
         
        
         
-        String playerType = player.getPlayerType();
+        PlayerType playerType = player.getPlayerType();
 
-        if (playerType.equals(jeremy.cit260.bship.models.Player.REGULAR_PLAYER)) {
+        if (playerType.equals(PlayerType.REGULAR_PLAYER)) {
             this.regularTurn(player, selectedLocation);
             locationMarkerPlaced = selectedLocation;
         }
-        else if (playerType.equals(jeremy.cit260.bship.models.Player.COMPUTER_PLAYER)) {
+        else if (playerType.equals(PlayerType.COMPUTER_PLAYER)) {
             locationMarkerPlaced = this.coumputerTakesTurn(player);
         }
 
@@ -69,10 +69,10 @@ public class GameMenuControl {
         jeremy.cit260.bship.models.Player currentPlayer = this.game.getCurrentPlayer();
         jeremy.cit260.bship.models.Player otherPlayer = this.game.getOtherPlayer();
         
-        String playerType = currentPlayer.getPlayerType(); 
+        PlayerType playerType = currentPlayer.getPlayerType(); 
 
         if (this.game.getGameType().equals(jeremy.cit260.bship.models.Game.ONE_PLAYER)) {
-            if (currentPlayer.getPlayerType().equals(jeremy.cit260.bship.models.Player.REGULAR_PLAYER)) {
+            if (currentPlayer.getPlayerType().equals(PlayerType.REGULAR_PLAYER)) {
                 this.playerTakesTurn(currentPlayer, selectedLocation);
                 if (this.game.getStatus().equals(jeremy.cit260.bship.models.Game.PLAYING)) { // game over ?
                     return;
@@ -82,7 +82,7 @@ public class GameMenuControl {
                 String message = "The computer also took it's turn. "
                         + " it is your turn again " + currentPlayer.getName();
             }
-            if (currentPlayer.getPlayerType().equals(jeremy.cit260.bship.models.Player.COMPUTER_PLAYER)) {
+            if (currentPlayer.getPlayerType().equals(PlayerType.COMPUTER_PLAYER)) {
                 this.playerTakesTurn(currentPlayer, selectedLocation);
                 this.alternatePlayers();                
             } 

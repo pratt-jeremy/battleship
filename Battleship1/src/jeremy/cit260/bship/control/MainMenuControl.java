@@ -6,6 +6,8 @@
 
 package jeremy.cit260.bship.control;
 
+import jeremy.cit260.bship.enume.PlayerType;
+
 /**
  *
  * @author Jeremy and Melanie
@@ -26,13 +28,13 @@ public class MainMenuControl {
         
         if (gameType.equals(jeremy.cit260.bship.models.Game.ONE_PLAYER)) {
             game = new jeremy.cit260.bship.models.Game(jeremy.cit260.bship.models.Game.ONE_PLAYER);
-            playerA = new jeremy.cit260.bship.models.Player(jeremy.cit260.bship.models.Player.REGULAR_PLAYER, PLAYER_A_DEFAULT_MARKER);
-            playerB = new jeremy.cit260.bship.models.Player(jeremy.cit260.bship.models.Player.COMPUTER_PLAYER, PLAYER_B_DEFAULT_MARKER);
+            playerA = new jeremy.cit260.bship.models.Player(PlayerType.REGULAR_PLAYER, PLAYER_A_DEFAULT_MARKER);
+            playerB = new jeremy.cit260.bship.models.Player(PlayerType.COMPUTER_PLAYER, PLAYER_B_DEFAULT_MARKER);
         }
         else if (gameType.equals(jeremy.cit260.bship.models.Game.TWO_PLAYER)) {
             game = new jeremy.cit260.bship.models.Game(jeremy.cit260.bship.models.Game.TWO_PLAYER);
-            playerA = new jeremy.cit260.bship.models.Player(jeremy.cit260.bship.models.Player.REGULAR_PLAYER, PLAYER_A_DEFAULT_MARKER);
-            playerB = new jeremy.cit260.bship.models.Player(jeremy.cit260.bship.models.Player.REGULAR_PLAYER, PLAYER_B_DEFAULT_MARKER);
+            playerA = new jeremy.cit260.bship.models.Player(PlayerType.REGULAR_PLAYER, PLAYER_A_DEFAULT_MARKER);
+            playerB = new jeremy.cit260.bship.models.Player(PlayerType.REGULAR_PLAYER, PLAYER_B_DEFAULT_MARKER);
 
         }
          

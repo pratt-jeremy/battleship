@@ -6,7 +6,7 @@ package jeremy.cit260.bship.enume;
 
 /**
  *
- * @author jacksonrkj
+ * @author Jeremy
  */
 public enum PlayerType { REGULAR_PLAYER, 
                          COMPUTER_PLAYER; 

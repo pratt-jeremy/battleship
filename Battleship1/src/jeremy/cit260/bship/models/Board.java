@@ -9,14 +9,14 @@ package jeremy.cit260.bship.models;
 import jeremy.cit260.bship.control.BattleshipsError;
 import java.awt.Point;
 import javax.swing.table.AbstractTableModel;
-
+import group.cit260.bship.exception.GameException;
 /**
  *
  * @author Jeremy and Melanie
  */
 public class Board extends AbstractTableModel {
-    int rowCount = 10;
-    int columnCount = 10;
+    static int rowCount = 10;
+    static int columnCount = 10;
     private String name;
     private Point boardDimensions = new Point();
     private Player[][] boardLocations;
@@ -83,14 +83,13 @@ public class Board extends AbstractTableModel {
     }
     
 
-    public void occupyLocation(Player player, int row, int column)  {
+    public void occupyLocation(Player player, int row, int column) throws GameException  {
         // subtract 1 from row and column number because the array starts a position 0
 
          Player playerAtLocation = this.boardLocations[row][column];
 
         if (playerAtLocation != null) { // location already occupied
-            new BattleshipsError().displayError("This location is already occupied. "
-                    + "Try a different location.");
+            throw new GameException();
         }
         this.boardLocations[row][column] = player;
     }

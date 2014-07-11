@@ -6,9 +6,10 @@
 
 package group.cit260.bship.menuview;
 
+import group.cit260.bship.exception.MenuException;
+import java.util.Scanner;
 import jeremy.cit260.bship.control.Battleship;
 import jeremy.cit260.bship.control.BattleshipsError;
-import java.util.Scanner;
 
 /**
  *
@@ -60,7 +61,7 @@ public abstract class Menu {
         return false;
     }
 
-    protected final String getCommand() {
+    protected final String getCommand() throws MenuException{
 
         Scanner inFile = Battleship.getInputFile();
         String command;
@@ -70,7 +71,7 @@ public abstract class Menu {
             command = command.trim().toUpperCase();
             valid = validCommand(command);
             if (!validCommand(command)) {
-                new BattleshipsError().displayError("Invalid command. Please enter a valid command.");
+                throw new MenuException();
             }
                 
         } while (!valid);

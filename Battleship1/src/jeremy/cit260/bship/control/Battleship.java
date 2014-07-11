@@ -6,9 +6,11 @@
 
 package jeremy.cit260.bship.control;
 
-import jeremy.cit260.bship.models.Player;
 import group.cit260.bship.menuview.GamePreferencesMenuView;
+import group.cit260.bship.menuview.MainMenuView;
 import java.util.Scanner;
+import jeremy.cit260.bship.models.Player;
+import group.cit260.bship.exception.BattleshipException;
 
 
 /**
@@ -77,14 +79,12 @@ public class Battleship {
     }
 
         
-    public static void main(String[] args) {
-        Battleship battleship1 = new Battleship();
-        battleship1.display();
-        Battleship.nameList = battleship1.getPlayerNames();
-        group.cit260.bship.menuview.MainMenuView mainMenu = new group.cit260.bship.menuview.MainMenuView();
-
-        mainMenu.executeCommands(null);
-        Battleship.inFile.close();
+        public static void main(String[] args) {
+        Battleship battleship = new Battleship();
+        battleship.display();
+        Battleship.nameList = battleship.getPlayerNames();
+        MainMenuView mainMenu = new MainMenuView();
+        mainMenu.getInput(null);
     }
     
     private void display() {

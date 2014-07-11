@@ -6,9 +6,12 @@
 
 package group.cit260.bship.menuview;
 
+import group.cit260.bship.exception.MenuException;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import jeremy.cit260.bship.control.Battleship;
 import jeremy.cit260.bship.control.BattleshipsError;
-import java.util.Scanner;
 
 /**
  *
@@ -29,15 +32,19 @@ import java.util.Scanner;
         super(MainMenuView.menuItems);
     }
     
-    @Override
-    public String executeCommands(Object object) {       
+    public Object getInput(Object object) {       
         
         String gameStatus = jeremy.cit260.bship.models.Game.PLAYING;
         do {
             this.display();
 
             // get commaned entered
-            String command = this.getCommand();
+            String command = null;
+            try {
+                command = this.getCommand();
+            } catch (MenuException ex) {
+                Logger.getLogger(MainMenuView.class.getName()).log(Level.SEVERE, null, ex);
+            }
             switch (command) {
                 case "1":
                     this.startGame(1);
@@ -91,6 +98,11 @@ import java.util.Scanner;
         }
 
         return jeremy.cit260.bship.models.Game.PLAYING;
+    }
+
+    @Override
+    public String executeCommands(Object object) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     }

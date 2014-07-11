@@ -6,6 +6,7 @@
 
 package jeremy.cit260.bship.control;
 
+import group.cit260.bship.exception.GameException;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
@@ -26,7 +27,7 @@ public class GameMenuControl {
     }
 
         
-    public Point playerTakesTurn(jeremy.cit260.bship.models.Player player, Point selectedLocation) {
+    public Point playerTakesTurn(jeremy.cit260.bship.models.Player player, Point selectedLocation) throws GameException {
         Point locationMarkerPlaced = null;
 
          if (player ==  null) {
@@ -65,7 +66,7 @@ public class GameMenuControl {
         return locationMarkerPlaced;
     }
     
-    public void takeTurn(Point selectedLocation) {
+    public void takeTurn(Point selectedLocation) throws GameException {
         jeremy.cit260.bship.models.Player currentPlayer = this.game.getCurrentPlayer();
         jeremy.cit260.bship.models.Player otherPlayer = this.game.getOtherPlayer();
         
@@ -107,7 +108,7 @@ public class GameMenuControl {
         }
     }
     
-    public boolean regularTurn (jeremy.cit260.bship.models.Player player, Point location){
+    public boolean regularTurn (jeremy.cit260.bship.models.Player player, Point location) throws GameException{
         if (location == null) {
             new BattleshipsError().displayError("GameCommands - regularTurn: location is null");
             return false;
@@ -126,7 +127,7 @@ public class GameMenuControl {
         return true;
     }
     
-    public Point coumputerTakesTurn(jeremy.cit260.bship.models.Player player) {
+    public Point coumputerTakesTurn(jeremy.cit260.bship.models.Player player) throws GameException {
         // computer takes turn
         game.setStatus(jeremy.cit260.bship.models.Game.PLAYING); 
         Point location = this.getComputersSelection();
@@ -137,7 +138,7 @@ public class GameMenuControl {
 
     
     
-    private void markLocation(jeremy.cit260.bship.models.Player player, Point location) {
+    private void markLocation(jeremy.cit260.bship.models.Player player, Point location) throws GameException {
  
         this.game.getBoard().occupyLocation(player, location.x, location.y);
         if (this.isTie()) { // game tied already

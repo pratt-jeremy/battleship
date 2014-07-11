@@ -6,10 +6,13 @@
 
 package group.cit260.bship.menuview;
 
+import group.cit260.bship.exception.MenuException;
 import jeremy.cit260.bship.control.Battleship;
 import jeremy.cit260.bship.control.BattleshipsError;
 import java.awt.Dimension;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 /**
@@ -44,7 +47,12 @@ import java.util.regex.Pattern;
             this.display();
 
             // get commaned entered
-            String command = this.getCommand();
+            String command = null;
+            try {
+                command = this.getCommand();
+            } catch (MenuException ex) {
+                Logger.getLogger(GamePreferencesMenuView.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
             switch (command) {
                 case "1":

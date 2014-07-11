@@ -6,6 +6,10 @@
 
 package group.cit260.bship.menuview;
 
+import group.cit260.bship.exception.MenuException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Jeremey and Melanie
@@ -40,7 +44,12 @@ public class HelpMenuView extends group.cit260.bship.menuview.Menu {
         do {
             this.display();
             // get commaned entered
-            String command = this.getCommand();
+            String command = null;
+            try {
+                command = this.getCommand();
+            } catch (MenuException ex) {
+                Logger.getLogger(HelpMenuView.class.getName()).log(Level.SEVERE, null, ex);
+            }
             switch (command) {
                 case "B":
                     this.displayHelp(HelpMenuView.BOARD);

@@ -45,8 +45,8 @@ public enum ErrorType {
     ERROR206 ("There is no active game. You must start a new game before "
               + "you can take a turn"), 
     
-    ERROR207 ("The number of rows must be between 3 - 9 and the "
-              + "number of columns must be between 3 - 9 "),
+    ERROR207 ("The number of rows must be between 1 - 10 and the "
+              + "number of columns must be between 1 - 10 "),
     
     ERROR209 ("GameCommands - takeTurn: invalidPlayerTYpe");
 

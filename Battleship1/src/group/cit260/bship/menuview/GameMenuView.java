@@ -6,11 +6,15 @@
 
 package group.cit260.bship.menuview;
 
+import group.cit260.bship.exception.GameException;
+import group.cit260.bship.exception.MenuException;
 import jeremy.cit260.bship.control.Battleship;
 import jeremy.cit260.bship.control.BattleshipsError;
 import group.cit260.bship.menuview.GamePreferencesMenuView;
 import jeremy.cit260.bship.gameview.GetLocationView;
 import java.awt.Point;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -58,10 +62,19 @@ public class GameMenuView extends Menu {
             this.display();
             
             // get commaned entered
-            String command = this.getCommand();
+            String command = null;
+            try {
+                command = this.getCommand();
+            } catch (MenuException ex) {
+                Logger.getLogger(GameMenuView.class.getName()).log(Level.SEVERE, null, ex);
+            }
             switch (command) {
                 case "T":
-                    this.takeTurn();
+            try {
+                this.takeTurn();
+            } catch (GameException ex) {
+                Logger.getLogger(GameMenuView.class.getName()).log(Level.SEVERE, null, ex);
+            }
                     break;
                 case "D":
                     this.displayBoard.display(game.getBoard());
@@ -92,7 +105,7 @@ public class GameMenuView extends Menu {
     }
     
     
-   private void takeTurn() {
+   private void takeTurn() throws GameException {
         String playersMarker;
         Point selectedLocation;
 

@@ -6,7 +6,7 @@ package group.cit260.bship.exception;
 
 /**
  *
- * @author jacksonrkj
+ * @author jeremy
  */
 
 

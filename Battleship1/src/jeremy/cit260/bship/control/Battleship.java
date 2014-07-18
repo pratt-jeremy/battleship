@@ -6,11 +6,14 @@
 
 package jeremy.cit260.bship.control;
 
+import group.cit260.bship.exception.BattleshipException;
+import group.cit260.bship.frames.MainFrame;
 import group.cit260.bship.menuview.GamePreferencesMenuView;
 import group.cit260.bship.menuview.MainMenuView;
+import java.util.Arrays;
 import java.util.Scanner;
+import jeremy.cit260.bship.enume.ErrorType;
 import jeremy.cit260.bship.models.Player;
-import group.cit260.bship.exception.BattleshipException;
 
 
 /**
@@ -18,56 +21,16 @@ import group.cit260.bship.exception.BattleshipException;
  * @author Jeremy & Melanie
  */
 public class Battleship {
-
+    public static MainFrame mainFrame = null;
+    private GamePreferencesFrame gamePreferencesFrame = null;
     /**
-     * @param args the command line arguments
+     *
      */
-          
-    private static final Scanner inFile = new Scanner(System.in);
-    private static final group.cit260.bship.menuview.HelpMenuView helpMenu = new group.cit260.bship.menuview.HelpMenuView();
-
-    private static final GamePreferencesMenuView GamePreferencesMenu = new GamePreferencesMenuView();
     
-    // Instance variables
-    private static String[] nameList;
-    
-    private final static String welcome = 
-            
-             "\n\t***********************************************************************"
-            + "\n\t* Welcome to the game of Battleships!                                 *"                            
-            + "\n\t* You will be playing against an opponent. The object of the game     *"
-            + "\n\t* is to guess the locations of all the ships of your opponent.       *"
-            + "\n\t* Players will hide 5 ships. Then the opponent will be given a number *" 
-            + "\n\t* of chances.                                                         *"
-            + "\n\t* Good Luck!!!                                                        *"
-            + "\n\t***********************************************************************"
-            + "\n";
-
     private Player[] players = new Player[10];
 
     public Battleship() {
         
-    }
-        
-    public static Scanner getInputFile() {
-        return Battleship.inFile;
-    }
-    
-    public static group.cit260.bship.menuview.HelpMenuView getHelpMenu() {
-        return Battleship.helpMenu;
-    }
-
-
-    public static GamePreferencesMenuView getGamePreferencesMenu() {
-        return GamePreferencesMenu;
-    }
-
-    public static String[] getNameList() {
-        return nameList;
-    }
-
-    public static void setNameList(String[] nameList) {
-       Battleship.nameList = nameList;
     }
 
     public Player[] getPlayers() {
@@ -79,82 +42,33 @@ public class Battleship {
     }
 
         
-        public static void main(String[] args) {
-        Battleship battleship = new Battleship();
-        battleship.display();
-        Battleship.nameList = battleship.getPlayerNames();
-        MainMenuView mainMenu = new MainMenuView();
-        mainMenu.getInput(null);
-    }
-    
-    private void display() {
-        System.out.println(Battleship.welcome);
-    }
-
-    
-    private String[] getPlayerNames() {
-        
-        String[] playerNames = new String[10];
-        Scanner inFile = Battleship.getInputFile();
-        
-        System.out.println("\n\t---------------------------------------------------------------");
-        System.out.println("\t Please enter a list of names of those who will be playing Battleships. ");
-        System.out.println("\t---------------------------------------------------------------");
-        
-        int playerIndex = 0;
-        boolean done = false;
-        while (playerIndex < 10  && !done) { 
-            System.out.println("\tPlease enter the name of a player or enter \"Q\" to quit.");
-            String name;
-            name = inFile.nextLine();
-            name = name.trim();
-
-            if (name.length() < 1) {
-                new BattleshipsError().displayError("\tA name must be at least one character long. Try again.");
-                continue;
-            }
-
-            if (name.toUpperCase().equals("Q")) { // quit?
-                done = true;
-                break;
-            } 
+    public static void main(String[] args) {
+        Battleship battleship = null;
+        try {  
+            battleship = new Battleship ();
             
-            // add name to list of player names
-            playerNames[playerIndex] = name;
-            playerIndex++;
+              /* Create and display the form */
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    Battleship.mainFrame = new MainFrame();
+                    Battleship.mainFrame.setVisible(true);
+                }
+            });
+        } 
 
-        }
-        
-        String[] newNameList = new String[playerIndex];
-        System.arraycopy(playerNames, 0, newNameList, 0, playerIndex);
-        
-        sortList(newNameList);
-        
-        return newNameList;
-    }
-    
-    public String[] sortList(String[] names) {
-        String tmpName;
-        boolean notDone = true;
-        while(notDone) {
-            
-            notDone = false; // assume that you done
-            for (int i = 0; i < names.length-1; i++) {
-                int compareResult = names[i].compareTo(names[i+1]);
-                if (compareResult > 0) {
-                    // swap names
-                    tmpName = names[i];
-                    names[i] = names[i+1];
-                    names[i+1] = tmpName;
-                    notDone = true;
-                } 
+        catch (Throwable ex) {     
+            ErrorType.displayErorrMsg("Unexpected error: " + ex.getMessage());
+            ErrorType.displayErorrMsg(Arrays.toString(ex.getStackTrace()));           
+        } 
+        finally {
+            if (Battleship.mainFrame != null) {
+                Battleship.mainFrame.dispose();
             }
         }
-
-        return names;
+        
+      
     }
-    
+
+
 }
-
-
-    

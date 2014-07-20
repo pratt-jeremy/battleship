@@ -19,7 +19,7 @@ import jeremy.cit260.bship.control.BattleshipsError;
  *
  * @author Jeremy and Melanie
  */
-public class GetLocationView {
+/* public class GetLocationView {
      private jeremy.cit260.bship.models.Game game;
     
     public Object getLocation(Object object) {
@@ -93,4 +93,4 @@ public class GetLocationView {
     }
 
 }
-
+*/

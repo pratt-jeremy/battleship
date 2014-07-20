@@ -6,11 +6,9 @@
 
 package jeremy.cit260.bship.control;
 
-import group.cit260.bship.exception.BattleshipException;
+import group.cit260.bship.frames.GamePreferencesFrame;
+import group.cit260.bship.frames.HelpFrame;
 import group.cit260.bship.frames.MainFrame;
-import group.cit260.bship.menuview.GamePreferencesMenuView;
-import group.cit260.bship.menuview.MainMenuView;
-import java.util.Arrays;
 import java.util.Scanner;
 import jeremy.cit260.bship.enume.ErrorType;
 import jeremy.cit260.bship.models.Player;
@@ -22,7 +20,19 @@ import jeremy.cit260.bship.models.Player;
  */
 public class Battleship {
     public static MainFrame mainFrame = null;
-    private GamePreferencesFrame gamePreferencesFrame = null;
+
+    public static GamePreferencesFrame getGamePreferencesMenu() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public static HelpFrame getHelpMenu() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public static Scanner getInputFile() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    private final GamePreferencesFrame gamePreferencesFrame = null;
     /**
      *
      */
@@ -45,7 +55,7 @@ public class Battleship {
     public static void main(String[] args) {
         Battleship battleship = null;
         try {  
-            battleship = new Battleship ();
+            battleship = new Battleship();
             
               /* Create and display the form */
             java.awt.EventQueue.invokeLater(new Runnable() {
@@ -59,7 +69,7 @@ public class Battleship {
 
         catch (Throwable ex) {     
             ErrorType.displayErorrMsg("Unexpected error: " + ex.getMessage());
-            ErrorType.displayErorrMsg(Arrays.toString(ex.getStackTrace()));           
+            ErrorType.displayErorrMsg(ex.getStackTrace().toString());           
         } 
         finally {
             if (Battleship.mainFrame != null) {

@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  *
  * @author Jeremey and Melanie
  */
-public class HelpMenuView extends group.cit260.bship.menuview.Menu {
+/** public class HelpMenuView extends group.cit260.bship.menuview.Menu {
         
     public static final String BOARD = "BOARD";
     public static final String GAME = "GAME";
@@ -125,3 +125,4 @@ public class HelpMenuView extends group.cit260.bship.menuview.Menu {
     }
   
 }
+*/

@@ -18,7 +18,7 @@ import java.util.Scanner;
  *
  * @author Jeremy and Melanie
  */
-public class SelectPlayersView {
+/* public class SelectPlayersView {
     private final Game game;
     private final String[] playerNames;
 
@@ -128,3 +128,4 @@ public class SelectPlayersView {
     
 }
 
+*/

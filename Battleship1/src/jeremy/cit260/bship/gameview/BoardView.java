@@ -13,7 +13,7 @@ import jeremy.cit260.bship.models.Player;
  *
  * @author Jeremy and Melanie
  */
-public class BoardView {
+/*public class BoardView {
    
     jeremy.cit260.bship.models.Board board;
     
@@ -80,4 +80,4 @@ public class BoardView {
 
 }
  
-
+*/

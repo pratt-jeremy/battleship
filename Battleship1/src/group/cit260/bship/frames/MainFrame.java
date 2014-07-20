@@ -6,18 +6,32 @@
 
 package group.cit260.bship.frames;
 
+import jeremy.cit260.bship.control.MainMenuControl;
+
 /**
  *
  * @author Niethy
  */
-public class MainFrame extends javax.swing.JFrame {
+   public class MainFrame extends javax.swing.JFrame {
+    private MainMenuControl mainCommands = new MainMenuControl();
 
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
         initComponents();
+        setLocationRelativeTo(null);
     }
+
+    public MainMenuControl getMainCommands() {
+        return mainCommands;
+    }
+
+    public void setMainCommands(MainMenuControl mainCommands) {
+        this.mainCommands = mainCommands;
+    }
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -32,10 +46,10 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jpBody = new javax.swing.JPanel();
         jpMenuItems = new javax.swing.JPanel();
-        j = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jbOnePlayerGame = new javax.swing.JButton();
+        jbTwoPlayerGame = new javax.swing.JButton();
+        jbHelp = new javax.swing.JButton();
+        jbExit = new javax.swing.JButton();
         jpTitle = new javax.swing.JPanel();
         jlTitle = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -72,18 +86,33 @@ public class MainFrame extends javax.swing.JFrame {
         jpMenuItems.setBackground(new java.awt.Color(153, 153, 255));
         jpMenuItems.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(5, 5, 5)));
 
-        j.setText("1 Player Game");
-
-        jButton2.setText("2 Player Game");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jbOnePlayerGame.setText("1 Player Game");
+        jbOnePlayerGame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jbOnePlayerGameActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Help");
+        jbTwoPlayerGame.setText("2 Player Game");
+        jbTwoPlayerGame.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbTwoPlayerGameActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText(" Exit");
+        jbHelp.setText("Help");
+        jbHelp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbHelpActionPerformed(evt);
+            }
+        });
+
+        jbExit.setText(" Exit");
+        jbExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbExitActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpMenuItemsLayout = new javax.swing.GroupLayout(jpMenuItems);
         jpMenuItems.setLayout(jpMenuItemsLayout);
@@ -92,28 +121,28 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(jpMenuItemsLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jpMenuItemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2)
-                    .addComponent(j))
+                    .addComponent(jbTwoPlayerGame)
+                    .addComponent(jbOnePlayerGame))
                 .addGap(243, 243, 243))
             .addGroup(jpMenuItemsLayout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addGroup(jpMenuItemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3)
-                    .addComponent(jButton1))
+                    .addComponent(jbExit)
+                    .addComponent(jbHelp))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpMenuItemsLayout.setVerticalGroup(
             jpMenuItemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpMenuItemsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(j, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jbOnePlayerGame, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(jbTwoPlayerGame)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(jbHelp)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
-                .addGap(0, 17, Short.MAX_VALUE))
+                .addComponent(jbExit)
+                .addGap(0, 23, Short.MAX_VALUE))
         );
 
         jpTitle.setBackground(new java.awt.Color(0, 153, 255));
@@ -144,7 +173,7 @@ public class MainFrame extends javax.swing.JFrame {
         jtWelcome.setFont(new java.awt.Font("Braggadocio", 0, 10)); // NOI18N
         jtWelcome.setForeground(new java.awt.Color(255, 255, 102));
         jtWelcome.setRows(5);
-        jtWelcome.setText(" \n     Welcome to the game of Battleship!!!\n\n  You will be playing against the opponent.\n \n  The goal of the game is to hit 5 ships. \n\n\n  \n\n\n  Good Luck.");
+        jtWelcome.setText(" \n     Welcome to the game of Battleship!!!\n\n  You will be playing against the opponent.\n \n  The object of the game is to guess the locations\n \n  of the game is to hit 5 ships. The opponent\n\n  will be given a number of chances.\n\n\n  Good Luck.");
         jScrollPane1.setViewportView(jtWelcome);
 
         javax.swing.GroupLayout jpBodyLayout = new javax.swing.GroupLayout(jpBody);
@@ -157,7 +186,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(jpBodyLayout.createSequentialGroup()
                         .addComponent(jpMenuItems, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE))
                     .addComponent(jpTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -179,39 +208,54 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jpBody, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(jpBody, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addComponent(jpBody, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jbTwoPlayerGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbTwoPlayerGameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jbTwoPlayerGameActionPerformed
+
+    private void jbExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExitActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jbExitActionPerformed
+
+    private void jbOnePlayerGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbOnePlayerGameActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jbOnePlayerGameActionPerformed
+
+    private void jbHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbHelpActionPerformed
+        HelpFrame helpFrame = new HelpFrame();
+        helpFrame.setVisible(true);
+        
+    }//GEN-LAST:event_jbHelpActionPerformed
 
     /**
      * @param args the command line arguments
      */
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton j;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jbExit;
+    private javax.swing.JButton jbHelp;
+    private javax.swing.JButton jbOnePlayerGame;
+    private javax.swing.JButton jbTwoPlayerGame;
     private javax.swing.JLabel jlTitle;
     private javax.swing.JPanel jpBody;
     private javax.swing.JPanel jpMenuItems;
     private javax.swing.JPanel jpTitle;
     private javax.swing.JTextArea jtWelcome;
     // End of variables declaration//GEN-END:variables
-}
+
+   }

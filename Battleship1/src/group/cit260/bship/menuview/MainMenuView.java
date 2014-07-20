@@ -17,7 +17,7 @@ import jeremy.cit260.bship.control.BattleshipsError;
  *
  * @author mBradshaw
  */
-    public class MainMenuView extends Menu {
+  /**  public class MainMenuView extends Menu {
     
     private static final String[][] menuItems = {
         {"1", "One player game"},
@@ -106,5 +106,5 @@ import jeremy.cit260.bship.control.BattleshipsError;
     }
 
     }
-
+*/
 

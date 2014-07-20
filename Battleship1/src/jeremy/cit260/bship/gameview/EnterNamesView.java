@@ -10,7 +10,7 @@ package jeremy.cit260.bship.gameview;
  *
  * @author jeremy and Melanie
  */
-public class EnterNamesView {
+/* public class EnterNamesView {
     public static final String REGULAR_PLAYER = "REGULAR";
     public static final String COMPUTER_PLAYER = "COMPUTER"; 
 
@@ -107,3 +107,4 @@ public class EnterNamesView {
     
 }
 
+*/

@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
  * @author Jeremy and Melanie
  */
  
-    public class GamePreferencesMenuView extends Menu {
+    /**public class GamePreferencesMenuView extends Menu {
     
     private jeremy.cit260.bship.models.Game game;
     private final jeremy.cit260.bship.control.GamePreferencesMenuControl gamePreferenceCommands;
@@ -160,3 +160,4 @@ import java.util.regex.Pattern;
    
 }
 
+*/

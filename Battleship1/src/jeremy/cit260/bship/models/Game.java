@@ -6,6 +6,8 @@
 
 package jeremy.cit260.bship.models;
 
+import jeremy.cit260.bship.enume.StatusType;
+
 /**
  *
  * @author J. Pratt
@@ -201,6 +203,10 @@ public class Game {
        return "\n\t*******************************************************************************"
              + "\n\t The game is a tie. Better luck next time!" 
              + "\n\t*******************************************************************************";
+    }
+
+    public void setStatus(StatusType statusType) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
 

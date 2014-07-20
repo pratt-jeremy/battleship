@@ -222,7 +222,8 @@ import jeremy.cit260.bship.control.MainMenuControl;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbTwoPlayerGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbTwoPlayerGameActionPerformed
-        // TODO add your handling code here:
+       GameFrame gameFrame = new GameFrame();
+        gameFrame.setVisible(true);
     }//GEN-LAST:event_jbTwoPlayerGameActionPerformed
 
     private void jbExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExitActionPerformed
@@ -230,7 +231,8 @@ import jeremy.cit260.bship.control.MainMenuControl;
     }//GEN-LAST:event_jbExitActionPerformed
 
     private void jbOnePlayerGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbOnePlayerGameActionPerformed
-        this.dispose();
+        GameFrame gameFrame = new GameFrame();
+        gameFrame.setVisible(true);
     }//GEN-LAST:event_jbOnePlayerGameActionPerformed
 
     private void jbHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbHelpActionPerformed

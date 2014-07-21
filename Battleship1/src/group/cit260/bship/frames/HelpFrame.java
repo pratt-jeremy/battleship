@@ -6,6 +6,10 @@
 
 package group.cit260.bship.frames;
 
+import group.cit260.bship.exception.BattleshipException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import jeremy.cit260.bship.control.HelpMenuControl;
 import jeremy.cit260.bship.enume.HelpType;
 
 /**
@@ -13,13 +17,29 @@ import jeremy.cit260.bship.enume.HelpType;
  * @author Niethy
  */
 public class HelpFrame extends javax.swing.JFrame {
-
+    HelpMenuControl helpCommands;
+    
     /**
-     * Creates new form HelpFrame
+     * Creates new form MainFrame
      */
     public HelpFrame() {
+        this.helpCommands = new HelpMenuControl();
         initComponents();
+        setLocationRelativeTo(null);
     }
+
+    public HelpMenuControl getHelpCommands() {
+        return helpCommands;
+    }
+
+
+    
+    private void displayHelpText(HelpType command) throws BattleshipException {
+        String helpText = this.helpCommands.getHelpText(command);
+        this.jtHelpText.setText(helpText);
+        
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -216,19 +236,35 @@ public class HelpFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbTwoPlayerGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbTwoPlayerGameActionPerformed
-       displayHelpText(HelpType.TWO_PERSON_GAME);
+        try {
+            displayHelpText(HelpType.TWO_PERSON_GAME);
+        } catch (BattleshipException ex) {
+            Logger.getLogger(HelpFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jbTwoPlayerGameActionPerformed
 
     private void jbPlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPlayerActionPerformed
-      displayHelpText(HelpType.PLAYER);
+        try {
+            displayHelpText(HelpType.PLAYER);
+        } catch (BattleshipException ex) {
+            Logger.getLogger(HelpFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jbPlayerActionPerformed
 
     private void jbOnePlayerGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbOnePlayerGameActionPerformed
-      displayHelpText(HelpType.ONE_PERSON_GAME); 
+        try { 
+            displayHelpText(HelpType.ONE_PERSON_GAME);
+        } catch (BattleshipException ex) {
+            Logger.getLogger(HelpFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jbOnePlayerGameActionPerformed
 
     private void jbInstructionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbInstructionsActionPerformed
-      displayHelpText(HelpType.INSTRUCTIONS);
+        try {
+            displayHelpText(HelpType.INSTRUCTIONS);
+        } catch (BattleshipException ex) {
+            Logger.getLogger(HelpFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jbInstructionsActionPerformed
 
     private void jbExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExitActionPerformed
@@ -255,7 +291,5 @@ public class HelpFrame extends javax.swing.JFrame {
     private javax.swing.JTextArea jtHelpText;
     // End of variables declaration//GEN-END:variables
 
-    private void displayHelpText(HelpType helpType) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+   
     }
-}

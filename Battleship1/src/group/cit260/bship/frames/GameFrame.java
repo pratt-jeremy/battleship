@@ -33,7 +33,7 @@ import javax.swing.table.TableModel;
 
 
 
-public class GameFrame extends javax.swing.JFrame {
+public final class GameFrame extends javax.swing.JFrame {
 
     private String currentMarker = null;
     private Game game = null;
@@ -253,21 +253,23 @@ public class GameFrame extends javax.swing.JFrame {
                 .addGroup(jBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jBodyLayout.createSequentialGroup()
                         .addGroup(jBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jbPreferences)
-                            .addGroup(jBodyLayout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addComponent(jpNewGame))
                             .addGroup(jBodyLayout.createSequentialGroup()
                                 .addGap(16, 16, 16)
-                                .addComponent(jbStatistics))
+                                .addComponent(jbPreferences))
                             .addGroup(jBodyLayout.createSequentialGroup()
                                 .addGap(36, 36, 36)
-                                .addGroup(jBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jbStatistics))
+                            .addGroup(jBodyLayout.createSequentialGroup()
+                                .addGap(55, 55, 55)
+                                .addGroup(jBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jbQuit)
-                                    .addComponent(jButton1))))
+                                    .addComponent(jButton1)))
+                            .addGroup(jBodyLayout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addComponent(jpNewGame)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(100, 100, 100))
+                        .addGap(96, 96, 96))
                     .addGroup(jBodyLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -285,16 +287,17 @@ public class GameFrame extends javax.swing.JFrame {
                         .addComponent(jpNewGame)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jbPreferences)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbStatistics)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jbQuit))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbQuit)
+                        .addGap(0, 5, Short.MAX_VALUE))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47))
+                .addGap(38, 38, 38)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -311,7 +314,7 @@ public class GameFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBody, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(380, 380, 380))
+                .addGap(26, 26, 26))
         );
 
         jBody.getAccessibleContext().setAccessibleParent(jBody);

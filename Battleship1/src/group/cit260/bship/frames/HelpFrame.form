@@ -239,6 +239,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Board"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbBoardActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jbMarker">
               <Properties>
@@ -247,6 +250,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Marker"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbMarkerActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jbExit">
               <Properties>
@@ -271,7 +277,9 @@
                   <Color blue="ff" green="99" red="99" type="rgb"/>
                 </Property>
                 <Property name="columns" type="int" value="20"/>
+                <Property name="lineWrap" type="boolean" value="true"/>
                 <Property name="rows" type="int" value="5"/>
+                <Property name="wrapStyleWord" type="boolean" value="true"/>
               </Properties>
             </Component>
           </SubComponents>

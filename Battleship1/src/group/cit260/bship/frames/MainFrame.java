@@ -7,6 +7,8 @@
 package group.cit260.bship.frames;
 
 import jeremy.cit260.bship.control.MainMenuControl;
+import jeremy.cit260.bship.enume.GameType;
+import jeremy.cit260.bship.models.Game;
 
 /**
  *
@@ -119,30 +121,26 @@ import jeremy.cit260.bship.control.MainMenuControl;
         jpMenuItemsLayout.setHorizontalGroup(
             jpMenuItemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpMenuItemsLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(19, 19, 19)
                 .addGroup(jpMenuItemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbExit, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbTwoPlayerGame)
-                    .addComponent(jbOnePlayerGame))
-                .addGap(243, 243, 243))
-            .addGroup(jpMenuItemsLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(jpMenuItemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbExit)
-                    .addComponent(jbHelp))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jbOnePlayerGame)
+                    .addComponent(jbHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         jpMenuItemsLayout.setVerticalGroup(
             jpMenuItemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpMenuItemsLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(36, 36, 36)
                 .addComponent(jbOnePlayerGame, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jbTwoPlayerGame)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jbHelp)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jbExit)
-                .addGap(0, 23, Short.MAX_VALUE))
+                .addGap(0, 48, Short.MAX_VALUE))
         );
 
         jpTitle.setBackground(new java.awt.Color(0, 153, 255));
@@ -156,7 +154,7 @@ import jeremy.cit260.bship.control.MainMenuControl;
         jpTitleLayout.setHorizontalGroup(
             jpTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpTitleLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(200, Short.MAX_VALUE)
                 .addComponent(jlTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(61, 61, 61))
         );
@@ -170,10 +168,12 @@ import jeremy.cit260.bship.control.MainMenuControl;
 
         jtWelcome.setBackground(new java.awt.Color(153, 153, 255));
         jtWelcome.setColumns(20);
-        jtWelcome.setFont(new java.awt.Font("Braggadocio", 0, 10)); // NOI18N
+        jtWelcome.setFont(new java.awt.Font("Braggadocio", 0, 12)); // NOI18N
         jtWelcome.setForeground(new java.awt.Color(255, 255, 102));
+        jtWelcome.setLineWrap(true);
         jtWelcome.setRows(5);
         jtWelcome.setText(" \n     Welcome to the game of Battleship!!!\n\n  You will be playing against the opponent.\n \n  The object of the game is to guess the locations\n \n  of the game is to hit 5 ships. The opponent\n\n  will be given a number of chances.\n\n\n  Good Luck.");
+        jtWelcome.setWrapStyleWord(true);
         jScrollPane1.setViewportView(jtWelcome);
 
         javax.swing.GroupLayout jpBodyLayout = new javax.swing.GroupLayout(jpBody);
@@ -184,8 +184,8 @@ import jeremy.cit260.bship.control.MainMenuControl;
                 .addContainerGap()
                 .addGroup(jpBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpBodyLayout.createSequentialGroup()
-                        .addComponent(jpMenuItems, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jpMenuItems, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE))
                     .addComponent(jpTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -222,8 +222,11 @@ import jeremy.cit260.bship.control.MainMenuControl;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbTwoPlayerGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbTwoPlayerGameActionPerformed
-       GameFrame gameFrame = new GameFrame();
-        gameFrame.setVisible(true);
+      Game game = this.mainCommands.create(GameType.TWO_PLAYER);
+        PlayerNameFrame playersNameFrame;
+        playersNameFrame = new PlayerNameFrame(game);
+        playersNameFrame.initializeForm();
+        playersNameFrame.setVisible(true);
     }//GEN-LAST:event_jbTwoPlayerGameActionPerformed
 
     private void jbExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExitActionPerformed
@@ -231,8 +234,10 @@ import jeremy.cit260.bship.control.MainMenuControl;
     }//GEN-LAST:event_jbExitActionPerformed
 
     private void jbOnePlayerGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbOnePlayerGameActionPerformed
-        GameFrame gameFrame = new GameFrame();
-        gameFrame.setVisible(true);
+       Game game = this.mainCommands.create(GameType.ONE_PLAYER);
+        PlayerNameFrame playersNameFrame = new PlayerNameFrame(game);
+        playersNameFrame.initializeForm();
+        playersNameFrame.setVisible(true);
     }//GEN-LAST:event_jbOnePlayerGameActionPerformed
 
     private void jbHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbHelpActionPerformed

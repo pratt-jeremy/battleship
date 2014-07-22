@@ -13,12 +13,9 @@ package jeremy.cit260.bship.enume;
 public enum ErrorType {
     ERROR101 ("You can not change the dimensions "
               + "of the board once the game has been started. "
-              + "\n\tStart a new game and then change the dimensions "
+              + "\nStart a new game and then change the dimensions "
               + "of the board. "),
-    
-    ERROR102 ("You must enter two numbers, the number rows and columns, "
-              + "or a \"Q\" to quit. Try again."),
-    
+        
     ERROR104 ("That character has already been selected by the other player. "
               + "Try again."),
     
@@ -29,9 +26,6 @@ public enum ErrorType {
     ERROR107 ("You must enter a name or enter a \"Q\" to quit. Try again."),
     
     ERROR108 ("The game parameter is null."),
-    
-    ERROR109 ("You must enter two numbers, a row and the column, "
-              + "or a \"Q\" to quit. Try again."),
     
     ERROR201 ("No empty locations found on the board"),
     
@@ -45,11 +39,11 @@ public enum ErrorType {
     ERROR206 ("There is no active game. You must start a new game before "
               + "you can take a turn"), 
     
-    ERROR207 ("The number of rows must be between 1 - 10 and the "
-              + "number of columns must be between 1 - 10 "),
+    ERROR207 ("Enter a valid number of rows from 3 to 10"),
+    
+    ERROR208 ("Enter a valid number of columns from 3 to 10)"), 
     
     ERROR209 ("GameCommands - takeTurn: invalidPlayerTYpe");
-
     
     String message;
     
@@ -77,5 +71,3 @@ public enum ErrorType {
     
   
 }
-
-

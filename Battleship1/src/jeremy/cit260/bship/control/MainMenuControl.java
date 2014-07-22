@@ -6,7 +6,10 @@
 
 package jeremy.cit260.bship.control;
 
+import jeremy.cit260.bship.enume.GameType;
 import jeremy.cit260.bship.enume.PlayerType;
+import jeremy.cit260.bship.models.Game;
+import jeremy.cit260.bship.models.Player;
 
 /**
  *
@@ -17,35 +20,31 @@ public class MainMenuControl {
     private static final String PLAYER_A_DEFAULT_MARKER = "X";
     private static final String PLAYER_B_DEFAULT_MARKER = "O";
     
-    public jeremy.cit260.bship.models.Game create(String gameType) {
-        jeremy.cit260.bship.models.Game game = null;
-        jeremy.cit260.bship.models.Player playerA = null;
-        jeremy.cit260.bship.models.Player playerB = null;
+    public Game create(GameType gameType) {
+        Game game = null;
+        Player playerA = null;
+        Player playerB = null;
         
         if (gameType == null) {
             throw new IllegalArgumentException ("MainCommands - create: gameType is null");
         }
         
-        if (gameType.equals(jeremy.cit260.bship.models.Game.ONE_PLAYER)) {
-            game = new jeremy.cit260.bship.models.Game(jeremy.cit260.bship.models.Game.ONE_PLAYER);
-            playerA = new jeremy.cit260.bship.models.Player(PlayerType.REGULAR_PLAYER, PLAYER_A_DEFAULT_MARKER);
-            playerB = new jeremy.cit260.bship.models.Player(PlayerType.COMPUTER_PLAYER, PLAYER_B_DEFAULT_MARKER);
+        if (gameType == GameType.ONE_PLAYER) {
+            game = new Game(GameType.ONE_PLAYER);
+            playerA = new Player(PlayerType.REGULAR_PLAYER, PLAYER_A_DEFAULT_MARKER);
+            playerB = new Player(PlayerType.COMPUTER_PLAYER, PLAYER_B_DEFAULT_MARKER);
         }
-        else if (gameType.equals(jeremy.cit260.bship.models.Game.TWO_PLAYER)) {
-            game = new jeremy.cit260.bship.models.Game(jeremy.cit260.bship.models.Game.TWO_PLAYER);
-            playerA = new jeremy.cit260.bship.models.Player(PlayerType.REGULAR_PLAYER, PLAYER_A_DEFAULT_MARKER);
-            playerB = new jeremy.cit260.bship.models.Player(PlayerType.REGULAR_PLAYER, PLAYER_B_DEFAULT_MARKER);
+        else if (gameType == GameType.TWO_PLAYER) {
+            game = new Game(GameType.TWO_PLAYER);
+            playerA = new Player(PlayerType.REGULAR_PLAYER, PLAYER_A_DEFAULT_MARKER);
+            playerB = new Player(PlayerType.REGULAR_PLAYER, PLAYER_B_DEFAULT_MARKER);
 
         }
          
         game.setPlayerA(playerA);
         game.setPlayerB(playerB);
         
-        game.setStatus(jeremy.cit260.bship.models.Game.CONTINUE);
-        
         return game;
     } 
     
 }
-
-

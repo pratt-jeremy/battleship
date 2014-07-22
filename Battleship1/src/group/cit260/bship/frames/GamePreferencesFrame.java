@@ -6,6 +6,7 @@
 
 package group.cit260.bship.frames;
 
+import jeremy.cit260.bship.control.GamePreferencesMenuControl;
 import jeremy.cit260.bship.models.Game;
 
 /**
@@ -13,17 +14,26 @@ import jeremy.cit260.bship.models.Game;
  * @author Niethy
  */
 public class GamePreferencesFrame extends javax.swing.JFrame {
+    private GamePreferencesMenuControl gamePreferenceCommands;
+    private GameFrame gameFrame = null;
+    private Game game = null;
 
     /**
      * Creates new form GamePreferencesFrame
      */
     public GamePreferencesFrame() {
         initComponents();
+        this.setLocationRelativeTo(null);
+    }
+    
+    public GamePreferencesFrame(Game game, GameFrame gameFrame) {
+        this();
+        this.game = game;
+        this.gameFrame = gameFrame;
+        this.gamePreferenceCommands = new GamePreferencesMenuControl(game);
     }
 
-    GamePreferencesFrame(Game game, GameFrame aThis) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+  
 
     /**
      * This method is called from within the constructor to initialize the form.

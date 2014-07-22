@@ -131,9 +131,19 @@ public class HelpFrame extends javax.swing.JFrame {
 
         jbBoard.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12)); // NOI18N
         jbBoard.setText("Board");
+        jbBoard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBoardActionPerformed(evt);
+            }
+        });
 
         jbMarker.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12)); // NOI18N
         jbMarker.setText("Marker");
+        jbMarker.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbMarkerActionPerformed(evt);
+            }
+        });
 
         jbExit.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12)); // NOI18N
         jbExit.setText("Exit");
@@ -181,7 +191,9 @@ public class HelpFrame extends javax.swing.JFrame {
 
         jtHelpText.setBackground(new java.awt.Color(153, 153, 255));
         jtHelpText.setColumns(20);
+        jtHelpText.setLineWrap(true);
         jtHelpText.setRows(5);
+        jtHelpText.setWrapStyleWord(true);
         jScrollPane1.setViewportView(jtHelpText);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -270,6 +282,22 @@ public class HelpFrame extends javax.swing.JFrame {
     private void jbExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExitActionPerformed
          this.dispose();
     }//GEN-LAST:event_jbExitActionPerformed
+
+    private void jbBoardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBoardActionPerformed
+        try {
+            displayHelpText(HelpType.BOARD);
+        } catch (BattleshipException ex) {
+            Logger.getLogger(HelpFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jbBoardActionPerformed
+
+    private void jbMarkerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbMarkerActionPerformed
+        try {
+            displayHelpText(HelpType.MARKER);
+        } catch (BattleshipException ex) {
+            Logger.getLogger(HelpFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jbMarkerActionPerformed
 
     /**
      * @param args the command line arguments

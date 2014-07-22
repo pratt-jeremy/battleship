@@ -190,6 +190,11 @@
             </Property>
             <Property name="text" type="java.lang.String" value="CONTINUE"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jbContinueMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbContinueActionPerformed"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jbContinueKeyPressed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

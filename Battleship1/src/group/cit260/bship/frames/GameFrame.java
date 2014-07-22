@@ -16,7 +16,6 @@ import jeremy.cit260.bship.models.Game;
 import jeremy.cit260.bship.models.Player;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Insets;
 import java.awt.Point;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -131,11 +130,12 @@ public final class GameFrame extends javax.swing.JFrame {
         jbPreferences = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jbQuit = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jtMessageArea = new javax.swing.JTextArea();
         jbStatistics = new javax.swing.JButton();
+        jpMainPanel = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         battleshipTable = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jtMessageArea = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Battleship Game");
@@ -199,10 +199,6 @@ public final class GameFrame extends javax.swing.JFrame {
             }
         });
 
-        jtMessageArea.setColumns(20);
-        jtMessageArea.setRows(5);
-        jScrollPane2.setViewportView(jtMessageArea);
-
         jbStatistics.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 13)); // NOI18N
         jbStatistics.setText("Statistics");
         jbStatistics.addActionListener(new java.awt.event.ActionListener() {
@@ -210,6 +206,8 @@ public final class GameFrame extends javax.swing.JFrame {
                 jbStatisticsActionPerformed(evt);
             }
         });
+
+        jpMainPanel.setBackground(new java.awt.Color(153, 153, 255));
 
         battleshipTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -229,51 +227,69 @@ public final class GameFrame extends javax.swing.JFrame {
             }
         ));
         battleshipTable.setColumnSelectionAllowed(true);
+        battleshipTable.setFocusable(false);
         battleshipTable.getTableHeader().setReorderingAllowed(false);
+        battleshipTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cellClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(battleshipTable);
         battleshipTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        if (battleshipTable.getColumnModel().getColumnCount() > 0) {
-            battleshipTable.getColumnModel().getColumn(0).setResizable(false);
-            battleshipTable.getColumnModel().getColumn(1).setResizable(false);
-            battleshipTable.getColumnModel().getColumn(2).setResizable(false);
-            battleshipTable.getColumnModel().getColumn(3).setResizable(false);
-            battleshipTable.getColumnModel().getColumn(4).setResizable(false);
-            battleshipTable.getColumnModel().getColumn(5).setResizable(false);
-            battleshipTable.getColumnModel().getColumn(6).setResizable(false);
-            battleshipTable.getColumnModel().getColumn(7).setResizable(false);
-            battleshipTable.getColumnModel().getColumn(8).setResizable(false);
-            battleshipTable.getColumnModel().getColumn(9).setResizable(false);
-        }
+        battleshipTable.getAccessibleContext().setAccessibleParent(jpMainPanel);
+
+        javax.swing.GroupLayout jpMainPanelLayout = new javax.swing.GroupLayout(jpMainPanel);
+        jpMainPanel.setLayout(jpMainPanelLayout);
+        jpMainPanelLayout.setHorizontalGroup(
+            jpMainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpMainPanelLayout.createSequentialGroup()
+                .addContainerGap(41, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39))
+        );
+        jpMainPanelLayout.setVerticalGroup(
+            jpMainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpMainPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
+        jtMessageArea.setColumns(20);
+        jtMessageArea.setRows(5);
+        jScrollPane2.setViewportView(jtMessageArea);
 
         javax.swing.GroupLayout jBodyLayout = new javax.swing.GroupLayout(jBody);
         jBody.setLayout(jBodyLayout);
         jBodyLayout.setHorizontalGroup(
             jBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jBodyLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jBodyLayout.createSequentialGroup()
                 .addGroup(jBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jBodyLayout.createSequentialGroup()
                         .addGroup(jBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jBodyLayout.createSequentialGroup()
-                                .addGap(16, 16, 16)
+                                .addGap(36, 36, 36)
                                 .addComponent(jbPreferences))
                             .addGroup(jBodyLayout.createSequentialGroup()
-                                .addGap(36, 36, 36)
+                                .addGap(55, 55, 55)
                                 .addComponent(jbStatistics))
                             .addGroup(jBodyLayout.createSequentialGroup()
-                                .addGap(55, 55, 55)
-                                .addGroup(jBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jbQuit)
-                                    .addComponent(jButton1)))
-                            .addGroup(jBodyLayout.createSequentialGroup()
-                                .addGap(33, 33, 33)
+                                .addGap(49, 49, 49)
                                 .addComponent(jpNewGame)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(96, 96, 96))
-                    .addGroup(jBodyLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jBodyLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton1)
+                            .addComponent(jbQuit))
+                        .addGap(67, 67, 67)))
+                .addComponent(jpMainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
+            .addGroup(jBodyLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2))
                 .addContainerGap())
         );
         jBodyLayout.setVerticalGroup(
@@ -281,23 +297,22 @@ public final class GameFrame extends javax.swing.JFrame {
             .addGroup(jBodyLayout.createSequentialGroup()
                 .addGap(7, 7, 7)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jBodyLayout.createSequentialGroup()
                         .addComponent(jpNewGame)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jbPreferences)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(jbStatistics)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbQuit)
-                        .addGap(0, 5, Short.MAX_VALUE))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(38, 38, 38)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbQuit))
+                    .addComponent(jpMainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -311,10 +326,9 @@ public final class GameFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(jBody, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
+                .addGap(0, 9, Short.MAX_VALUE))
         );
 
         jBody.getAccessibleContext().setAccessibleParent(jBody);
@@ -350,20 +364,24 @@ public final class GameFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jbQuitMouseClicked
 
-      private void clearMarkers() {
+    private void cellClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cellClicked
+      JTable jTable = (JTable) evt.getComponent();
+        this.jtMessageArea.setForeground(Color.black);
+        this.takeTurn(jTable);
+    }//GEN-LAST:event_cellClicked
+private void clearMarkers() {
         TableModel model = this.battleshipTable.getModel();
         int rowCount = this.battleshipTable.getRowCount();
-        int colCount = this.battleshipTable.getColumnCount();
+        int colCount;
+        colCount = this.battleshipTable.getColumnCount();
         for (int row = 0; row < rowCount; row++) {
             for (int col = 0; col < colCount; col++) {
                 model.setValueAt("", row, col);
             }
         }   
     }
-    
-    
-    private String getNextPlayerMessage(Player player) {
-        if (getGameType() == GameType.ONE_PLAYER) {
+            private String getNextPlayerMessage(Player player) {
+        if (this.game.getGameType() == GameType.ONE_PLAYER) {
             return "The computer took it's turn. It is now your turn "
                     + player.getName();
         } else {
@@ -372,18 +390,18 @@ public final class GameFrame extends javax.swing.JFrame {
         }
     }
 
-    
-    
-    
     private boolean gameOver() {
-        if (getStatus() == StatusType.WINNER) { // a win?
+        if (this.game.getStatus() == StatusType.TIE) { // a tie?
+            this.jtMessageArea.setText(this.game.getTiedMessage());
+            return true;
+        } else if (this.game.getStatus() == StatusType.WINNER) { // a win?
             this.jtMessageArea.setText(this.game.getWinningMessage());
             return true;
         }
 
         return false;
     }
-  
+      
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable battleshipTable;
@@ -396,13 +414,28 @@ public final class GameFrame extends javax.swing.JFrame {
     private javax.swing.JButton jbPreferences;
     private javax.swing.JButton jbQuit;
     private javax.swing.JButton jbStatistics;
+    private javax.swing.JPanel jpMainPanel;
     private javax.swing.JButton jpNewGame;
     private javax.swing.JTextArea jtMessageArea;
     // End of variables declaration//GEN-END:variables
-private void takeFirstTurn() {
+
+    private void takeFirstTurn() {
         Player currentPlayer = this.game.getCurrentPlayer();
         
-        
+        if (this.game.getStatus() == StatusType.NEW_GAME
+                && this.game.getGameType() == GameType.ONE_PLAYER
+                && currentPlayer.getPlayerType() == PlayerType.COMPUTER_PLAYER) {
+            try {
+                Point locationMarkerPlaced = this.gameCommands.playerTakesTurn(currentPlayer, null);
+
+                String playersMarker = game.getCurrentPlayer().getMarker();
+                this.battleshipTable.getModel().setValueAt(playersMarker, locationMarkerPlaced.x, locationMarkerPlaced.y);
+                
+            } catch (BattleshipException | GameException ex) {
+                this.jtMessageArea.setText(ex.getMessage());
+                this.dispose();
+            }
+        }
         
         String promptNextPlayer = getNextPlayerMessage(currentPlayer);
         this.jtMessageArea.setText(promptNextPlayer);
@@ -418,15 +451,59 @@ private void takeFirstTurn() {
         Player currentPlayer = this.game.getCurrentPlayer();
         Player otherPlayer = this.game.getOtherPlayer();
 
-        
-    }
+        try {
 
-    private StatusType getStatus() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+            if (this.game.getGameType() == GameType.ONE_PLAYER) {
+                // regular players turn
+                Point locationMarkerPlaced = 
+                        this.gameCommands.playerTakesTurn(currentPlayer, selectedLocation);
+                playersMarker = currentPlayer.getMarker();
+                table.getModel().setValueAt(playersMarker, locationMarkerPlaced.x, locationMarkerPlaced.y);
+                if (this.gameOver()) { // game won or tied?
+                    return;
+                }
+              
+                table.setCellSelectionEnabled(false);
+                ListSelectionModel selectionModel = table.getSelectionModel();
+                selectionModel.clearSelection();
+                
 
-    private GameType getGameType() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                // computers turn
+                locationMarkerPlaced = this.gameCommands.playerTakesTurn(otherPlayer, null);
+                playersMarker = otherPlayer.getMarker();
+                table.getModel().setValueAt(playersMarker, locationMarkerPlaced.x, locationMarkerPlaced.y);
+
+                if (this.gameOver()) { // game won or tied?
+                    return;
+                }
+                
+
+            } else { // two player game
+                // regular players turn                
+                Point locationMarkerPlaced = this.gameCommands.playerTakesTurn(this.game.getCurrentPlayer(), selectedLocation);
+                playersMarker = currentPlayer.getMarker();
+                table.getModel().setValueAt(playersMarker, locationMarkerPlaced.x, selectedColumn);
+                if (this.gameOver()) { // game won or tied?
+                    return;
+                }
+                
+                table.setCellSelectionEnabled(false);
+                ListSelectionModel selectionModel = table.getSelectionModel();
+                selectionModel.clearSelection();
+            }
+
+            if (this.gameOver()) { // game won or tied?
+                return;
+            }
+
+            String promptNextPlayer = getNextPlayerMessage(this.game.getCurrentPlayer());
+            this.jtMessageArea.setText(promptNextPlayer);
+
+        } catch (GameException | BattleshipException gex) {
+            this.jtMessageArea.setText(gex.getMessage());
+            ListSelectionModel selectionModel = table.getSelectionModel();
+            selectionModel.clearSelection();
+        }
     }
 
     private class CellRenderer extends DefaultTableCellRenderer {
@@ -440,4 +517,3 @@ private void takeFirstTurn() {
         }
     }
 }
-

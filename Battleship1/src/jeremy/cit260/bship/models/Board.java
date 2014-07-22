@@ -6,17 +6,17 @@
 
 package jeremy.cit260.bship.models;
 
-import jeremy.cit260.bship.control.BattleshipsError;
+import group.cit260.bship.exception.GameException;
 import java.awt.Point;
 import javax.swing.table.AbstractTableModel;
-import group.cit260.bship.exception.GameException;
+import jeremy.cit260.bship.enume.ErrorType;
 /**
  *
  * @author Jeremy and Melanie
  */
 public class Board extends AbstractTableModel {
-    static int rowCount = 10;
-    static int columnCount = 10;
+    int rowCount = 10;
+    int columnCount = 10;
     private String name;
     private Point boardDimensions = new Point();
     private Player[][] boardLocations;
@@ -83,13 +83,11 @@ public class Board extends AbstractTableModel {
     }
     
 
-    public void occupyLocation(Player player, int row, int column) throws GameException  {
-        // subtract 1 from row and column number because the array starts a position 0
-
-         Player playerAtLocation = this.boardLocations[row][column];
+    public void occupyLocation(Player player, int row, int column) throws GameException {  
+        Player playerAtLocation = this.boardLocations[row][column];
 
         if (playerAtLocation != null) { // location already occupied
-            throw new GameException();
+            throw new GameException(ErrorType.ERROR203.getMessage());
         }
         this.boardLocations[row][column] = player;
     }

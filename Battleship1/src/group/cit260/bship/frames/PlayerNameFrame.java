@@ -6,17 +6,39 @@
 
 package group.cit260.bship.frames;
 
+import jeremy.cit260.bship.control.PlayerNameMenuControl;
+import jeremy.cit260.bship.enume.GameType;
+import jeremy.cit260.bship.models.Game;
+
 /**
  *
  * @author Niethy
  */
 public class PlayerNameFrame extends javax.swing.JFrame {
-
+    private Game game = null;
     /**
      * Creates new form PlayerNameFrame
      */
-    public PlayerNameFrame() {
+
+    /**
+     * Creates new form PlayerNameFrame
+     * @param game
+     */
+    public PlayerNameFrame(Game game) {
         initComponents();
+        this.game = game;
+        setLocationRelativeTo(null);
+    }
+
+
+
+    public void initializeForm ( ) {
+        if (this.game.getGameType() == GameType.ONE_PLAYER) {
+            this.jLabel2.setEnabled(false);
+            this.jtPlayerBName.setEnabled(false);
+            this.jtPlayerBName.setText("Computer");
+        }
+        
     }
 
     /**
@@ -83,6 +105,21 @@ public class PlayerNameFrame extends javax.swing.JFrame {
 
         jbContinue.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 14)); // NOI18N
         jbContinue.setText("CONTINUE");
+        jbContinue.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbContinueMouseClicked(evt);
+            }
+        });
+        jbContinue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbContinueActionPerformed(evt);
+            }
+        });
+        jbContinue.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jbContinueKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -150,6 +187,29 @@ public class PlayerNameFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtPlayerBNameActionPerformed
 
+    private void jbContinueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbContinueActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbContinueActionPerformed
+
+    @SuppressWarnings("empty-statement")
+    private void jbContinueKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbContinueKeyPressed
+      int key = evt.getKeyCode();
+        if (key == 10) {
+            this.continueToGame();
+        };
+    }//GEN-LAST:event_jbContinueKeyPressed
+
+    private void jbContinueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbContinueMouseClicked
+         this.continueToGame();
+    }//GEN-LAST:event_jbContinueMouseClicked
+private void continueToGame() {
+        String playerAName = this.jtPlayerAName.getText();
+        String playerBName = this.jtPlayerBName.getText();
+        PlayerNameMenuControl.savePlayersNames(game, playerAName, playerBName);
+        GameFrame gameFrame = new GameFrame(this.game);
+        gameFrame.setVisible(true);
+        this.dispose();
+    }  
     /**
      * @param args the command line arguments
      */
@@ -165,7 +225,5 @@ public class PlayerNameFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jtPlayerBName;
     // End of variables declaration//GEN-END:variables
 
-    void initializeForm() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
-}

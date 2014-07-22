@@ -6,101 +6,100 @@
 
 package jeremy.cit260.bship.control;
 
+import group.cit260.bship.exception.GameException;
 import java.awt.Dimension;
+import jeremy.cit260.bship.enume.ErrorType;
+import jeremy.cit260.bship.enume.StatusType;
+import jeremy.cit260.bship.models.Game;
+import jeremy.cit260.bship.models.Player;
 
 /**
  *
  * @author Jermey and Melanie
  */
 public class GamePreferencesMenuControl {
-       
-    private jeremy.cit260.bship.models.Game game;
+    
+    Game game;
 
-    public GamePreferencesMenuControl() {
-    }
-
-    public jeremy.cit260.bship.models.Game getGame() {
-        return game;
-    }
-
-    public void setGame(jeremy.cit260.bship.models.Game game) {
+    public GamePreferencesMenuControl(Game game) {
         this.game = game;
     }
     
     
-    
-    public boolean saveMarker(jeremy.cit260.bship.models.Player player, String marker) { 
-
-        if (player == null  ||  marker == null) {
-            new BattleshipsError().displayError("saveMarker - player or marker is invalid");
-            return false;
+    public Dimension savePreferences(String playerAMarker, 
+                                String playerBMarker, 
+                                String rowCount, 
+                                String columnCount) throws GameException {
+        // validate inputs
+        if (this.game.getStatus() == StatusType.PLAYING) {
+            throw new GameException(ErrorType.ERROR101.getMessage());
         }
-
-   
-        if (game.getPlayerA().getMarker().equals(game.getPlayerB().getMarker())) {
-            new BattleshipsError().displayError("Both players can not use the same character for a marker.");
-            return false;
+        
+        if (playerAMarker == null  ||  playerAMarker.length() < 1) {         
+            throw new GameException(ErrorType.ERROR204.getMessage());
+        }
+        playerAMarker = playerAMarker.substring(0, 1).toUpperCase();
+        
+        if (playerBMarker == null ||  playerBMarker.length() < 1) {            
+            throw new GameException(ErrorType.ERROR204.getMessage());
+        }
+        playerBMarker = playerBMarker.substring(0, 1).toUpperCase();
+        
+        if (playerAMarker.equals(playerBMarker)) {
+            throw new GameException(ErrorType.ERROR205.getMessage());
         }
         
         // update the players markers
-        player.setMarker(marker);
+        this.game.getPlayerA().setMarker(playerAMarker);
+        this.game.getPlayerB().setMarker(playerBMarker);
         
-        return true;
-    }
         
-    
-    public boolean saveDimensions(Dimension dimension)  {
-        // validate inputs
-        if (this.game.getStatus().equals(jeremy.cit260.bship.models.Game.PLAYING)) {
-            new BattleshipsError().displayError("You can not change the dimensions "
-              + "of the board once the game has been started. "
-              + "\nStart a new game and then change the dimensions "
-              + "of the board. ");
-            return false;
+        
+        if (rowCount == null  || columnCount == null) {
+            if (rowCount == null) {
+                throw new GameException(ErrorType.ERROR207.getMessage());
+            }
+            else {
+                throw new GameException(ErrorType.ERROR208.getMessage());
+            }
         }
         
-        
-        if (dimension == null) {
-            new BattleshipsError().displayError(
-                    "The number of rows must be between 3 -10 and the "
-                    + "number of columns must be between 3 -10 ");
-            return false;
-        }
-        
-        int boardRowCount = dimension.width;
-        int boardColumnCount= dimension.height;
-        
-        if (boardRowCount < 3 || boardRowCount > 10) {
-            new BattleshipsError().displayError(
-                    "The number of rows must be between 3 -10 and the "
-                    + "number of columns must be between 3 -10 ");
-            return false;
+        int boardRowCount;
+        int boardColumnCount;
+        try {
+            boardRowCount = Integer.parseInt(rowCount);
+            if (boardRowCount < 3 || boardRowCount > 10) {
+                throw new GameException(ErrorType.ERROR207.getMessage());
+            }
+        } catch (NumberFormatException ne) {
+            throw new GameException(ErrorType.ERROR207.getMessage());
         }
 
-        if (boardColumnCount < 3 || boardColumnCount > 10) {
-            new BattleshipsError().displayError(
-                    "The number of rows must be between 3 -10 and the "
-                    + "number of columns must be between 3 -10 ");
-            return false;
+        try {
+            boardColumnCount = Integer.parseInt(columnCount);
+            if (boardColumnCount < 3 || boardColumnCount > 10) {
+                throw new GameException(ErrorType.ERROR208.getMessage());
+            }
+        } catch (NumberFormatException ne) {
+            throw new GameException(ErrorType.ERROR208.getMessage());
         }
-
+        
         // no change in the board size so return
         if (boardRowCount == this.game.getBoard().getRowCount() &&
             boardColumnCount == this.game.getBoard().getColumnCount()) {
-            return true;
+            return null;
         }
         
         // change the size board
-        jeremy.cit260.bship.models.Player[][] boardLocations = new jeremy.cit260.bship.models.Player[boardRowCount][boardColumnCount];
+        Player[][] boardLocations = new Player[boardRowCount][boardColumnCount];
         this.game.getBoard().getBoardDimensions().setLocation(boardRowCount, boardRowCount);
         this.game.getBoard().setBoardLocations(boardLocations);
         
         Dimension boardDimensions = new Dimension(boardRowCount, boardColumnCount);
         
-        return true;
+        return boardDimensions;
     }
     
     
     
 }
-

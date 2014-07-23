@@ -4,11 +4,13 @@
  */
 package group.cit260.bship.interfaces;
 
+import group.cit260.bship.exception.BattleshipException;
+
 
 /**
  *
  * @author Jeremy and Melanie
  */
 public interface EnterInfo {
-    Object getInput(Object object ); 
+      Object getInput(Object object )  throws BattleshipException;
 }

@@ -9,12 +9,12 @@ package group.cit260.bship.menuview;
 import group.cit260.bship.exception.MenuException;
 import java.util.Scanner;
 import jeremy.cit260.bship.control.Battleship;
-import jeremy.cit260.bship.control.BattleshipsError;
 
 /**
  *
  * @author Jeremy and Melanie
  */
+
 public abstract class Menu {
 
     private String[][] menuItems = null;

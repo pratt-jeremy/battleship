@@ -33,6 +33,7 @@ import javax.swing.table.TableModel;
 
 
 public final class GameFrame extends javax.swing.JFrame {
+    private static final long serialVersionUID = 1L;
 
     private String currentMarker = null;
     private Game game = null;
@@ -252,7 +253,7 @@ public final class GameFrame extends javax.swing.JFrame {
             .addGroup(jpMainPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jtMessageArea.setColumns(20);
@@ -350,7 +351,7 @@ public final class GameFrame extends javax.swing.JFrame {
         clearMarkers();
         takeFirstTurn();
         String nextPlayersMessage = this.game.getCurrentPlayer().getName()
-        + " it is your turn.";
+        + " It is your turn.";
         this.jtMessageArea.setText(nextPlayersMessage);
     }//GEN-LAST:event_jpNewGameActionPerformed
 
@@ -506,7 +507,11 @@ private void clearMarkers() {
         }
     }
 
-    private class CellRenderer extends DefaultTableCellRenderer {
+   }
+
+   
+    class CellRenderer extends DefaultTableCellRenderer {
+        private static final long serialVersionUID = 1L;
 
         public CellRenderer() {
             super();
@@ -516,4 +521,4 @@ private void clearMarkers() {
             setText((player == null) ? "" : player.getMarker());
         }
     }
-}
+

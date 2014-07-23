@@ -201,9 +201,8 @@ import jeremy.cit260.bship.models.Player;
         Player[][] locations = this.board.getBoardLocations();
 
         for (Player[] rowLocations : locations) {
-            for (int col = 0; col < rowLocations.length; col++) {
-                Player location = rowLocations[col];
-                if (rowLocations[col] == null) {
+            for (Player location : rowLocations) {
+                if (location == null) {
                     // square not taken yet
                     return false;
                 }

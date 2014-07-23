@@ -12,6 +12,6 @@ public interface DisplayInfo {
     /**
      *
      */
-    Object display(Object object);
+    void display();
     
 }
